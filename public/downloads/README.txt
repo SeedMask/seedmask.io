@@ -1,7 +1,9 @@
-Coordinator release binaries are not stored in this git repo (the .dmg is ~330MB).
+Coordinator binaries are hosted on GitHub Releases (too large for the git repo):
 
-For local preview only, you can symlink:
-  ln -s /path/to/SeedMask-Coordinator-1.0.0-arm64.dmg public/downloads/
+  https://github.com/seedmask/SeedMask.io/releases
 
-For production, host the .dmg on GitHub Releases, Cloudflare R2, or similar,
-then point the download URL on /app at that URL.
+Current macOS Apple Silicon build:
+  SeedMask-Coordinator-1.0.0-arm64.dmg
+  (tag: coordinator-v1.0.0)
+
+The /app page links directly to that release asset.
