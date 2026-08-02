@@ -230,11 +230,16 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
           <use href={`#${uid}-samples`} x="450" y="222" /><use href={`#${uid}-wave`} x="590" y="228" /><use href={`#${uid}-noise`} x="740" y="216" /><use href={`#${uid}-samples`} x="860" y="224" />
         </g>
       </svg>
-      <div class={`basics-cards basics-cards-1${compact ? ' is-compact' : ''}`}>
+      <div class={`basics-cards basics-cards-2${compact ? ' is-compact' : ''}`}>
         <div class="basics-card basics-card-accent">
           <span class="basics-card-kicker">Quality</span>
           <strong>Real randomness</strong>
           <em>Unpredictable seed material — not a pattern you invent</em>
+        </div>
+        <div class="basics-card">
+          <span class="basics-card-kicker">Hardware</span>
+          <strong>Secure entropy sources</strong>
+          <em>Secure element · TRNG · avalanche noise · thermal noise</em>
         </div>
       </div>
     </div>
