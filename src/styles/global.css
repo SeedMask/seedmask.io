@@ -3305,15 +3305,20 @@ a.download-card:hover {
 }
 
 .download-card .download-os-icon {
+  position: relative;
   width: 44px;
   height: 44px;
+  flex-shrink: 0;
   border-radius: 12px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
   background: var(--teal-soft);
   color: var(--teal-deep);
-  font-size: 0;
   line-height: 0;
 }
 
@@ -3321,6 +3326,8 @@ a.download-card:hover {
   display: block;
   width: 22px;
   height: 22px;
+  margin: 0;
+  flex: 0 0 auto;
 }
 
 .download-card strong {
