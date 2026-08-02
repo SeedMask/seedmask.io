@@ -1,9 +1,7 @@
-Place SeedMask Coordinator release binaries here so they ship with the static site:
+Coordinator release binaries are not stored in this git repo (the .dmg is ~330MB).
 
-  SeedMask-Coordinator-1.0.0-arm64.dmg   (macOS Apple Silicon)
+For local preview only, you can symlink:
+  ln -s /path/to/SeedMask-Coordinator-1.0.0-arm64.dmg public/downloads/
 
-After `npm run build`, upload `dist/downloads/` to Namecheap `public_html/downloads/`
-(or upload the full `dist/` contents including that folder).
-
-Local tip: you can symlink the DMG from
-SeedMask_Coordinator/electron/release/ so the site build picks it up without duplicating ~350MB in git.
+For production, host the .dmg on GitHub Releases, Cloudflare R2, or similar,
+then point the download URL on /app at that URL.
