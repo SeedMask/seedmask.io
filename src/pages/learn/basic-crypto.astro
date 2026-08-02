@@ -59,7 +59,7 @@ const topics = [
       'Weak entropy looks fine until it is not: guessable words, reused patterns, and “creative” DIY methods shrink the search space for an attacker.',
     ],
     points: [
-      'Prefer device-generated entropy on first boot',
+      'Generate on hardware wallet when creating a wallet',
       'Do not invent or recycle seed phrases',
       'Write the result offline after creation',
     ],
@@ -67,7 +67,9 @@ const topics = [
     graphic: 'entropy',
     moreTitle: 'Where the randomness should come from',
     moreBody: [
-      'The safest default is to let SeedMask create the seed during first boot, then copy the words offline. That keeps generation away from browsers, phone apps, and “random” websites.',
+      {
+        html: 'On SeedMask generate your seed when creating a new wallet. You should not use the first seed that is suggested — instead you can regenerate it until you are satisfied, or <strong>Dice roll</strong> at least 50 times (for 12 words), or 100 times (for 24 words). Then copy the words offline. That keeps generation away from browsers, phone apps, and “random” websites.',
+      },
       'If you restore an existing seed, you are trusting whatever process created it. Treat that history as part of your security story.',
     ],
     moreGraphic: 'entropy-more',
@@ -323,7 +325,9 @@ const topics = [
                 <div class="basics-more-copy">
                   <p class="basics-panel-kicker">Going further</p>
                   <h3>{topic.moreTitle}</h3>
-                  {topic.moreBody.map((p) => <p>{p}</p>)}
+                  {topic.moreBody.map((p) =>
+                    typeof p === 'string' ? <p>{p}</p> : <p set:html={p.html} />
+                  )}
                 </div>
               </div>
             </article>
@@ -365,13 +369,11 @@ const topics = [
         history.replaceState(null, '', `#${id}`);
         if (!scroll || !activePanel) return;
 
-        // Only nudge when the panel top is above the sticky header —
-        // avoid yanking the page further up than needed.
-        const top = activePanel.getBoundingClientRect().top;
+        // Always bring the topic into view so TOC taps feel responsive
+        // (especially on phone, where the panel sits below “On this page”).
         const offset = headerOffset();
-        if (top < offset - 2) {
-          window.scrollBy({ top: top - offset, behavior: 'smooth' });
-        }
+        const top = activePanel.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
       };
 
       buttons.forEach((btn) => {
