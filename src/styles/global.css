@@ -2548,7 +2548,56 @@ p {
 @media (max-width: 640px) {
   .basics-cards-2,
   .basics-cards-3 {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+  }
+
+  .basics-cards-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .basics-card {
+    padding: 12px 10px 14px;
+    border-radius: 12px;
+    gap: 4px;
+    min-height: 0;
+  }
+
+  .basics-card-glyph {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .basics-card-glyph svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .basics-card-kicker {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+  }
+
+  .basics-card strong {
+    font-size: 0.88rem;
+  }
+
+  .basics-card em {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .basics-art-scene {
+    aspect-ratio: auto;
+    min-height: 0;
+    padding: 16px 12px;
+  }
+
+  .basics-art-scene.is-compact {
+    padding: 12px 10px;
   }
 }
 
@@ -3394,7 +3443,6 @@ a.download-card:hover {
   .trust-row,
   .about-grid,
   .mega-learn-wide,
-  .flow-steps,
   .name-story-grid,
   .feature-mosaic {
     grid-template-columns: 1fr;
@@ -3482,26 +3530,36 @@ a.download-card:hover {
 
   .nav-mobile-mega {
     display: grid;
-    gap: 10px;
-    padding: 8px 0 16px;
+    gap: 8px;
+    padding: 6px 0 14px;
   }
 
   .nav-mobile-products .mega-products-link {
-    grid-template-columns: 110px 1fr;
-    gap: 12px;
-    padding: 12px;
+    grid-template-columns: 72px 1fr;
+    gap: 10px;
+    padding: 10px;
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 14px;
     background: #fff;
     box-shadow: var(--shadow-sm);
   }
 
   .nav-mobile-products .mega-products-link .device-photo-compact {
-    max-width: 110px;
+    max-width: 72px;
+  }
+
+  .nav-mobile-products .mega-copy strong {
+    font-size: 0.92rem;
   }
 
   .nav-mobile-products .mega-copy p {
-    font-size: 0.86rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .nav-mobile-products .coming {
+    margin-top: 6px;
+    font-size: 0.72rem;
   }
 
   .nav-mobile-learn {
@@ -3511,13 +3569,31 @@ a.download-card:hover {
   .nav-mobile-learn .mega-learn-card {
     min-height: 0;
     height: auto;
+    gap: 8px;
+    padding: 10px;
     border-color: var(--border);
     background: #fff;
     box-shadow: var(--shadow-sm);
   }
 
+  .nav-mobile-learn .mega-learn-card img {
+    aspect-ratio: 16 / 9;
+    max-height: 96px;
+    object-fit: cover;
+  }
+
+  .nav-mobile-learn .mega-learn-card img[src*='device-35'] {
+    object-fit: contain;
+    padding: 6px 10px;
+  }
+
   .nav-mobile-learn .mega-learn-card strong {
     min-height: 0;
+    font-size: 0.92rem;
+  }
+
+  .nav-mobile-learn .mega-learn-card > span {
+    font-size: 0.74rem;
   }
 
   .nav-mobile-features {
@@ -3525,9 +3601,59 @@ a.download-card:hover {
   }
 
   .nav-mobile-features .mega-feature-card {
+    gap: 6px;
+    padding: 12px;
     border-color: var(--border);
     background: #fff;
     box-shadow: var(--shadow-sm);
+  }
+
+  .nav-mobile-features .mega-feature-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-mobile-features .mega-feature-card strong {
+    font-size: 0.92rem;
+  }
+
+  .nav-mobile-features .mega-feature-card span {
+    font-size: 0.74rem;
+  }
+
+  .flow-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .flow-steps li {
+    padding: 12px 10px 14px;
+    border-radius: 14px;
+    gap: 6px;
+  }
+
+  .flow-visual {
+    height: 56px;
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  .flow-visual svg {
+    width: min(100%, 92px);
+  }
+
+  .flow-num {
+    font-size: 0.72rem;
+  }
+
+  .flow-steps h3 {
+    font-size: 0.82rem;
+    line-height: 1.25;
+  }
+
+  .flow-steps p {
+    font-size: 0.72rem;
+    line-height: 1.35;
   }
 
   .hero-visual {
@@ -5848,8 +5974,8 @@ a.download-card:hover {
 
   .basics-art-scene {
     min-height: 0;
-    aspect-ratio: 16 / 10;
-    padding: 20px 14px;
+    aspect-ratio: auto;
+    padding: 18px 14px;
   }
 
   .basics-art-scene.is-compact {
