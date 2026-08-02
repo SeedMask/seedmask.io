@@ -1,0 +1,116 @@
+---
+import DeviceAbstract from './DeviceAbstract.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="site-header">
+  <div class="header-shell">
+    <a class="brand-link" href="/">
+      <span class="brand-mark">
+        <img src="/branding/seedmask-mark.png" alt="" width="60" height="60" />
+      </span>
+      <span class="brand-word">SeedMask</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <div class="nav-item">
+        <a class={`nav-trigger${path === '/products' ? ' active' : ''}`} href="/products">Products</a>
+        <div class="mega mega-products" role="menu">
+          <a class="mega-products-link" href="/products">
+            <DeviceAbstract compact />
+            <div class="mega-copy">
+              <strong>SeedMask hardware</strong>
+              <p>Bitcoin &amp; Kaspa-only cold storage. Air-gapped by design.</p>
+              <span class="coming">Coming soon →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <a class={`nav-link${path === '/app' ? ' active' : ''}`} href="/app">App</a>
+      <div class="nav-item">
+        <a class={`nav-trigger${path.startsWith('/learn') ? ' active' : ''}`} href="/learn">Learn</a>
+        <div class="mega mega-learn mega-learn-wide" role="menu">
+          <a class="mega-learn-card" href="/learn/basic-crypto">
+            <img src="/illustrations/learn-basics.png" alt="" />
+            <strong>Basic crypto know-how</strong>
+            <span>Keys, wallets, and self-custody fundamentals</span>
+          </a>
+          <a class="mega-learn-card" href="/learn/tutorials">
+            <img src="/illustrations/device-35.png" alt="" />
+            <strong>SeedMask tutorials</strong>
+            <span>Setup on the 3.5″ device and air-gapped signing</span>
+          </a>
+          <a class="mega-learn-card" href="/learn/blog">
+            <img src="/illustrations/learn-blog.png" alt="" />
+            <strong>Blog</strong>
+            <span>Product direction and security notes</span>
+          </a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a class={`nav-trigger${path.startsWith('/features') ? ' active' : ''}`} href="/features">Features</a>
+        <div class="mega mega-features" role="menu">
+          <a class="mega-feature-card" href="/features/firmware">
+            <span class="mega-feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                ><path d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"></path></svg
+              >
+            </span>
+            <strong>Firmware</strong>
+            <span>Download and verify SeedMask device firmware</span>
+          </a>
+          <a class="mega-feature-card" href="/features">
+            <span class="mega-feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                ><path
+                  d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path
+                ></svg
+              >
+            </span>
+            <strong>SeedMask Features</strong>
+            <span>Password manager, notes, 2FA, air gap, backup, duress &amp; more</span>
+          </a>
+        </div>
+      </div>
+      <a class={`nav-link${path === '/about' ? ' active' : ''}`} href="/about">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open menu">
+        Menu
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile">
+    <details>
+      <summary>Products</summary>
+      <a href="/products">SeedMask hardware — Coming soon</a>
+    </details>
+    <a href="/app">App</a>
+    <details>
+      <summary>Learn</summary>
+      <a href="/learn/basic-crypto">Basic crypto know-how</a>
+      <a href="/learn/tutorials">SeedMask tutorials</a>
+      <a href="/learn/blog">Blog</a>
+    </details>
+    <details>
+      <summary>Features</summary>
+      <a href="/features/firmware">Firmware</a>
+      <a href="/features">SeedMask Features</a>
+    </details>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const panel = document.getElementById('nav-mobile');
+  toggle?.addEventListener('click', () => {
+    const open = panel?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>

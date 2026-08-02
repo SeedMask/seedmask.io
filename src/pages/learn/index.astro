@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DeviceAbstract from '../../components/DeviceAbstract.astro';
+---
+
+<BaseLayout
+  title="Learn — SeedMask"
+  description="Learn crypto basics, SeedMask tutorials, and blog notes from the SeedMask team."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">Learn</p>
+      <h1>Self-custody, explained with care</h1>
+      <p>
+        A curated library for people who want the real model — keys, air gaps, and how SeedMask fits — without noise.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container learn-grid">
+      <a class="learn-card featured" href="/learn/basic-crypto">
+        <img class="learn-card-cover" src="/illustrations/learn-basics.png" alt="" />
+        <span class="learn-card-meta">Fundamentals · 8 min</span>
+        <h3>Basic crypto know-how</h3>
+        <p>The mental model behind cold storage: what keys are, what watch-only means, and why an air gap matters.</p>
+        <span class="learn-card-cta">Start here →</span>
+      </a>
+      <a class="learn-card" href="/learn/tutorials">
+        <div class="learn-card-media">
+          <DeviceAbstract compact alive={false} />
+        </div>
+        <span class="learn-card-meta">Tutorials</span>
+        <h3>SeedMask tutorials</h3>
+        <p>Step-by-step product guides for setup, Coordinator pairing, and air-gapped sends.</p>
+        <span class="learn-card-cta">Open library →</span>
+      </a>
+      <a class="learn-card" href="/learn/blog">
+        <img class="learn-card-cover" src="/illustrations/learn-blog.png" alt="" />
+        <span class="learn-card-meta">Blog</span>
+        <h3>Product &amp; security notes</h3>
+        <p>Short writing on Bitcoin &amp; Kaspa focus, watch-only design, and the air-gap workflow.</p>
+        <span class="learn-card-cta">Read the blog →</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

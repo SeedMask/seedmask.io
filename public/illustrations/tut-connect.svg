@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="24" fill="#eef0f5"/>
+  <rect x="90" y="70" width="300" height="200" rx="16" fill="#fff" stroke="rgba(15,23,42,0.1)"/>
+  <rect x="110" y="90" width="90" height="160" fill="#e6e8f0"/>
+  <rect x="220" y="100" width="140" height="28" rx="8" fill="#1ab79e" opacity="0.25"/>
+  <rect x="220" y="148" width="120" height="12" rx="6" fill="#1ab79e"/>
+  <rect x="430" y="110" width="110" height="150" rx="18" fill="#101418" stroke="#1ab79e"/>
+  <text x="80" y="320" fill="#147a6b" font-family="system-ui" font-size="18" font-weight="700">Connect Coordinator</text>
+</svg>

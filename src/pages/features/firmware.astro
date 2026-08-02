@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Firmware — SeedMask"
+  description="Download and verify SeedMask hardware wallet firmware. Releases will appear here when published."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">Features · Firmware</p>
+      <h1>Device firmware</h1>
+      <p>
+        Official SeedMask firmware builds will be published here for download and verification. Hardware shipping comes first — downloads are not available yet.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="firmware-panel">
+        <div class="firmware-panel-copy">
+          <span class="roadmap-badge">Coming soon</span>
+          <h2>Downloads open with hardware</h2>
+          <p>
+            When firmware releases go live, this page will list signed builds, version notes, and verification hashes so you can confirm what runs on your 3.5″ SeedMask.
+          </p>
+          <ul class="firmware-checklist">
+            <li>Signed release builds</li>
+            <li>Version changelog</li>
+            <li>Hash / fingerprint for on-device compare</li>
+          </ul>
+        </div>
+        <div class="firmware-panel-action">
+          <button class="btn btn-primary" type="button" disabled aria-disabled="true">
+            Download firmware
+          </button>
+          <p class="firmware-hint">Not available yet — check back when SeedMask ships.</p>
+        </div>
+      </div>
+      <p style="margin-top: 32px">
+        <a class="btn btn-ghost" href="/features">← SeedMask Features</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} — SeedMask Blog`} description={post.data.description}>
+  <section class="page-hero page-hero-learn">
+    <div class="container learn-article-head">
+      <p class="eyebrow">
+        Learn · Blog ·
+        {
+          post.data.pubDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            timeZone: 'UTC',
+          })
+        }
+      </p>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container prose learn-prose">
+      {post.data.cover && <img class="article-cover" src={post.data.cover} alt="" />}
+      <Content />
+      <p style="margin-top: 36px">
+        <a class="btn btn-ghost" href="/learn/blog">← All posts</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DeviceAbstract from '../components/DeviceAbstract.astro';
+import ComingSoonButton from '../components/ComingSoonButton.astro';
+---
+
+<BaseLayout
+  title="Products — SeedMask hardware wallet"
+  description="SeedMask is a Bitcoin and Kaspa-only hardware wallet. Air-gapped signing. Keys stay on the device. Coming soon."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Products</p>
+      <h1>SeedMask hardware</h1>
+      <p>
+        A dedicated cold-storage signer for Bitcoin and Kaspa. Built around a 3.5″ touchscreen — stay offline while your Coordinator handles the watch-only workspace.
+      </p>
+      <div class="chain-row" style="margin-top: 18px">
+        <span class="chip chip-logo">
+          <img src="/branding/bitcoin-btc-logo.png" alt="" />
+          Bitcoin
+        </span>
+        <span class="chip chip-logo">
+          <img src="/branding/kaspa-kas-logo.png" alt="" />
+          Kaspa
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container split">
+      <div class="hero-visual" style="min-height: 420px">
+        <div class="hero-glow"></div>
+        <DeviceAbstract alive />
+      </div>
+      <div class="prose">
+        <h2>Bitcoin &amp; Kaspa — nothing else</h2>
+        <p>
+          SeedMask focuses on two chains so the device can stay sharp: clear confirmation screens, predictable signing flows, and no multi-asset noise.
+        </p>
+        <h2>3.5″ air-gapped display</h2>
+        <p>
+          Unsigned transactions are prepared on the Coordinator. Signatures are produced on SeedMask’s touchscreen. Private material never crosses into the desktop app.
+        </p>
+        <h2>Coming soon</h2>
+        <p>
+          Hardware is in progress. There is no shop checkout yet — when we open orders, this page will be the first place you hear it.
+        </p>
+        <div style="margin-top: 28px">
+          <ComingSoonButton href="/products" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <h2>Pair it with the Coordinator</h2>
+          <p>Watch-only desktop control for balances, addresses, and air-gapped signing payloads.</p>
+        </div>
+        <a class="btn btn-ghost" href="/app">View the app</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

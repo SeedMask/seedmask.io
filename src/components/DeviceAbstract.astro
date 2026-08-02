@@ -1,0 +1,25 @@
+---
+interface Props {
+  compact?: boolean;
+  caption?: boolean;
+  alive?: boolean;
+  class?: string;
+  src?: string;
+}
+const {
+  compact = false,
+  caption = true,
+  class: className = '',
+  src = '/illustrations/device-35.png',
+} = Astro.props;
+---
+
+<figure
+  class={`device-photo${compact ? ' device-photo-compact' : ''}${className ? ` ${className}` : ''}`}
+  aria-hidden="true"
+>
+  <div class="device-photo-frame">
+    <img src={src} alt="" width="840" height="560" />
+  </div>
+  {caption && !compact && <figcaption>3.5″ touchscreen</figcaption>}
+</figure>

@@ -1,0 +1,360 @@
+---
+export interface TutStep {
+  title: string;
+  body: string;
+  /** Built-in graphic key */
+  graphic: 'power' | 'firmware' | 'seed' | 'pin' | 'download' | 'export' | 'confirm' | 'watchonly' | 'unsigned' | 'transfer' | 'approve' | 'broadcast';
+}
+
+interface Props {
+  steps: TutStep[];
+  backHref?: string;
+}
+
+const { steps, backHref = '/learn/tutorials' } = Astro.props;
+---
+
+<div class="tut-walk" data-tut-walk>
+  <div class="tut-walk-progress" aria-hidden="true">
+    <span class="tut-walk-progress-fill" data-tut-progress></span>
+  </div>
+
+  <div class="tut-walk-nav" role="tablist" aria-label="Tutorial steps">
+    {
+      steps.map((step, i) => (
+        <button
+          type="button"
+          class={`tut-walk-tab${i === 0 ? ' is-active' : ''}`}
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          data-tut-tab={i}
+        >
+          <span class="tut-walk-tab-num">{String(i + 1).padStart(2, '0')}</span>
+          <span class="tut-walk-tab-label">{step.title}</span>
+          <span class="tut-walk-tab-meter" data-tut-meter></span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="tut-walk-stage">
+    {
+      steps.map((step, i) => (
+        <div
+          class={`tut-walk-panel${i === 0 ? ' is-active' : ''}`}
+          role="tabpanel"
+          data-tut-panel={i}
+          hidden={i !== 0}
+        >
+          <div class={`tut-walk-art tut-art-${step.graphic}`} aria-hidden="true">
+            {step.graphic === 'power' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="98" y="28" width="84" height="118" rx="14" stroke="currentColor" stroke-width="2" />
+                <rect x="110" y="44" width="60" height="72" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <circle cx="140" cy="132" r="5" fill="currentColor" opacity="0.25" />
+                <path d="M140 58v18" stroke="var(--teal-deep)" stroke-width="2.2" stroke-linecap="round" />
+                <circle cx="140" cy="84" r="10" stroke="var(--teal-deep)" stroke-width="2.2" />
+                <path d="M52 78h28M200 78h28" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.3" stroke-dasharray="4 4" />
+                <text x="108" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Power on</text>
+              </svg>
+            )}
+            {step.graphic === 'firmware' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="40" y="36" width="120" height="88" rx="12" stroke="currentColor" stroke-width="2" opacity="0.4" />
+                <path d="M56 58h72M56 72h48M56 86h60" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.35" />
+                <rect x="148" y="48" width="92" height="100" rx="12" stroke="currentColor" stroke-width="2" />
+                <rect x="160" y="62" width="68" height="52" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <path d="M172 82h44M172 94h28" stroke="var(--teal-deep)" stroke-width="1.6" stroke-linecap="round" />
+                <circle cx="194" cy="132" r="10" fill="var(--teal)" opacity="0.9" />
+                <path d="M190 132l3 3 6-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="92" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Verify fingerprint</text>
+              </svg>
+            )}
+            {step.graphic === 'seed' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="36" y="32" width="100" height="116" rx="10" stroke="currentColor" stroke-width="2" />
+                <path d="M52 52h68M52 66h52M52 80h60M52 94h44M52 108h56" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.35" />
+                <rect x="156" y="40" width="88" height="100" rx="12" stroke="currentColor" stroke-width="2" />
+                <rect x="168" y="54" width="64" height="56" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <circle cx="184" cy="72" r="3" fill="var(--teal-deep)" /><circle cx="200" cy="72" r="3" fill="var(--teal-deep)" /><circle cx="216" cy="72" r="3" fill="var(--teal-deep)" />
+                <circle cx="184" cy="88" r="3" fill="var(--teal-deep)" /><circle cx="200" cy="88" r="3" fill="var(--teal-deep)" /><circle cx="216" cy="88" r="3" fill="var(--teal-deep)" />
+                <text x="78" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Seed on paper · never typed</text>
+              </svg>
+            )}
+            {step.graphic === 'pin' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="88" y="22" width="104" height="130" rx="14" stroke="currentColor" stroke-width="2" />
+                <rect x="102" y="38" width="76" height="48" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <circle cx="118" cy="56" r="4" fill="var(--teal-deep)" /><circle cx="140" cy="56" r="4" fill="var(--teal-deep)" /><circle cx="162" cy="56" r="4" fill="var(--teal-deep)" /><circle cx="118" cy="72" r="4" fill="currentColor" opacity="0.2" />
+                <g opacity="0.45" stroke="currentColor" stroke-width="1.4">
+                  <rect x="106" y="98" width="18" height="14" rx="3" /><rect x="131" y="98" width="18" height="14" rx="3" /><rect x="156" y="98" width="18" height="14" rx="3" />
+                  <rect x="106" y="118" width="18" height="14" rx="3" /><rect x="131" y="118" width="18" height="14" rx="3" /><rect x="156" y="118" width="18" height="14" rx="3" />
+                </g>
+                <text x="108" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">PIN · confirm address</text>
+              </svg>
+            )}
+            {step.graphic === 'download' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="48" y="28" width="184" height="112" rx="12" stroke="currentColor" stroke-width="2" />
+                <rect x="48" y="28" width="184" height="22" rx="12" fill="currentColor" opacity="0.06" />
+                <circle cx="64" cy="39" r="3.5" fill="#eb4d47" /><circle cx="78" cy="39" r="3.5" fill="#f7931a" /><circle cx="92" cy="39" r="3.5" fill="#33ad70" />
+                <rect x="72" y="68" width="136" height="48" rx="8" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <path d="M140 78v22" stroke="var(--teal-deep)" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M128 92l12 12 12-12" stroke="var(--teal-deep)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="78" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Coordinator desktop app</text>
+              </svg>
+            )}
+            {step.graphic === 'export' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="28" y="40" width="70" height="96" rx="10" stroke="currentColor" stroke-width="2" />
+                <rect x="38" y="54" width="50" height="48" rx="5" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.4" />
+                <path d="M108 78h28" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" />
+                <path d="M128 70l10 8-10 8" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="148" y="36" width="104" height="108" rx="10" stroke="currentColor" stroke-width="2" />
+                <rect x="162" y="58" width="40" height="40" rx="4" stroke="currentColor" stroke-width="1.4" opacity="0.45" />
+                <path d="M170 70h24M170 82h16" stroke="currentColor" stroke-width="1.4" opacity="0.35" stroke-linecap="round" />
+                <text x="168" y="118" fill="currentColor" font-size="10" font-family="Outfit,sans-serif" opacity="0.5">Watch-only</text>
+                <text x="62" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Public info only · never seed</text>
+              </svg>
+            )}
+            {step.graphic === 'confirm' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="36" y="36" width="100" height="100" rx="12" stroke="currentColor" stroke-width="2" opacity="0.4" />
+                <path d="M52 60h60M52 76h44" stroke="currentColor" stroke-width="1.5" opacity="0.35" stroke-linecap="round" />
+                <text x="52" y="108" fill="currentColor" font-size="12" font-family="Outfit,sans-serif" opacity="0.5">bc1q…</text>
+                <path d="M148 78h20" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" />
+                <rect x="180" y="40" width="64" height="92" rx="10" stroke="currentColor" stroke-width="2" />
+                <rect x="190" y="54" width="44" height="48" rx="5" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.4" />
+                <path d="M198 72h28M198 84h18" stroke="var(--teal-deep)" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="212" cy="118" r="8" fill="var(--teal)" />
+                <path d="M208 118l3 3 6-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="72" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Addresses match</text>
+              </svg>
+            )}
+            {step.graphic === 'watchonly' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="50" y="30" width="180" height="108" rx="12" stroke="currentColor" stroke-width="2" />
+                <circle cx="140" cy="78" r="28" stroke="var(--teal)" stroke-width="2" fill="var(--teal-soft)" />
+                <path d="M128 78c0-8 5-14 12-14s12 6 12 14-5 14-12 14" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" />
+                <circle cx="140" cy="78" r="4" fill="var(--teal-deep)" />
+                <path d="M70 150h140" stroke="currentColor" stroke-width="1.5" opacity="0.2" stroke-linecap="round" />
+                <text x="78" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Watch · never authorize here</text>
+              </svg>
+            )}
+            {step.graphic === 'unsigned' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="40" y="28" width="160" height="108" rx="12" stroke="currentColor" stroke-width="2" />
+                <path d="M58 52h100M58 68h72M58 84h88" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.35" />
+                <rect x="58" y="100" width="72" height="22" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.4" />
+                <text x="68" y="115" fill="var(--teal-deep)" font-size="10" font-family="Outfit,sans-serif" font-weight="700">Send</text>
+                <rect x="188" y="48" width="56" height="56" rx="6" stroke="currentColor" stroke-width="1.6" opacity="0.45" />
+                <path d="M200 64h32M200 76h20" stroke="currentColor" stroke-width="1.4" opacity="0.35" stroke-linecap="round" />
+                <text x="188" y="122" fill="currentColor" font-size="9" font-family="Outfit,sans-serif" opacity="0.45">Unsigned</text>
+                <text x="70" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Nothing authorized yet</text>
+              </svg>
+            )}
+            {step.graphic === 'transfer' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="24" y="50" width="52" height="52" rx="6" stroke="currentColor" stroke-width="1.6" opacity="0.45" />
+                <path d="M36 66h28M36 78h18" stroke="currentColor" stroke-width="1.4" opacity="0.35" stroke-linecap="round" />
+                <text x="28" y="118" fill="currentColor" font-size="9" font-family="Outfit,sans-serif" opacity="0.45">Unsigned</text>
+                <path d="M88 76h36" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 4" />
+                <path d="M116 68l10 8-10 8" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="140" y="36" width="64" height="92" rx="10" stroke="currentColor" stroke-width="2" />
+                <rect x="150" y="50" width="44" height="48" rx="5" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.4" />
+                <rect x="220" y="58" width="36" height="56" rx="4" stroke="var(--teal)" stroke-width="1.5" fill="var(--teal-soft)" opacity="0.7" />
+                <text x="226" y="90" fill="var(--teal-deep)" font-size="9" font-family="Outfit,sans-serif">QR</text>
+                <text x="72" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Air-gap transfer</text>
+              </svg>
+            )}
+            {step.graphic === 'approve' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="96" y="18" width="88" height="124" rx="12" stroke="currentColor" stroke-width="2" />
+                <rect x="108" y="34" width="64" height="70" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <text x="118" y="58" fill="var(--teal-deep)" font-size="11" font-family="Outfit,sans-serif" font-weight="700">0.25 BTC</text>
+                <path d="M118 70h44M118 82h32" stroke="var(--teal-deep)" stroke-width="1.5" stroke-linecap="round" opacity="0.7" />
+                <rect x="112" y="116" width="28" height="14" rx="4" stroke="#eb4d47" stroke-width="1.4" opacity="0.7" />
+                <rect x="144" y="116" width="28" height="14" rx="4" fill="var(--teal)" />
+                <path d="M152 123l4 4 8-8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="88" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Read · then approve</text>
+              </svg>
+            )}
+            {step.graphic === 'broadcast' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="28" y="48" width="56" height="56" rx="6" stroke="currentColor" stroke-width="1.6" />
+                <circle cx="56" cy="76" r="10" fill="var(--teal)" />
+                <path d="M52 76l3 3 6-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="30" y="122" fill="currentColor" font-size="9" font-family="Outfit,sans-serif" opacity="0.45">Signed</text>
+                <path d="M96 76h28" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" />
+                <path d="M116 68l10 8-10 8" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="136" y="40" width="100" height="80" rx="10" stroke="currentColor" stroke-width="2" />
+                <circle cx="186" cy="80" r="22" stroke="var(--teal)" stroke-width="1.6" fill="var(--teal-soft)" />
+                <circle cx="186" cy="80" r="12" stroke="var(--teal)" stroke-width="1.3" opacity="0.55" />
+                <circle cx="186" cy="80" r="4" fill="var(--teal-deep)" />
+                <path d="M168 52c12-10 24-10 36 0" stroke="var(--teal)" stroke-width="1.4" stroke-linecap="round" opacity="0.45" />
+                <text x="78" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Broadcast when ready</text>
+              </svg>
+            )}
+          </div>
+
+          <div class="tut-walk-copy">
+            <p class="tut-walk-kicker">Step {String(i + 1).padStart(2, '0')} of {String(steps.length).padStart(2, '0')}</p>
+            <h2>{step.title}</h2>
+            <p>{step.body}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="tut-walk-controls">
+    <button type="button" class="btn btn-ghost" data-tut-prev disabled>← Back</button>
+    <div class="tut-walk-status">
+      <span data-tut-status>Playing through steps</span>
+      <div class="tut-walk-dots" aria-hidden="true">
+        {steps.map((_, i) => <span class={`tut-walk-dot${i === 0 ? ' is-active' : ''}`} data-tut-dot={i}></span>)}
+      </div>
+    </div>
+    <button type="button" class="btn btn-ghost" data-tut-toggle>Pause</button>
+  </div>
+
+  <div class="tut-walk-footer">
+    <a class="btn btn-ghost" href={backHref}>← All tutorials</a>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-tut-walk]').forEach((root) => {
+    const tabs = [...root.querySelectorAll('[data-tut-tab]')];
+    const panels = [...root.querySelectorAll('[data-tut-panel]')];
+    const dots = [...root.querySelectorAll('[data-tut-dot]')];
+    const meters = [...root.querySelectorAll('[data-tut-meter]')];
+    const progress = root.querySelector('[data-tut-progress]');
+    const prev = root.querySelector('[data-tut-prev]');
+    const toggle = root.querySelector('[data-tut-toggle]');
+    const status = root.querySelector('[data-tut-status]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const STEP_MS = 5200;
+    let index = 0;
+    let playing = !reduceMotion;
+    let startedAt = performance.now();
+    let raf = 0;
+
+    const show = (i, { restart = true } = {}) => {
+      index = Math.max(0, Math.min(panels.length - 1, i));
+      tabs.forEach((tab, n) => {
+        tab.classList.toggle('is-active', n === index);
+        tab.classList.toggle('is-done', n < index);
+        tab.setAttribute('aria-selected', n === index ? 'true' : 'false');
+      });
+      panels.forEach((panel, n) => {
+        const on = n === index;
+        panel.classList.toggle('is-active', on);
+        panel.hidden = !on;
+      });
+      dots.forEach((dot, n) => {
+        dot.classList.toggle('is-active', n === index);
+        dot.classList.toggle('is-done', n < index);
+      });
+      meters.forEach((meter, n) => {
+        meter.style.transform = n < index ? 'scaleX(1)' : 'scaleX(0)';
+      });
+      if (prev) prev.disabled = index === 0;
+      if (progress) {
+        const base = index / panels.length;
+        progress.style.transform = `scaleX(${base})`;
+      }
+      if (restart) startedAt = performance.now();
+      if (status) {
+        status.textContent = playing
+          ? index === panels.length - 1
+            ? 'Finishing walkthrough'
+            : 'Playing through steps'
+          : 'Paused';
+      }
+      if (toggle) toggle.textContent = playing ? 'Pause' : 'Play';
+      root.classList.toggle('is-playing', playing);
+      root.classList.toggle('is-paused', !playing);
+    };
+
+    const tick = (now) => {
+      if (!playing) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+
+      const elapsed = now - startedAt;
+      const local = Math.min(1, elapsed / STEP_MS);
+      const overall = (index + local) / panels.length;
+
+      if (progress) progress.style.transform = `scaleX(${overall})`;
+      if (meters[index]) meters[index].style.transform = `scaleX(${local})`;
+
+      if (local >= 1) {
+        if (index < panels.length - 1) {
+          show(index + 1);
+        } else {
+          playing = false;
+          show(index, { restart: false });
+          if (meters[index]) meters[index].style.transform = 'scaleX(1)';
+          if (progress) progress.style.transform = 'scaleX(1)';
+          if (status) status.textContent = 'Walkthrough complete';
+        }
+      }
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    const pause = () => {
+      playing = false;
+      show(index, { restart: false });
+    };
+
+    const resume = () => {
+      if (reduceMotion) return;
+      playing = true;
+      startedAt = performance.now();
+      show(index, { restart: false });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        pause();
+        show(Number(tab.getAttribute('data-tut-tab')));
+      });
+    });
+
+    prev?.addEventListener('click', () => {
+      pause();
+      show(index - 1);
+    });
+
+    toggle?.addEventListener('click', () => {
+      if (playing) pause();
+      else {
+        if (index >= panels.length - 1) show(0);
+        resume();
+      }
+    });
+
+    const stage = root.querySelector('.tut-walk-stage');
+    let readingPause = false;
+    stage?.addEventListener('mouseenter', () => {
+      if (!playing || reduceMotion) return;
+      readingPause = true;
+      playing = false;
+      if (status) status.textContent = 'Paused while you read';
+      if (toggle) toggle.textContent = 'Play';
+      root.classList.add('is-paused');
+      root.classList.remove('is-playing');
+    });
+    stage?.addEventListener('mouseleave', () => {
+      if (!readingPause || reduceMotion) return;
+      readingPause = false;
+      resume();
+    });
+
+    show(0);
+    raf = requestAnimationFrame(tick);
+  });
+</script>

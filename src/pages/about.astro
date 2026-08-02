@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ComingSoonButton from '../components/ComingSoonButton.astro';
+---
+
+<BaseLayout
+  title="About — SeedMask"
+  description="SeedMask builds Bitcoin and Kaspa-only hardware wallets with air-gapped signing and a 100% open-source stack. Why SeedMask was born, why the name, vision, and roadmap."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">About</p>
+      <h1>Building a serious hardware wallet company</h1>
+      <p>
+        SeedMask is Bitcoin and Kaspa only — cold keys on device, watch-only Coordinator on desktop, and an honest path from firmware to funded team.
+      </p>
+      <div class="chain-row" style="margin-top: 22px">
+        <span class="chip chip-logo">
+          <img src="/branding/bitcoin-btc-logo.png" alt="" />
+          Bitcoin
+        </span>
+        <span class="chip chip-logo">
+          <img src="/branding/kaspa-kas-logo.png" alt="" />
+          Kaspa
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <article class="origin-story" id="why-seedmask">
+        <p class="eyebrow">Origin</p>
+        <h2>Why was SeedMask born?</h2>
+        <p class="origin-lead">
+          Having crypto is the easy part. <strong>Maintaining it</strong> — storing seeds safely, tracking accounts, remembering passphrases and derivation details — is <strong>the real struggle</strong>.
+        </p>
+
+        <div class="origin-prose">
+          <p>
+            One seed is hard enough. <strong>Multiple seeds</strong>, multiple accounts under each, <strong>passphrases</strong> on top of those — and suddenly you are not only securing coins. You are securing a map: which <strong>index</strong>, which <strong>derivation path</strong>, which passphrase belongs where.
+          </p>
+          <p>
+            Where do you put that map? In a <strong>book</strong> — someone finds it, or water and time destroy it. On a <strong>phone</strong> — malware and backups. On a “clean” spare phone — you still do not truly know what runs on it. On an <strong>air-gapped laptop</strong> writing to USB — the machine can still leave traces you never intended. Invent your own <strong>cipher alphabet</strong> — easy to forget; write the rules down — easy for someone else to reverse.
+          </p>
+        </div>
+
+        <div class="origin-almost">
+          <h3>The almost-solution</h3>
+          <p>
+            There was a path that looked serious on paper: encrypted keypad USB, forever-offline phone, point-and-shoot camera with MicroSD, standalone CD duplicator, portable CD/DVD player, printer with USB — then <strong>split each 24-word seed into quarters</strong> across those media. First six words photographed to MicroSD. Next six onto the encrypted stick and burned to disc. Next six from an air-gapped editor onto ordinary USBs. Last six written, scanned, copied, printer wiped. <strong>Multiple copies. Multiple hiding places.</strong> A ritual to reassemble when restore day came.
+          </p>
+          <p>
+            It felt complete — until you lived with it. <strong>Too many parts. Too many locations.</strong> Heat, moisture, and electrostatic discharge waiting to <strong>corrupt</strong> MicroSD, USB, and discs. SeedQR helps portability, but unprotected (or even “protected”) media still get <strong>lost, damaged, or stolen</strong> as physical objects.
+          </p>
+        </div>
+
+        <div class="origin-need">
+          <p class="origin-need-label">What was actually needed</p>
+          <ul>
+            <li>Something that does not silently rot</li>
+            <li>Physical and portable</li>
+            <li>Easy to recover when life goes wrong</li>
+            <li>Highly secure</li>
+            <li>Writable — a real backup you can hold</li>
+          </ul>
+        </div>
+
+        <div class="origin-prose">
+          <p>
+            Hiring that into existence costs real money and rare trust. The other path: <strong>build it yourself</strong>. The idea of how it must work was already clear — even before the code. With AI and many iterations, <strong>SeedMask took shape</strong>.
+          </p>
+          <p>
+            The core bargain is simple and strict: a writable <strong>backup code</strong> plus <strong>your own password</strong> always derives your seed the same way. <strong>No maybe. No lucky guesses.</strong> Strong password discipline and careful password storage are still on you — but the recovery path is <strong>deterministic</strong>.
+          </p>
+          <p>
+            You can carry the backup code. Leave it in a drawer. Entrust it to someone careful — or even someone you do not fully trust — <em>if</em> the password is strong enough that <strong>the code alone is useless</strong>. That is not a license to be reckless with photos and printouts. It is a measure of how the design is meant to work: <strong>the backup code is portable; the password is the gate</strong>.
+          </p>
+        </div>
+
+        <p class="origin-close">
+          SeedMask was born because the DIY vault stack was <strong>too fragile for real life</strong> — and self-custody deserved something <strong>physical, recoverable</strong>, and honest about where the risk still sits.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <article class="name-story">
+        <p class="eyebrow">The name</p>
+        <h2>Why “SeedMask”</h2>
+        <div class="name-story-grid">
+          <div>
+            <h3>It masks your seed</h3>
+            <p>
+              Your seed phrase is the master key to your funds. SeedMask is designed so that seed never leaves the device — in the final hardware form, the plan is that it stays masked inside SeedMask and never gets out onto a computer, phone, or the network.
+            </p>
+          </div>
+          <div>
+            <h3>Safer to store, easier to live with</h3>
+            <p>
+              Masking the seed is not only about keeping it offline. It is about storing it better, safer, and more conveniently — so you can use Bitcoin and Kaspa without writing secrets into everyday apps or leaving recovery words exposed.
+            </p>
+          </div>
+        </div>
+        <p class="name-story-note">
+          At first, SeedMask can sound dangerous or even contradictory — as if something were being hidden from you. That is far from the truth. The name is a promise of protection: SeedMask aims to become a wallet that guards your seed, generates it safely and with high entropy, and keeps it masked from the places that leak — so the product can live up to what it is called.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container about-grid">
+      <article class="about-card">
+        <span class="pillar-index">Vision</span>
+        <h3>Keys stay on SeedMask</h3>
+        <p>
+          <strong>Keys on device. Watch-only on desktop. Signing stays offline.</strong>
+        </p>
+        <p>
+          SeedMask is the vault you hold: seed generation, storage, and signing stay on the hardware — masked from phones, browsers, and everyday machines that were never built to keep a seed safe.
+        </p>
+      </article>
+      <article class="about-card">
+        <span class="pillar-index">Focus</span>
+        <h3>Bitcoin &amp; Kaspa only</h3>
+        <p>
+          <strong>Satoshi’s vision. Two coins means clearer signing screens and a smaller attack surface than a multi-coin wallet.</strong>
+        </p>
+        <p>
+          Every extra chain adds formats, fees, and confirmation edge cases at the moment you should be careful. SeedMask stays narrow on purpose — Bitcoin and Kaspa done properly, not a crowded catalog of half-supported assets.
+        </p>
+      </article>
+      <article class="about-card">
+        <span class="pillar-index">Stance</span>
+        <h3>100% open-source</h3>
+        <p>
+          <strong>Firmware, Coordinator, and the full signing path — published so anyone can audit it.</strong>
+        </p>
+        <p>
+          Closed wallets ask you to trust a black box. SeedMask is built so independent eyes can inspect how keys are handled, how updates ship, and how the air-gapped path actually works — transparency as a custody requirement, not a slogan.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section band roadmap-section">
+    <div class="container">
+      <div class="roadmap-head">
+        <p class="eyebrow">Roadmap</p>
+        <h2 class="section-title roadmap-title">The path from lab to launch</h2>
+        <p class="section-lead">
+          Firmware and Coordinator first — then capital, team, partnerships, integrations, and hardware.
+        </p>
+      </div>
+
+      <div class="road-track" aria-label="Company roadmap">
+        <div class="road-track-line" aria-hidden="true">
+          <div class="road-track-progress"></div>
+        </div>
+
+        <article class="road-step is-done">
+          <div class="road-dot"><span>01</span></div>
+          <span class="road-tag">Done</span>
+          <time>Jan 2026</time>
+          <h3>Firmware</h3>
+          <p>Bitcoin &amp; Kaspa, air-gap first</p>
+        </article>
+
+        <article class="road-step is-done">
+          <div class="road-dot"><span>02</span></div>
+          <span class="road-tag">Done</span>
+          <time>May 2026</time>
+          <h3>Coordinator</h3>
+          <p>Watch-only desktop — keys stay on device.</p>
+        </article>
+
+        <article class="road-step is-soon">
+          <div class="road-dot"><span>03</span></div>
+          <span class="road-tag">Soon</span>
+          <time>Fundraising</time>
+          <h3>Raise to build</h3>
+          <p>Fund production, audits, and runway.</p>
+        </article>
+
+        <article class="road-step">
+          <div class="road-dot"><span>04</span></div>
+          <span class="road-tag">Next</span>
+          <time>Hiring</time>
+          <h3>Grow the team</h3>
+          <p>Firmware, desktop, security, and ops.</p>
+        </article>
+
+        <article class="road-step">
+          <div class="road-dot"><span>05</span></div>
+          <span class="road-tag">Next</span>
+          <time>Ecosystem</time>
+          <h3>Partnerships</h3>
+          <p>Partners across Bitcoin and Kaspa.</p>
+        </article>
+
+        <article class="road-step">
+          <div class="road-dot"><span>06</span></div>
+          <span class="road-tag">Ahead</span>
+          <time>Ecosystem</time>
+          <h3>Integration</h3>
+          <p>Kaspium and other Kaspa wallets.</p>
+        </article>
+
+        <article class="road-step">
+          <div class="road-dot"><span>07</span></div>
+          <span class="road-tag">Ahead</span>
+          <time>Launch</time>
+          <h3>Ship SeedMask</h3>
+          <p>Hardware launch and air-gapped loop.</p>
+        </article>
+      </div>
+
+      <div class="cta-panel" style="margin-top: 56px">
+        <div>
+          <h2>Follow along on X</h2>
+          <p>Product updates from @Seedmask — and Coming soon for hardware.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="https://x.com/Seedmask" target="_blank" rel="noopener noreferrer">Follow @Seedmask</a>
+          <ComingSoonButton href="/products" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

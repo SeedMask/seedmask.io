@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import DeviceScene from '../../../components/DeviceScene.astro';
+import TutorialWalkthrough from '../../../components/TutorialWalkthrough.astro';
+
+const steps = [
+  {
+    title: 'Download the app',
+    body: 'Get SeedMask Coordinator from the App download page. Install it like any desktop app, then open it on a machine you use for everyday browsing — keys still stay on SeedMask.',
+    graphic: 'download' as const,
+  },
+  {
+    title: 'Create a watch-only wallet',
+    body: 'Choose Bitcoin or Kaspa. Export public wallet information from SeedMask (QR / air-gap transfer) into Coordinator. You should never be asked for a seed phrase. If you are, stop.',
+    graphic: 'export' as const,
+  },
+  {
+    title: 'Confirm balances and addresses',
+    body: 'Once synced, check that receive addresses shown in Coordinator match what SeedMask displays for the same account. Label wallets clearly (for example Travel Fund / Savings).',
+    graphic: 'confirm' as const,
+  },
+  {
+    title: 'Keep Coordinator watch-only',
+    body: 'Coordinator can build unsigned transactions and track history. It cannot authorize spends. Signing always returns to the device in the next tutorial.',
+    graphic: 'watchonly' as const,
+  },
+];
+---
+
+<BaseLayout
+  title="Connect Coordinator — SeedMask Tutorials"
+  description="Set up SeedMask Coordinator as a watch-only desktop wallet for Bitcoin and Kaspa."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container learn-article-head">
+      <p class="eyebrow">Tutorials · 02</p>
+      <h1>Connect Coordinator</h1>
+      <p>Pair a watch-only desktop workspace without ever importing your seed.</p>
+      <div class="learn-meta-row">
+        <span>~12 min</span>
+        <span>Coordinator</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="article-device article-device-scene">
+        <DeviceScene scene="connect" />
+      </div>
+
+      <TutorialWalkthrough steps={steps} />
+    </div>
+  </section>
+</BaseLayout>

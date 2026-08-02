@@ -1,0 +1,423 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const features = [
+  {
+    id: 'password-manager',
+    index: '01',
+    title: 'Password manager',
+    lead: 'Create, store, and send credentials on SeedMask — secrets stay on the device until you approve reveal on the touchscreen.',
+    graphic: 'passwords',
+    body: [
+      'A password manager on a phone or laptop is convenient — and exposed to the same malware and cloud sync risks as everything else on that machine. SeedMask keeps credentials offline: generate or store them on the device, then reveal or send only after you confirm on the 3.5″ screen.',
+      'Use it for accounts that matter: exchange logins, email, and any service where a leak would put funds or identity at risk. For stricter generation rules, see Advanced options — advanced password creation.',
+    ],
+    advice: [
+      'Prefer device-generated passwords over inventing your own.',
+      'Confirm the destination on-screen before any “send” or reveal.',
+      'Never photograph passwords or paste them into chat apps.',
+      'Keep a clear naming scheme so you do not mix similar accounts.',
+    ],
+    tip: 'Treat SeedMask passwords like seed material: offline by default, human confirmation before anything leaves the device.',
+  },
+  {
+    id: 'notes',
+    index: '02',
+    title: 'Secure notes',
+    lead: 'Keep short private notes offline — recovery hints, labels, or instructions you do not want in a phone notes app.',
+    graphic: 'notes',
+    body: [
+      'Phone notes sync, get screenshotted, and sit next to the same apps that browse the web. SeedMask notes are meant for small, high-sensitivity text that should live with your cold vault — not in iCloud or Google.',
+      'Good fits: wallet labels, safe-deposit reminders, passphrase hints that are useless alone, or setup steps for a recovery you might need years later. Bad fits: long documents, anything you need to edit every day, or secrets you also store in cleartext elsewhere.',
+    ],
+    advice: [
+      'Keep notes short and deliberate — this is a vault, not a journal.',
+      'Do not write the full seed into a note; that defeats cold storage.',
+      'Prefer hints over complete secrets when you can.',
+      'Review notes occasionally and delete what you no longer need.',
+    ],
+    tip: 'If a note would be catastrophic if leaked, it belongs on SeedMask — and nowhere that auto-syncs.',
+  },
+  {
+    id: '2fa',
+    index: '03',
+    title: '2FA authenticator',
+    lead: 'Store TOTP secrets on SeedMask and show one-time codes on the 3.5″ screen — air-gapped from the browser.',
+    graphic: '2fa',
+    body: [
+      'Authenticator apps on phones are better than SMS — but the phone is still online, lost, reset, and backed up in ways you may not control. SeedMask can hold TOTP secrets and display codes only when you unlock and open them on the device.',
+      'That pairs well with exchange and email accounts that already demand 2FA. The code lives behind your PIN and physical device, not in a notification shade on a compromised handset.',
+    ],
+    advice: [
+      'Add 2FA for exchanges, email, and password managers first.',
+      'Save issuer backup codes offline (paper/metal) when the service offers them.',
+      'Confirm you can still log in before you remove an old authenticator.',
+      'Do not leave the TOTP secret in email or screenshots after setup.',
+    ],
+    tip: '2FA on SeedMask raises the bar: stealing a password alone is no longer enough if the second factor never leaves the vault.',
+  },
+  {
+    id: 'passphrase',
+    index: '04',
+    title: 'Passphrase',
+    lead: 'Add a BIP39 passphrase for layered wallets. Enter it only on SeedMask — it never leaves the device.',
+    graphic: 'pass',
+    body: [
+      'A passphrase (sometimes called a “25th word”) combines with your seed to derive a different wallet. The same seed with no passphrase is not the same vault as the same seed with a passphrase.',
+      'People use this for stronger isolation or plausible deniability. Both uses fail if you forget the passphrase, mistype it into the wrong place, or store it less carefully than the seed itself.',
+    ],
+    advice: [
+      'Only enable a passphrase if you will back it up as carefully as the seed.',
+      'Enter and confirm it on the device — never in Coordinator or a browser.',
+      'Test recovery with a tiny amount before you rely on a passphrase wallet.',
+      'Remember: lose the passphrase and that wallet is gone, even with the seed.',
+    ],
+    tip: 'Passphrase is power with sharp edges. If you are unsure, use seed-only until your backup discipline is rock solid.',
+  },
+  {
+    id: 'bip85',
+    index: '05',
+    title: 'BIP85 child seeds',
+    lead: 'Derive child mnemonics from your master seed for separate wallets — the parent stays on SeedMask.',
+    graphic: 'bip85',
+    body: [
+      'BIP85 lets you generate child seeds from a master seed in a deterministic way. That can help you spin up separate wallets for different purposes without inventing unrelated backups from scratch.',
+      'The master remains the root of recovery for those children. That is convenient — and it means the master backup is even more important. Compromising the master compromises the tree.',
+    ],
+    advice: [
+      'Keep a clear map of which child index is for which purpose.',
+      'Do not treat child seeds as “disposable” if they will hold real funds.',
+      'Protect the master seed as the recovery root for the whole family.',
+      'Prefer documented indexes over improvising new ones under stress.',
+    ],
+    tip: 'BIP85 is organization for advanced users. Master-seed discipline still rules everything downstream.',
+  },
+  {
+    id: 'stateless',
+    index: '06',
+    title: 'Temporary / Stateless',
+    lead: 'Keep nothing lasting on the device. Wipe the seed and SeedMask behaves like new again — recovery lives in your offline backup.',
+    graphic: 'temp',
+    body: [
+      'Stateless use means the device does not need to retain your wallet between sessions. When you wipe the seed from SeedMask, nothing sensitive should remain on it — the unit acts like a fresh device until you restore again.',
+      'That is useful if you want the hardware itself to hold no lasting custody state: travel, shared handling, or a deliberate “empty vault” habit. Many people run this as their primary model — not a toy mode — as long as their seed (and passphrase, if any) backup is solid and private.',
+      'Funds are not stored “in” the wiped device. They follow the seed. Wipe carefully, restore carefully, and confirm every send on-screen the same as always.',
+    ],
+    advice: [
+      'Treat your offline seed backup as the real vault — the device is the signer.',
+      'Wipe when you want the hardware empty; restore only when you need to sign or receive.',
+      'Practice restore with a small test before you rely on the ritual under stress.',
+      'Still confirm amount and destination on the 3.5″ screen every time.',
+    ],
+    tip: 'Once the seed is wiped, SeedMask should act as new. Your backup — not the device memory — is what keeps you whole.',
+  },
+  {
+    id: 'air-gapped',
+    index: '07',
+    title: 'Air-gapped · QR & MicroSD',
+    lead: 'Move unsigned and signed data without putting SeedMask on your everyday network — via QR codes or a MicroSD card.',
+    graphic: 'airgap',
+    body: [
+      'Air-gapped signing means the keys stay offline while you still complete real transactions. Coordinator prepares; SeedMask authorizes; the result goes back out for broadcast.',
+      'QR is fast for many flows: show or scan what needs to cross the gap. MicroSD helps when payloads are larger or you prefer a physical handoff. Either way, the point is the same — the signing brain does not need Wi‑Fi sitting next to your browser.',
+    ],
+    advice: [
+      'Always read amount and destination on the SeedMask screen before approving.',
+      'Prefer a known-good MicroSD reserved for wallet work when you use cards.',
+      'Do not photograph seed words “to make QR easier later.”',
+      'If a transfer looks wrong on-device, reject it — never approve from habit.',
+    ],
+    tip: 'QR and MicroSD are transport. Confirmation on the 3.5″ screen is still the security boundary.',
+  },
+  {
+    id: 'backup-code',
+    index: '08',
+    title: 'Backup code',
+    lead: 'A compact restore path for your seed — built for easier recovery when you need the vault back on a wiped or new device.',
+    graphic: 'backup',
+    body: [
+      'Writing twenty-four words carefully is the classic backup. A backup code is meant to make restoration less painful when you must bring a wiped SeedMask — or a replacement unit — back to a working signer.',
+      'It does not remove the need for offline, private storage. Anyone who can read the backup code can recreate the wallet. Treat it with the same seriousness as the seed itself: offline media, private place, verified copy.',
+    ],
+    advice: [
+      'Create and verify the backup code before you rely on a wipe-and-restore habit.',
+      'Store it offline — never in cloud notes, email, or screenshots.',
+      'Test restore once with funds you can afford to practice on.',
+      'If you also use a passphrase, back that up with equal care.',
+    ],
+    tip: 'Backup code is convenience for recovery — not permission to get sloppy with where the code lives.',
+  },
+  {
+    id: 'advanced',
+    index: '09',
+    title: 'Advanced options',
+    lead: 'Deeper controls: advanced password creation, passphrase & BIP85 combinations, duress unlock paths, and attempt limits.',
+    graphic: 'advanced',
+    body: [
+      'Advanced options are for people who already understand seed, PIN, and backup basics. They add power — and more ways to confuse yourself if you skip documentation and practice.',
+    ],
+    sections: [
+      {
+        title: 'Advanced password creation',
+        body: 'Inside the password manager, advanced creation lets you set stricter generation rules — length, character sets, and patterns that match what a site will accept — while still keeping the secret on SeedMask until you approve reveal or send.',
+        points: [
+          'Generate on-device; do not invent “clever” passwords by hand.',
+          'Match site rules without weakening length when you can avoid it.',
+        ],
+      },
+      {
+        title: 'Passphrase + BIP85 ≠ BIP85 temporary + passphrase',
+        body: 'These are different setups with different recovery stories. Do not mix them up under stress.',
+        points: [
+          'Passphrase on your master seed derives a different wallet from that same mnemonic. Recovery = master seed words + that passphrase.',
+          'BIP85 creates a child mnemonic from the master. That child can be used on its own (including as a temporary / wiped session).',
+          'A BIP85 child used as a temporary wallet, then unlocked with a passphrase on that child, is not the same wallet as “master seed + passphrase,” and not the same as “master + BIP85 index” without the child’s passphrase.',
+          'Write down which path you used: master+passphrase, BIP85 index, and whether a passphrase applies to the child. Wrong combination = empty wallet.',
+        ],
+      },
+      {
+        title: 'Duress mode',
+        body: 'A duress PIN or password opens an alternate path when you are forced to unlock. SeedMask can present different duress types so the device does not hand over your real vault.',
+        points: [
+          'No-crypto — unlock looks normal but crypto signing / vault access is not your real wallet path.',
+          'Games — the device opens into a benign diversion instead of custody tools.',
+          'Decoy — a plausible alternate wallet or workspace that is not your primary funds.',
+          'Rehearse your duress choice. Under pressure you will use whatever you practiced — or freeze.',
+        ],
+      },
+      {
+        title: 'Attempt limit',
+        body: 'Control what a thief sees on the lock screen while they guess, and what the device does when guesses run out.',
+        points: [
+          'Show or hide remaining attempts on the locked screen.',
+          'Wipe silently when the limit is hit — so the hardware empties without a dramatic countdown theater.',
+          'Silent wipe only helps if your backup code / seed backup is intact and reachable by you alone.',
+        ],
+      },
+    ],
+    advice: [
+      'Turn on advanced options only after seed backup and restore are proven.',
+      'Document passphrase vs BIP85 vs duress choices offline — briefly, privately.',
+      'Practice duress unlock once so muscle memory matches your plan.',
+      'Silent wipe without a tested backup is a self-destruct button.',
+    ],
+    tip: 'Advanced features multiply outcomes. Clarity on paper beats cleverness in your head.',
+  },
+];
+---
+
+<BaseLayout
+  title="SeedMask Features — password manager, notes, 2FA & more"
+  description="Explore SeedMask features: air-gapped QR & MicroSD, backup code, password manager, notes, 2FA, passphrase, BIP85, stateless mode, duress, and advanced options."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">Features</p>
+      <h1>SeedMask Features</h1>
+      <p>
+        Beyond signing Bitcoin and Kaspa — air-gapped transport, backup, vault tools, and advanced controls on the 3.5″ device.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container feature-explorer" data-feature-explorer>
+      <p class="feature-explorer-hint">Select a feature for the full walkthrough.</p>
+      <div class="feature-mosaic">
+        {
+          features.map((feature) => (
+            <article
+              class="feature-tile"
+              id={feature.id}
+              data-feature-tile={feature.id}
+            >
+              <button
+                type="button"
+                class="feature-tile-trigger"
+                data-feature-trigger={feature.id}
+                aria-expanded="false"
+                aria-controls={`feature-panel-${feature.id}`}
+              >
+                <div class={`feature-graphic graphic-${feature.graphic}`} aria-hidden="true">
+                  {feature.graphic === 'passwords' && (
+                    <div class="pass-steps">
+                      <span>Create</span>
+                      <span>Store</span>
+                      <span>Send</span>
+                    </div>
+                  )}
+                  {feature.graphic === 'notes' && (
+                    <div class="note-sheet">
+                      <b>Secure note</b>
+                      <i /><i /><i />
+                    </div>
+                  )}
+                  {feature.graphic === '2fa' && (
+                    <div class="totp-card">
+                      <strong>482 913</strong>
+                      <em>TOTP · 30s</em>
+                    </div>
+                  )}
+                  {feature.graphic === 'pass' && (
+                    <div class="pass-layers">
+                      <i>Seed</i>
+                      <i>+ Passphrase</i>
+                      <i>Hidden wallet</i>
+                    </div>
+                  )}
+                  {feature.graphic === 'bip85' && (
+                    <div class="bip-tree">
+                      <b>Master</b>
+                      <div>
+                        <s>Child A</s>
+                        <s>Child B</s>
+                        <s>Child C</s>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'temp' && (
+                    <div class="temp-card">
+                      <span>Stateless</span>
+                      <strong>Wipe the seed</strong>
+                      <em>Device acts as new</em>
+                    </div>
+                  )}
+                  {feature.graphic === 'airgap' && (
+                    <div class="airgap-pair">
+                      <span>QR</span>
+                      <em>or</em>
+                      <span>MicroSD</span>
+                    </div>
+                  )}
+                  {feature.graphic === 'backup' && (
+                    <div class="backup-code-card">
+                      <strong>Backup code</strong>
+                      <em>Restore · verify · keep offline</em>
+                    </div>
+                  )}
+                  {feature.graphic === 'advanced' && (
+                    <div class="advanced-chips">
+                      <span>Passwords</span>
+                      <span>Duress</span>
+                      <span>Attempts</span>
+                    </div>
+                  )}
+                </div>
+                <span class="pillar-index">{feature.index}</span>
+                <h2>{feature.title}</h2>
+                <p>{feature.lead}</p>
+                <span class="feature-tile-more" aria-hidden="true">
+                  <span class="feature-tile-more-open">Read more</span>
+                  <span class="feature-tile-more-close">Close</span>
+                </span>
+              </button>
+
+              <div
+                class="feature-tile-panel"
+                id={`feature-panel-${feature.id}`}
+                data-feature-panel={feature.id}
+                hidden
+              >
+                {feature.body.map((p) => <p class="feature-panel-copy">{p}</p>)}
+                {feature.sections && (
+                  <div class="feature-sections">
+                    {feature.sections.map((section) => (
+                      <section class="feature-section">
+                        <h3>{section.title}</h3>
+                        <p>{section.body}</p>
+                        {section.points && (
+                          <ul>
+                            {section.points.map((point) => (
+                              <li>{point}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </section>
+                    ))}
+                  </div>
+                )}
+                <div class="feature-advice-block">
+                  <div class="feature-advice-head">
+                    <p class="feature-advice-label">Practical advice</p>
+                    <span class="feature-advice-count">{String(feature.advice.length).padStart(2, '0')} points</span>
+                  </div>
+                  <ol class="feature-advice">
+                    {feature.advice.map((item, ai) => (
+                      <li>
+                        <span class="feature-advice-num" aria-hidden="true">{String(ai + 1).padStart(2, '0')}</span>
+                        <span class="feature-advice-text">{item}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+                <p class="feature-tip">
+                  <span class="feature-tip-label">Keep in mind</span>
+                  {feature.tip}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <h2>Looking for firmware?</h2>
+          <p>Verify and download SeedMask device firmware when releases are published.</p>
+        </div>
+        <a class="btn btn-ghost" href="/features/firmware">Firmware →</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const root = document.querySelector('[data-feature-explorer]');
+    if (root) {
+      const tiles = [...root.querySelectorAll('[data-feature-tile]')];
+
+      const open = (id, { scroll = false } = {}) => {
+        tiles.forEach((tile) => {
+          const on = tile.getAttribute('data-feature-tile') === id;
+          const trigger = tile.querySelector('[data-feature-trigger]');
+          const panel = tile.querySelector('[data-feature-panel]');
+          tile.classList.toggle('is-open', on);
+          trigger?.setAttribute('aria-expanded', on ? 'true' : 'false');
+          if (panel) panel.hidden = !on;
+        });
+        history.replaceState(null, '', `#${id}`);
+        if (scroll) {
+          root.querySelector(`[data-feature-tile="${id}"]`)?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      };
+
+      root.querySelectorAll('[data-feature-trigger]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-feature-trigger');
+          const tile = root.querySelector(`[data-feature-tile="${id}"]`);
+          const already = tile?.classList.contains('is-open');
+          if (already) {
+            tile.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            const panel = tile.querySelector('[data-feature-panel]');
+            if (panel) panel.hidden = true;
+            history.replaceState(null, '', window.location.pathname);
+            return;
+          }
+          open(id, { scroll: true });
+        });
+      });
+
+      const hash = location.hash.replace('#', '');
+      if (hash && root.querySelector(`[data-feature-tile="${hash}"]`)) {
+        open(hash);
+      }
+    }
+  </script>
+</BaseLayout>

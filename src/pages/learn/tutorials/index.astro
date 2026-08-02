@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import DeviceScene from '../../../components/DeviceScene.astro';
+---
+
+<BaseLayout
+  title="SeedMask tutorials — Learn"
+  description="SeedMask setup and air-gapped signing tutorials — first boot, Coordinator pairing, and offline sends."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">Learn · Tutorials</p>
+      <h1>SeedMask tutorials</h1>
+      <p>Practical walkthroughs for the full loop — 3.5″ device, Coordinator, and air-gapped signing.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container tut-grid-cards">
+      <a class="tut-card" href="/learn/tutorials/unbox-first-boot">
+        <div class="tut-card-media tut-card-media-scene">
+          <DeviceScene scene="unbox" compact />
+        </div>
+        <div class="tut-card-body">
+          <span class="learn-card-meta">01 · Hardware</span>
+          <h3>Unbox &amp; first boot</h3>
+          <p>Initialize SeedMask offline, verify the device path, and secure your seed with a clear checklist.</p>
+          <span class="learn-card-cta">Open tutorial →</span>
+        </div>
+      </a>
+      <a class="tut-card" href="/learn/tutorials/connect-coordinator">
+        <div class="tut-card-media tut-card-media-scene">
+          <DeviceScene scene="connect" compact />
+        </div>
+        <div class="tut-card-body">
+          <span class="learn-card-meta">02 · Coordinator</span>
+          <h3>Connect Coordinator</h3>
+          <p>Create a watch-only Bitcoin or Kaspa wallet on desktop without importing private keys.</p>
+          <span class="learn-card-cta">Open tutorial →</span>
+        </div>
+      </a>
+      <a class="tut-card" href="/learn/tutorials/air-gapped-send">
+        <div class="tut-card-media tut-card-media-scene">
+          <DeviceScene scene="airgap" compact />
+        </div>
+        <div class="tut-card-body">
+          <span class="learn-card-meta">03 · Signing</span>
+          <h3>Air-gapped send</h3>
+          <p>Build an unsigned transaction, sign on SeedMask, return the signed transaction, and broadcast when you choose.</p>
+          <span class="learn-card-cta">Open tutorial →</span>
+        </div>
+      </a>
+    </div>
+    <div class="container" style="margin-top: 40px">
+      <a class="btn btn-ghost" href="/learn">← Learn hub</a>
+    </div>
+  </section>
+</BaseLayout>

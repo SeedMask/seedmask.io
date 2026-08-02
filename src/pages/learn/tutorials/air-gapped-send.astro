@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import DeviceScene from '../../../components/DeviceScene.astro';
+import TutorialWalkthrough from '../../../components/TutorialWalkthrough.astro';
+
+const steps = [
+  {
+    title: 'Build an unsigned transaction',
+    body: 'Open Send, enter the destination and amount, and review fees. Coordinator builds an unsigned transaction. Nothing has been authorized yet.',
+    graphic: 'unsigned' as const,
+  },
+  {
+    title: 'Move it to SeedMask',
+    body: 'Transfer the unsigned transaction to the device via the air-gap method SeedMask supports (for example QR). Keep the device offline from your everyday network habits.',
+    graphic: 'transfer' as const,
+  },
+  {
+    title: 'Confirm on the device screen',
+    body: 'Read the amount and destination on SeedMask itself. Approve only if every detail matches what you intended. Reject if anything differs.',
+    graphic: 'approve' as const,
+  },
+  {
+    title: 'Return signed TX and broadcast',
+    body: 'Bring the signed transaction back into Coordinator, then broadcast when you are ready. Coordinator never needed your seed to complete the send.',
+    graphic: 'broadcast' as const,
+  },
+];
+---
+
+<BaseLayout
+  title="Air-gapped send — SeedMask Tutorials"
+  description="Build an unsigned transaction in Coordinator, sign on SeedMask, and broadcast only after you confirm."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container learn-article-head">
+      <p class="eyebrow">Tutorials · 03</p>
+      <h1>Air-gapped send</h1>
+      <p>The full signing loop — unsigned on desktop, signed on SeedMask, then broadcast.</p>
+      <div class="learn-meta-row">
+        <span>~15 min</span>
+        <span>Signing</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="article-device article-device-scene">
+        <DeviceScene scene="airgap" />
+      </div>
+
+      <TutorialWalkthrough steps={steps} />
+    </div>
+  </section>
+</BaseLayout>

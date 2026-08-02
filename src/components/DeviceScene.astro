@@ -1,0 +1,76 @@
+---
+interface Props {
+  scene?: 'unbox' | 'connect' | 'airgap' | 'default';
+  compact?: boolean;
+}
+const { scene = 'default', compact = false } = Astro.props;
+---
+
+{
+  scene === 'unbox' ? (
+    <figure class={`device-stage stage-unbox${compact ? ' is-compact' : ''}`} aria-hidden="true">
+      <div class="stage-bg"></div>
+      <div class="stage-unbox-box">
+        <span class="stage-label">In the box</span>
+        <ul>
+          <li>SeedMask 3.5″</li>
+          <li>USB-C cable</li>
+          <li>Quick start</li>
+        </ul>
+      </div>
+      <div class="stage-device-wrap">
+        <img class="stage-device" src="/illustrations/device-35.png" alt="" width="840" height="560" />
+      </div>
+      <div class="stage-unbox-badge">
+        <strong>First boot</strong>
+        <span>Offline · PIN · Seed</span>
+      </div>
+    </figure>
+  ) : scene === 'connect' ? (
+    <figure class={`device-stage stage-connect${compact ? ' is-compact' : ''}`} aria-hidden="true">
+      <div class="stage-bg"></div>
+      <div class="stage-laptop">
+        <div class="stage-laptop-bar">
+          <i></i><i></i><i></i>
+          <span>SeedMask Coordinator</span>
+        </div>
+        <div class="stage-laptop-body">
+          <div class="stage-laptop-row">
+            <img src="/branding/bitcoin-btc-logo.png" alt="" />
+            <img src="/branding/kaspa-kas-logo.png" alt="" />
+            <em>Watch-only</em>
+          </div>
+          <strong>100,000 KAS</strong>
+          <span>≈ $2,800 · no private keys</span>
+        </div>
+      </div>
+      <div class="stage-device-wrap stage-device-float">
+        <img class="stage-device" src="/illustrations/device-35.png" alt="" width="840" height="560" />
+      </div>
+      <div class="stage-link-line"></div>
+      <div class="stage-connect-chip">Public info only →</div>
+    </figure>
+  ) : scene === 'airgap' ? (
+    <figure class={`device-stage stage-airgap${compact ? ' is-compact' : ''}`} aria-hidden="true">
+      <div class="stage-bg"></div>
+      <div class="stage-qr-panel">
+        <div class="stage-qr"></div>
+        <span>Unsigned TX</span>
+      </div>
+      <div class="stage-gap-rail">
+        <span>Air gap</span>
+      </div>
+      <div class="stage-device-wrap">
+        <img class="stage-device" src="/illustrations/device-35.png" alt="" width="840" height="560" />
+      </div>
+      <div class="stage-qr-panel stage-qr-signed">
+        <div class="stage-qr signed"></div>
+        <span>Signed TX</span>
+      </div>
+    </figure>
+  ) : (
+    <figure class={`device-stage stage-default${compact ? ' is-compact' : ''}`} aria-hidden="true">
+      <img class="stage-device" src="/illustrations/device-35.png" alt="" width="840" height="560" />
+    </figure>
+  )
+}

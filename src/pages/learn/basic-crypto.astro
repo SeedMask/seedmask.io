@@ -1,0 +1,389 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BasicsGraphic from '../../components/BasicsGraphic.astro';
+
+const topics = [
+  {
+    id: 'keys',
+    label: 'What a key is',
+    title: 'What a key is',
+    lead: 'Custody is about who can produce a valid signature — not who has a pretty balance screen.',
+    body: [
+      'Your seed phrase and private keys are the authority to spend. Whoever can use them can move funds, even if they never touch your phone, exchange account, or Coordinator install.',
+      'Public addresses and balances can be watched safely. Private keys cannot. If a key leaves the place you trust, assume the funds are at risk.',
+    ],
+    points: [
+      'Seed + private keys = spending power',
+      'A balance screen alone cannot move coins',
+      'SeedMask keeps signing authority on the device',
+    ],
+    callout: 'SeedMask keeps that authority on the device, not in a browser tab.',
+    graphic: 'keys',
+    moreTitle: 'Public vs private in practice',
+    moreBody: [
+      'Anyone can know your receive address. That is how people pay you. What they must not get is the material that creates signatures.',
+      'Hardware wallets exist to keep that signing material offline and to force every spend through a human-readable confirmation on a dedicated screen.',
+    ],
+    moreGraphic: 'keys-more',
+  },
+  {
+    id: 'seed-storage',
+    label: 'Seed storage',
+    title: 'Seed storage',
+    lead: 'Your seed is a backup of the vault — not a password for apps.',
+    body: [
+      'Store the seed offline on paper, metal, or another durable medium you control. Never photograph it, never sync it to cloud notes, and never paste it into a computer or phone.',
+      'Physical copies still need privacy: a drawer, a safe, or a split plan you understand. If someone else can read the words, they can recreate the wallet.',
+    ],
+    points: [
+      'Offline only — no photos, no cloud',
+      'Treat the backup like the funds themselves',
+      'Write carefully, verify order, store privately',
+    ],
+    callout: 'If someone else can read your seed, they can recreate the wallet.',
+    graphic: 'storage',
+    moreTitle: 'Good media vs bad habits',
+    moreBody: [
+      'Paper works if it stays dry, private, and readable for years. Metal survives fire and flood better. Cloud notes, screenshots, and email drafts do not count as storage — they count as exposure.',
+      'When you write the words, verify the order twice before you power the device down. A wrong backup is almost as bad as no backup.',
+    ],
+    moreGraphic: 'storage-more',
+  },
+  {
+    id: 'seed-entropy',
+    label: 'Seed entropy',
+    title: 'Seed entropy',
+    lead: 'Entropy is the randomness that makes a seed unpredictable.',
+    body: [
+      'A strong seed needs enough genuine randomness — not a phrase you invented, not a pattern, and not something generated on a compromised or untrusted online device.',
+      'Weak entropy looks fine until it is not: guessable words, reused patterns, and “creative” DIY methods shrink the search space for an attacker.',
+    ],
+    points: [
+      'Prefer device-generated entropy on first boot',
+      'Do not invent or recycle seed phrases',
+      'Write the result offline after creation',
+    ],
+    callout: 'Guessable or recycled entropy is not a backup plan — it is an open door.',
+    graphic: 'entropy',
+    moreTitle: 'Where the randomness should come from',
+    moreBody: [
+      'The safest default is to let SeedMask create the seed during first boot, then copy the words offline. That keeps generation away from browsers, phone apps, and “random” websites.',
+      'If you restore an existing seed, you are trusting whatever process created it. Treat that history as part of your security story.',
+    ],
+    moreGraphic: 'entropy-more',
+  },
+  {
+    id: 'passphrase',
+    label: 'Passphrase',
+    title: 'Passphrase',
+    lead: 'An optional extra secret that turns one seed into another wallet.',
+    body: [
+      'A passphrase (sometimes called a “25th word”) combines with your seed to derive a different wallet. The same seed with no passphrase is a different set of accounts than the same seed with a passphrase.',
+      'If you lose the passphrase, that wallet is gone — even if you still have every seed word. If someone learns only the seed, they still cannot open the passphrase wallet without that extra secret.',
+    ],
+    points: [
+      'Optional — not required for normal use',
+      'Must be backed up as carefully as the seed',
+      'Easy to mistype; confirm on-device carefully',
+    ],
+    callout: 'Only use a passphrase if you will store and remember it as carefully as the seed itself.',
+    graphic: 'passphrase',
+    moreTitle: 'One seed, two different vaults',
+    moreBody: [
+      'Think of the passphrase as a second factor for derivation, not a login PIN. Wallet A (seed only) and Wallet B (seed + passphrase) do not share balances.',
+      'People use passphrases for plausible deniability or stricter isolation. Both uses fail if the passphrase is forgotten, mistyped into the wrong place, or stored less carefully than the seed.',
+    ],
+    moreGraphic: 'passphrase-more',
+  },
+  {
+    id: 'hot-cold',
+    label: 'Hot vs cold',
+    title: 'Hot vs cold',
+    lead: 'Hot can sign while online. Cold keeps keys offline.',
+    body: [
+      'Software that can sign while connected to the internet is hot. Convenient, and exposed to the same malware and phishing surface as the rest of your computer.',
+      'A cold device keeps keys offline and only signs after you confirm on its screen. That is the pattern SeedMask follows: your everyday machine can help watch and prepare, without holding the keys.',
+    ],
+    points: [
+      'Hot = keys reachable by online software',
+      'Cold = keys stay offline until you approve',
+      'SeedMask is the cold half of the duo',
+    ],
+    callout: 'Your laptop can stay useful for watching — without holding the keys that authorize spends.',
+    graphic: 'hotcold',
+    moreTitle: 'How the two sides work together',
+    moreBody: [
+      'Coordinator lives on the hot side: balances, history, unsigned transactions. SeedMask lives on the cold side: review and signature.',
+      'The handoff is deliberate. Convenience stays on the computer. Final authority stays on the device you can read with your eyes.',
+    ],
+    moreGraphic: 'hotcold-more',
+  },
+  {
+    id: 'watch-only',
+    label: 'Watch-only',
+    title: 'Watch-only',
+    lead: 'See balances and build unsigned transactions — without the power to spend.',
+    body: [
+      'A watch-only app can see public wallet state and help you construct unsigned transactions, but it cannot spend without a signature from a key it does not hold.',
+      'SeedMask Coordinator is built that way on purpose. It is a control surface for preparation and broadcast, not a place that should ever ask for your seed.',
+    ],
+    points: [
+      'Public info in, signatures from the device',
+      'Never enter a seed into Coordinator',
+      'If an app asks for seed words, stop',
+    ],
+    callout: 'Seeing funds is not the same as moving funds.',
+    graphic: 'watch',
+    moreTitle: 'What watch-only is allowed to do',
+    moreBody: [
+      'It can sync, label wallets, propose sends, and later broadcast a signed transaction. It cannot invent a valid signature for a key it never received.',
+      'That is why the unsigned transaction must cross to SeedMask. Until the device signs, nothing is authorized.',
+    ],
+    moreGraphic: 'watch-more',
+  },
+  {
+    id: 'air-gaps',
+    label: 'Air gaps',
+    title: 'Air gaps',
+    lead: 'The signing brain stays off your everyday network path.',
+    body: [
+      'An air gap means the signing device is not continuously online with your everyday computer. You move unsigned data to the device, sign there, and bring the signature back.',
+      'That separation is the point: malware on a laptop can still lie about what it shows you, which is why you confirm amount and destination on SeedMask itself before approving.',
+    ],
+    points: [
+      'Unsigned data → SeedMask',
+      'Confirm on the device screen',
+      'Signed data → Coordinator → broadcast',
+    ],
+    callout: 'Keys never need to ride along with your daily internet habits.',
+    graphic: 'airgap',
+    moreTitle: 'The full loop, one beat at a time',
+    moreBody: [
+      'Prepare on Coordinator. Transfer to SeedMask. Read the screen. Approve or reject. Return the signed result. Broadcast only after that.',
+      'Each beat exists so a compromised desktop cannot silently spend. The air gap is friction on purpose.',
+    ],
+    moreGraphic: 'airgap-more',
+  },
+  {
+    id: 'stateless',
+    label: 'Stateless vs stateful',
+    title: 'Stateless vs stateful',
+    lead: 'How much wallet memory lives on the device between sessions.',
+    body: [
+      'A stateful device remembers more wallet data between sessions. Convenient, but the device itself becomes a denser store of account history and configuration.',
+      'A more stateless approach keeps less durable account state on the signer and leans on your seed (and optional passphrase) plus what you bring in when you need to sign. Losing or wiping the device is less catastrophic if your backup is intact.',
+    ],
+    points: [
+      'Stateful = more remembered on-device',
+      'Stateless = backup + session data do more of the work',
+      'Either way, the seed remains the recovery root',
+    ],
+    callout: 'The device is the tool that signs — not the only copy of your money.',
+    graphic: 'stateless',
+    moreTitle: 'Why the backup still rules',
+    moreBody: [
+      'If the device breaks, you should still recover from seed (and passphrase, if you use one). That is the recovery contract.',
+      'Designing around that contract means treating on-device memory as helpful, not sacred. The sacred copy is the offline backup you control.',
+    ],
+    moreGraphic: 'stateless-more',
+  },
+  {
+    id: 'chains',
+    label: 'Bitcoin & Kaspa',
+    title: 'Bitcoin & Kaspa',
+    lead: 'Two chains, one focused product surface.',
+    body: [
+      'SeedMask focuses on Bitcoin and Kaspa so confirmations and signing flows stay sharp. Supporting every coin often means more code paths, more UI variants, and more ways a rushed confirmation can go wrong.',
+      'Focus is a security choice as much as a product choice: fewer chains, clearer screens, less surface area.',
+    ],
+    points: [
+      'Bitcoin for the base monetary network',
+      'Kaspa as a first-class peer chain',
+      'Less surface area, clearer confirmations',
+    ],
+    callout: 'More chains is not always more security — it is more surface area.',
+    graphic: 'chains',
+    moreTitle: 'Why “only two” is intentional',
+    moreBody: [
+      'Every added chain adds address formats, fee idioms, edge cases, and confirmation copy. That is mental load at the exact moment you should be careful.',
+      'SeedMask keeps the product surface narrow so the screen you trust can stay readable under pressure.',
+    ],
+    moreGraphic: 'chains-more',
+  },
+  {
+    id: 'kaspa',
+    label: 'Kaspa',
+    title: 'Kaspa',
+    lead: 'A proof-of-work network organized as a BlockDAG — many blocks can advance in parallel.',
+    body: [
+      'Unlike a single-file blockchain tip, Kaspa’s BlockDAG lets multiple blocks be created and referenced in parallel. That design targets high throughput while staying in the proof-of-work family.',
+      'For custody, the mental model stays familiar: you control keys, you confirm sends, and you do not skip the device screen because blocks are fast.',
+    ],
+    points: [
+      'BlockDAG = parallel blocks, not only one tip',
+      'Proof-of-work with high-throughput design goals',
+      'Cold signed on SeedMask like Bitcoin',
+    ],
+    callout: 'Fast blocks do not change the confirm-on-device rule.',
+    graphic: 'blockdag',
+    moreTitle: 'What parallel blocks mean for you',
+    moreBody: [
+      'In a classic chain, blocks usually form one line. In a BlockDAG, several blocks can exist side by side and point to more than one parent, then get ordered by the protocol’s consensus rules.',
+      'As a SeedMask user, you still verify amount and destination offline before signing. Network structure changes speed and throughput — not who is allowed to spend your coins.',
+    ],
+    moreGraphic: 'kaspa-more',
+  },
+  {
+    id: 'open-source',
+    label: 'Open-source vs closed-source',
+    title: 'Open-source vs closed-source',
+    lead: 'Who can inspect the code that touches your keys.',
+    body: [
+      'Open-source means independent people can inspect how the software behaves. Closed-source asks you to trust a vendor’s word, binaries, and update channel.',
+      'For wallets, transparency matters because bugs and backdoors hide in complexity. Prefer tools you can verify, published release hashes, and a clear path to check what you install.',
+    ],
+    points: [
+      'Open = inspectable behavior',
+      'Closed = trust the vendor’s black box',
+      'Verify releases whenever you can',
+    ],
+    callout: 'Especially verify anything that touches keys or signing.',
+    graphic: 'opensource',
+    moreTitle: 'Verification is part of custody',
+    moreBody: [
+      'Open source is not magic safety by itself — but it makes independent review possible. Closed source forces a narrower trust bet on the vendor.',
+      'When you install Coordinator or firmware-related tools, treat published hashes and release notes as part of the ritual, not optional homework.',
+    ],
+    moreGraphic: 'opensource-more',
+  },
+];
+---
+
+<BaseLayout
+  title="Basic crypto know-how — SeedMask Learn"
+  description="A plain-language introduction to keys, wallets, and air-gapped self-custody — the ideas behind SeedMask."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container learn-article-head">
+      <p class="eyebrow">Learn · Fundamentals</p>
+      <h1>Basic crypto know-how</h1>
+      <p>The minimum mental model you need before trusting a hardware wallet with real funds.</p>
+      <div class="learn-meta-row">
+        <span>Reading time · ~15 min</span>
+        <span>Updated for SeedMask V1</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container learn-layout basics-edu" data-basics-explorer>
+      <aside class="learn-toc basics-toc" aria-label="Topics">
+        <p class="eyebrow">On this page</p>
+        {
+          topics.map((topic, i) => (
+            <button
+              type="button"
+              class={`basics-toc-btn${i === 0 ? ' is-active' : ''}`}
+              data-basics-topic={topic.id}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+            >
+              {topic.label}
+            </button>
+          ))
+        }
+      </aside>
+
+      <div class="basics-panels">
+        {
+          topics.map((topic, i) => (
+            <article
+              class={`basics-panel${i === 0 ? ' is-active' : ''}`}
+              data-basics-panel={topic.id}
+              hidden={i !== 0}
+            >
+              <div class={`basics-panel-art${topic.graphic === 'blockdag' ? ' basics-panel-art-dag' : ''}`} aria-hidden="true">
+                <BasicsGraphic name={topic.graphic} />
+              </div>
+
+              <div class="basics-panel-copy">
+                <p class="basics-panel-kicker">Topic</p>
+                <h2 id={topic.id}>{topic.title}</h2>
+                <p class="basics-panel-lead">{topic.lead}</p>
+                {topic.body.map((p) => <p>{p}</p>)}
+                <ul class="basics-panel-points">
+                  {topic.points.map((point) => <li>{point}</li>)}
+                  <li class="basics-panel-point-callout">{topic.callout}</li>
+                </ul>
+              </div>
+
+              <div class="basics-more">
+                <div class="basics-more-art" aria-hidden="true">
+                  <BasicsGraphic name={topic.moreGraphic} size="more" />
+                </div>
+                <div class="basics-more-copy">
+                  <p class="basics-panel-kicker">Going further</p>
+                  <h3>{topic.moreTitle}</h3>
+                  {topic.moreBody.map((p) => <p>{p}</p>)}
+                </div>
+              </div>
+            </article>
+          ))
+        }
+
+        <p style="margin-top: 28px">
+          <a class="btn btn-ghost" href="/learn">← Learn hub</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const root = document.querySelector('[data-basics-explorer]');
+    if (root) {
+      const buttons = [...root.querySelectorAll('[data-basics-topic]')];
+      const panels = [...root.querySelectorAll('[data-basics-panel]')];
+
+      const headerOffset = () => {
+        const raw = getComputedStyle(document.documentElement).getPropertyValue('--header-h').trim();
+        const header = Number.parseFloat(raw) || 88;
+        return header + 16;
+      };
+
+      const show = (id, { scroll = false } = {}) => {
+        buttons.forEach((btn) => {
+          const on = btn.getAttribute('data-basics-topic') === id;
+          btn.classList.toggle('is-active', on);
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        let activePanel = null;
+        panels.forEach((panel) => {
+          const on = panel.getAttribute('data-basics-panel') === id;
+          panel.classList.toggle('is-active', on);
+          panel.hidden = !on;
+          if (on) activePanel = panel;
+        });
+        history.replaceState(null, '', `#${id}`);
+        if (!scroll || !activePanel) return;
+
+        // Only nudge when the panel top is above the sticky header —
+        // avoid yanking the page further up than needed.
+        const top = activePanel.getBoundingClientRect().top;
+        const offset = headerOffset();
+        if (top < offset - 2) {
+          window.scrollBy({ top: top - offset, behavior: 'smooth' });
+        }
+      };
+
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+          event.preventDefault();
+          show(btn.getAttribute('data-basics-topic'), { scroll: true });
+          btn.focus({ preventScroll: true });
+        });
+      });
+
+      const hash = location.hash.replace('#', '');
+      if (hash && root.querySelector(`[data-basics-panel="${hash}"]`)) show(hash);
+    }
+  </script>
+</BaseLayout>

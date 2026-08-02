@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import DeviceScene from '../../../components/DeviceScene.astro';
+import TutorialWalkthrough from '../../../components/TutorialWalkthrough.astro';
+
+const steps = [
+  {
+    title: 'Power on and inspect',
+    body: 'Confirm the device boots to the SeedMask screen and that packaging seals look intact. If anything feels off, stop and contact support before continuing.',
+    graphic: 'power' as const,
+  },
+  {
+    title: 'Verify the firmware path',
+    body: 'Follow the on-device prompts to view the firmware version and hash/fingerprint SeedMask displays. Compare it against the published value on seedmask.io when hardware ships. Do not skip this step on a new device.',
+    graphic: 'firmware' as const,
+  },
+  {
+    title: 'Create or restore a wallet',
+    body: 'Prefer creating a new seed on the device itself. Write the words on paper or metal, double-check order, and never type the seed into a computer or phone.',
+    graphic: 'seed' as const,
+  },
+  {
+    title: 'Set a PIN and confirm',
+    body: 'Choose a PIN you will remember offline. Confirm a small receive address on-device so you know the wallet was created correctly — still without connecting keys to the Coordinator.',
+    graphic: 'pin' as const,
+  },
+];
+---
+
+<BaseLayout
+  title="Unbox & first boot — SeedMask Tutorials"
+  description="Initialize SeedMask offline, verify firmware path, and secure your seed phrase."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container learn-article-head">
+      <p class="eyebrow">Tutorials · 01</p>
+      <h1>Unbox &amp; first boot</h1>
+      <p>Get SeedMask ready offline before the Coordinator ever enters the picture.</p>
+      <div class="learn-meta-row">
+        <span>~10 min</span>
+        <span>Hardware</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="article-device article-device-scene">
+        <DeviceScene scene="unbox" />
+      </div>
+
+      <div class="tut-need">
+        <h2>What you need</h2>
+        <ul>
+          <li>Your SeedMask device and a trusted power source</li>
+          <li>A private place to write your seed (never photograph it)</li>
+          <li>Optional: a second offline location for a backup copy</li>
+        </ul>
+      </div>
+
+      <TutorialWalkthrough steps={steps} />
+    </div>
+  </section>
+</BaseLayout>

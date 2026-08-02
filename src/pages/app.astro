@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CoordinatorMock from '../components/CoordinatorMock.astro';
+import ComingSoonButton from '../components/ComingSoonButton.astro';
+
+const downloads = {
+  macArm: '/downloads/SeedMask-Coordinator-1.0.0-arm64.dmg',
+  version: '1.0.0',
+};
+---
+
+<BaseLayout
+  title="App — SeedMask Coordinator"
+  description="Download SeedMask Coordinator — watch-only desktop app for Bitcoin and Kaspa. Build transactions on your computer. Sign on your SeedMask device. Run your own node."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">App</p>
+      <h1>SeedMask Coordinator</h1>
+      <p>
+        A watch-only desktop companion for SeedMask. See balances, manage addresses and coins, and prepare signing payloads — without ever holding your keys.
+      </p>
+      <div class="hero-actions" style="margin-top: 24px">
+        <a class="btn btn-primary" href="#download">Download</a>
+        <a class="btn btn-ghost" href="/products">Hardware overview</a>
+      </div>
+      <aside class="audit-banner" role="note">
+        <strong>Not audited yet.</strong>
+        <p>
+          SeedMask Coordinator is early software. It has not completed a third-party security audit and may contain bugs, errors, or incomplete behavior. Use demo amounts and test networks where possible. Do not rely on it as production-ready custody software until audits and maturity catch up.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-tight" id="download">
+    <div class="container">
+      <p class="eyebrow">Download</p>
+      <h2 class="section-title">Get Coordinator v{downloads.version}</h2>
+      <p class="section-lead">
+        Watch-only desktop app for macOS, Windows, and Linux. Private keys never enter the Coordinator — signing stays on SeedMask.
+      </p>
+      <div class="download-grid">
+        <a class="download-card" href={downloads.macArm} download>
+          <span class="download-os-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.7 3.2c-.9.1-2 .7-2.6 1.5-.6.7-1.1 1.8-.9 2.8 1 .1 2-.5 2.6-1.3.7-.8 1.1-1.9.9-3zm3.1 5.5c-1.8-1.1-4.5-.9-5.6.1-.7.6-1.4.6-2.1 0-1.4-1.2-4.1-1.3-5.8.1-2.6 2.1-2.1 6.9.6 10.1.9 1.1 2 2.4 3.5 2.4 1.3 0 1.7-.8 3.3-.8s1.9.8 3.3.8c1.5 0 2.5-1.2 3.4-2.3.7-.8 1-1.3 1.5-2.3-4-.9-4.6-5.4-.1-7.1z"/></svg>
+          </span>
+          <div>
+            <strong>macOS</strong>
+            <span>Apple Silicon · .dmg</span>
+          </div>
+          <span class="download-cta">Download</span>
+        </a>
+        <div class="download-card is-soon" aria-disabled="true">
+          <span class="download-os-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5h8.2V12H3V5.5zm9.8 0H21V12h-8.2V5.5zM3 13h8.2v6.5H3V13zm9.8 0H21v6.5h-8.2V13z"/></svg>
+          </span>
+          <div>
+            <strong>Windows</strong>
+            <span>Coming soon</span>
+          </div>
+          <span class="download-cta muted">Soon</span>
+        </div>
+        <div class="download-card is-soon" aria-disabled="true">
+          <span class="download-os-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.1 2.1c-1.2 1.5-1 3.5.4 4.7 1.3 1.1 3.3 1.1 4.3-.2 1.2-1.5 1-3.5-.4-4.7-1.3-1.1-3.2-1.1-4.3.2zm-7 10.4c-2.2 1.3-2.9 4.1-1.5 6.2 1.4 2 4.1 2.8 6.2 1.8.4-.2.8-.5 1.1-.8-.1-2.4 1.3-4.7 3.6-5.5-1.1-1.4-2.8-2.3-4.6-2.3-1.8 0-3.5.9-4.8 2.6zm9.4-.1c-2.1 0-4 1.4-4.7 3.4-.7 2 .2 4.2 2 5.3 1.9 1.1 4.3.9 5.9-.5 1.7-1.5 2.1-4 .9-5.9-1-1.5-2.9-2.3-4.1-2.3z"/></svg>
+          </span>
+          <div>
+            <strong>Linux</strong>
+            <span>Coming soon</span>
+          </div>
+          <span class="download-cta muted">Soon</span>
+        </div>
+      </div>
+      <p class="download-note">
+        Current build: macOS Apple Silicon (.dmg). Windows and Linux downloads will appear here when those packages are ready.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="coord-intro">
+        <div>
+          <p class="eyebrow">Interface</p>
+          <h2 class="section-title">Watch-only by architecture</h2>
+          <p class="section-lead">
+            The Coordinator tracks public wallet state and helps you build unsigned transactions you will sign on SeedMask. Private keys never enter the application.
+          </p>
+        </div>
+      </div>
+      <div class="coord-stage">
+        <CoordinatorMock />
+      </div>
+
+      <div class="pillars" style="margin-top: 40px">
+        <article class="pillar">
+          <span class="pillar-index">01</span>
+          <h3>Keys stay offline</h3>
+          <p>Your seed never enters Coordinator. Signing happens only on SeedMask.</p>
+        </article>
+        <article class="pillar">
+          <span class="pillar-index">02</span>
+          <h3>Review before you sign</h3>
+          <p>Check amount and destination on desktop, then confirm again on the device screen.</p>
+        </article>
+        <article class="pillar">
+          <span class="pillar-index">03</span>
+          <h3>Air-gapped end to end</h3>
+          <p>
+            Build an unsigned transaction on desktop, sign it on SeedMask, then bring the signed transaction back to broadcast — nothing spends without your on-device approval.
+          </p>
+        </article>
+        <article class="pillar">
+          <span class="pillar-index">04</span>
+          <h3>No hot wallet</h3>
+          <p>
+            Coordinator is watch-only by design. There is no hot wallet inside the app, so a compromised desktop cannot silently move funds.
+          </p>
+        </article>
+      </div>
+
+      <div class="prose" style="margin-top: 48px; max-width: 62ch">
+        <h2>Air-gapped signing story</h2>
+        <p>
+          Prepare a transaction on your computer. Move the unsigned payload to your SeedMask device. Confirm amounts and destinations on the device screen. Bring the signature back and broadcast when you are ready.
+        </p>
+        <h2>Built for Bitcoin &amp; Kaspa</h2>
+        <p>
+          One clear desktop view for the chains SeedMask supports — balances, history, addresses, and coin (UTXO) lists aligned with how you actually custody funds. Light and dark themes ship with the app; the mock above shows Light mode.
+        </p>
+      </div>
+
+      <section class="magic-panel magic-nodes" id="own-nodes">
+        <div class="magic-panel-copy">
+          <p class="eyebrow">Infrastructure</p>
+          <h2>Run your own nodes</h2>
+          <p>
+            Point Coordinator at Bitcoin Core or kaspad. Verify and broadcast without a third-party API — while signing still stays on SeedMask.
+          </p>
+          <p class="magic-note">Not affiliated with Bitcoin Core or kaspad.</p>
+        </div>
+        <div class="magic-nodes-visual" aria-hidden="true">
+          <div class="magic-orbit magic-orbit-a"></div>
+          <div class="magic-orbit magic-orbit-b"></div>
+          <div class="magic-core">
+            <img src="/branding/seedmask-mark.png" alt="" />
+            <span>Coordinator</span>
+          </div>
+          <div class="magic-beam magic-beam-left"></div>
+          <div class="magic-beam magic-beam-right"></div>
+          <div class="magic-leaf magic-leaf-btc">
+            <span class="magic-leaf-aura"></span>
+            <span class="magic-leaf-spark spark-1"></span>
+            <span class="magic-leaf-spark spark-2"></span>
+            <span class="magic-leaf-spark spark-3"></span>
+            <div class="magic-leaf-logo">
+              <img src="/branding/bitcoin-btc-logo.png" alt="" />
+            </div>
+            <strong>Bitcoin Core</strong>
+            <em>Your node · live</em>
+          </div>
+          <div class="magic-leaf magic-leaf-kas">
+            <span class="magic-leaf-aura"></span>
+            <span class="magic-leaf-spark spark-1"></span>
+            <span class="magic-leaf-spark spark-2"></span>
+            <span class="magic-leaf-spark spark-3"></span>
+            <div class="magic-leaf-logo">
+              <img src="/branding/kaspa-kas-logo.png" alt="" />
+            </div>
+            <strong>kaspad</strong>
+            <em>Your node · live</em>
+          </div>
+        </div>
+      </section>
+
+      <section class="magic-panel magic-mobile" id="mobile">
+        <div class="magic-mobile-glow" aria-hidden="true"></div>
+        <div class="magic-panel-copy">
+          <p class="eyebrow">Coming next</p>
+          <h2>Mobile app</h2>
+          <p>Android and iOS — watch-only. Keys stay on SeedMask.</p>
+        </div>
+        <div class="magic-phones" aria-hidden="true">
+          <div class="device-android">
+            <div class="device-android-cam"></div>
+            <div class="device-android-screen">
+              <div class="device-android-status">
+                <i></i><i></i><i></i>
+              </div>
+              <img src="/branding/seedmask-mark.png" alt="" />
+              <span>Android</span>
+              <div class="device-android-nav">
+                <b></b><b></b><b></b>
+              </div>
+            </div>
+          </div>
+          <div class="device-ios">
+            <div class="device-ios-island"></div>
+            <div class="device-ios-screen">
+              <img src="/branding/seedmask-mark.png" alt="" />
+              <span>iOS</span>
+              <div class="device-ios-home"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <h2>Hardware + Coordinator</h2>
+          <p>The full SeedMask loop: cold keys on device, watch-only control on desktop.</p>
+        </div>
+        <ComingSoonButton href="/products" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

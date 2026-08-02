@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Blog — SeedMask Learn"
+  description="Product and security notes from SeedMask."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">Learn · Blog</p>
+      <h1>Notes from the product</h1>
+      <p>Short, careful writing on direction, watch-only design, and the air-gap workflow.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container blog-grid-cards">
+      {
+        posts.map((post) => (
+          <a class="blog-card" href={`/learn/blog/${post.id}`}>
+            <div class="blog-card-media">
+              <img src={post.data.cover ?? '/illustrations/learn-blog.png'} alt="" />
+            </div>
+            <div class="blog-card-body">
+              <time>
+                {post.data.pubDate.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  timeZone: 'UTC',
+                })}
+              </time>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <span class="learn-card-cta">Read article →</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+    <div class="container" style="margin-top: 40px">
+      <a class="btn btn-ghost" href="/learn">← Learn hub</a>
+    </div>
+  </section>
+</BaseLayout>
