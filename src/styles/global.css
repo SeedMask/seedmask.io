@@ -907,6 +907,16 @@ p {
 }
 
 .coord-stage {
+  --coord-design-w: 920;
+  --coord-design-h: 680;
+  --coord-s: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.coord-scale {
   width: 100%;
 }
 
@@ -925,6 +935,52 @@ p {
     'SF Pro Text',
     'Segoe UI',
     sans-serif;
+}
+
+/*
+  Keep desktop landscape chrome on small screens.
+  Chromium rejects vw/cqi inside transform:scale(), so --coord-s is set by script.
+*/
+@media (max-width: 960px) {
+  .coord-stage {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .coord-stage.is-scaled {
+    overflow: hidden;
+  }
+
+  .coord-scale {
+    width: 920px;
+  }
+
+  .coord-stage.is-scaled .coord-scale {
+    transform: scale(var(--coord-s));
+    transform-origin: top left;
+    margin-bottom: calc(680px * (var(--coord-s) - 1));
+  }
+
+  .coord-mock {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .coord-shell {
+    grid-template-columns: 200px 1fr;
+    min-height: 480px;
+  }
+
+  .coord-hero-card {
+    width: min(100%, 62%);
+  }
+
+  .coord-side {
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+  }
 }
 
 .coord-titlebar {
@@ -2966,7 +3022,14 @@ p {
   .tut-walk-art {
     border-right: none;
     border-bottom: 1px solid var(--border);
-    min-height: 200px;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    padding: 16px;
+  }
+
+  .tut-walk-art .device-stage {
+    width: 100%;
+    max-width: 420px;
   }
 }
 
@@ -3279,7 +3342,6 @@ a.download-card:hover {
   .tut-grid-cards,
   .download-grid,
   .footer-grid,
-  .coord-shell,
   .learn-layout,
   .trust-row,
   .about-grid,
@@ -3350,21 +3412,8 @@ a.download-card:hover {
   }
 
   .hero-visual {
-    min-height: 360px;
-    order: -1;
-  }
-
-  .coord-hero-card {
-    width: 100%;
-  }
-
-  .coord-shell {
     min-height: 0;
-  }
-
-  .coord-side {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+    order: -1;
   }
 
   .tut-row,
@@ -3718,7 +3767,7 @@ a.download-card:hover {
 
   .hero-premium .hero-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 20px;
   }
 
   .hero-atelier {
@@ -3727,11 +3776,19 @@ a.download-card:hover {
   }
 
   .atelier-stage .device-photo {
-    max-width: 360px;
+    max-width: min(300px, 72vw);
   }
 
   .hero-tech {
     max-width: none;
+  }
+
+  .home-flow-head .section-title {
+    white-space: normal;
+  }
+
+  .home-hardware-visual {
+    min-height: 0;
   }
 }
 
@@ -4483,11 +4540,13 @@ a.download-card:hover {
   }
 
   .magic-nodes-visual {
-    min-height: 300px;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    width: 100%;
   }
 
   .magic-phones {
-    justify-content: flex-start;
+    justify-content: center;
   }
 }
 
@@ -5142,6 +5201,14 @@ a.download-card:hover {
   .feature-tile.is-open .feature-graphic {
     grid-row: auto;
     min-height: 0;
+    aspect-ratio: 16 / 10;
+    width: 100%;
+  }
+
+  .feature-tile-wide .feature-graphic {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 0;
   }
 
   .feature-tile-panel {
@@ -5586,5 +5653,128 @@ a.download-card:hover {
 
   .feature-tile-wide {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ——— Mobile density + preview aspect polish ——— */
+@media (max-width: 960px) {
+  :root {
+    --header-h: 68px;
+  }
+
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  .site-main {
+    overflow-x: clip;
+  }
+
+  .header-shell {
+    padding-inline: 16px;
+  }
+
+  .site-header .brand-mark {
+    width: 42px;
+    height: 42px;
+  }
+
+  .site-header .brand-word {
+    font-size: 1.18rem;
+  }
+
+  .site-header .brand-link {
+    gap: 10px;
+  }
+
+  .container {
+    width: min(100% - 28px, var(--max));
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+
+  .section-tight {
+    padding: 48px 0;
+  }
+
+  .page-hero {
+    padding-top: 36px;
+    padding-bottom: 40px;
+  }
+
+  .hero-visual {
+    min-height: 0;
+  }
+
+  .learn-card,
+  .blog-card,
+  .tut-card {
+    min-height: 0;
+  }
+
+  .learn-card-media,
+  .tut-card-media,
+  .article-device {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .article-device {
+    padding: 20px 16px;
+  }
+
+  .basics-art-scene {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    padding: 20px 14px;
+  }
+
+  .basics-art-scene.is-compact {
+    min-height: 0;
+    padding: 14px 12px;
+  }
+
+  .basics-panel-art,
+  .basics-panel-art-dag,
+  .basics-more-art {
+    min-height: 0;
+  }
+
+  .basics-more-art .basics-art-scene {
+    min-height: 0;
+  }
+
+  .coord-intro {
+    margin-bottom: 22px;
+  }
+
+  .download-grid {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .atelier-stage .device-photo {
+    max-width: min(260px, 78vw);
+  }
+
+  .hero-premium .hero-brand {
+    font-size: clamp(2.4rem, 12vw, 3.2rem);
+  }
+
+  .btn {
+    min-height: 46px;
+  }
+
+  .hero-actions {
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 auto;
   }
 }
