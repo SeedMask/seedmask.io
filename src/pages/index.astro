@@ -243,9 +243,13 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
               io.unobserve(entry.target);
             });
           },
-          { threshold: 0.16, rootMargin: '0px 0px -8% 0px' }
+          { threshold: 0.08, rootMargin: '0px 0px -4% 0px' }
         );
         nodes.forEach((el) => io.observe(el));
+        // Never leave sections invisible if the observer misses them
+        window.setTimeout(() => {
+          nodes.forEach((el) => el.classList.add('is-in'));
+        }, 900);
       }
     }
   </script>

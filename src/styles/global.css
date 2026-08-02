@@ -3305,29 +3305,27 @@ a.download-card:hover {
 }
 
 .download-card .download-os-icon {
-  position: relative;
   width: 44px;
   height: 44px;
   flex-shrink: 0;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
   background: var(--teal-soft);
-  color: var(--teal-deep);
+  color: var(--text);
   line-height: 0;
 }
 
 .download-card .download-os-icon svg {
   display: block;
-  width: 22px;
-  height: 22px;
-  margin: 0;
-  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  max-width: 20px;
+  max-height: 20px;
 }
 
 .download-card strong {
@@ -5996,15 +5994,60 @@ a.download-card:hover {
     gap: 12px;
   }
 
-  /* Keep all 3 homepage steps in one compact row (must follow base .flow-steps). */
+  /* Tablet/laptop: keep readable 3-step row (phone tightening is below). */
   .flow-steps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
+    gap: 12px;
     width: 100%;
   }
 
   .flow-steps li {
     min-width: 0;
+    padding: 16px 14px 18px;
+    border-radius: 16px;
+    gap: 8px;
+  }
+
+  .flow-visual {
+    height: 72px;
+    margin: 0;
+    border-radius: 12px;
+  }
+
+  .flow-visual svg {
+    width: min(100%, 120px);
+  }
+
+  .flow-num {
+    font-size: 0.78rem;
+  }
+
+  .flow-steps h3 {
+    font-size: 0.95rem;
+    line-height: 1.25;
+  }
+
+  .flow-steps p {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .home-alive .flow-steps::before {
+    display: none;
+  }
+
+  .home-alive .flow-steps [data-rise] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .flow-steps {
+    gap: 6px;
+  }
+
+  .flow-steps li {
     padding: 10px 8px 12px;
     border-radius: 12px;
     gap: 4px;
@@ -6012,7 +6055,6 @@ a.download-card:hover {
 
   .flow-visual {
     height: 44px;
-    margin: 0;
     border-radius: 8px;
   }
 
@@ -6033,15 +6075,6 @@ a.download-card:hover {
   .flow-steps p {
     font-size: 0.62rem;
     line-height: 1.3;
-  }
-
-  .home-alive .flow-steps::before {
-    display: none;
-  }
-
-  .home-alive .flow-steps [data-rise] {
-    opacity: 1;
-    transform: none;
   }
 }
 
