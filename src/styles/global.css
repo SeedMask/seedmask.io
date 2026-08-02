@@ -3304,17 +3304,21 @@ a.download-card:hover {
   cursor: default;
 }
 
-.download-os-icon {
+.download-card .download-os-icon {
   width: 44px;
   height: 44px;
   border-radius: 12px;
   display: grid;
   place-items: center;
+  margin: 0;
   background: var(--teal-soft);
   color: var(--teal-deep);
+  font-size: 0;
+  line-height: 0;
 }
 
-.download-os-icon svg {
+.download-card .download-os-icon svg {
+  display: block;
   width: 22px;
   height: 22px;
 }
@@ -3326,9 +3330,9 @@ a.download-card:hover {
   color: var(--text);
 }
 
-.download-card span {
+.download-card > div > span {
   display: block;
-  color: var(--text-dim);
+  color: var(--text-muted);
   font-size: 0.85rem;
   margin-top: 2px;
 }
