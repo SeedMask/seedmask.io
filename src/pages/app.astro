@@ -76,6 +76,39 @@ const downloads = {
       <p class="download-note">
         Current build: macOS Apple Silicon (.dmg). Windows and Linux downloads will appear here when those packages are ready.
       </p>
+
+      <aside class="macos-gatekeeper" aria-labelledby="macos-open-heading">
+        <p class="eyebrow">macOS</p>
+        <h3 id="macos-open-heading">If macOS blocks the app</h3>
+        <p>
+          Apple blocks apps that are not notarized yet. This build is an early SeedMask release and is
+          <strong>not notarized</strong>.
+        </p>
+        <ol class="macos-gatekeeper-steps">
+          <li>Move Coordinator into <strong>Applications</strong> and open it once (you will get a block).</li>
+          <li>
+            Open <strong>System Settings → Privacy &amp; Security</strong>, scroll to <strong>Security</strong>, then
+            click <strong>Open Anyway</strong> next to SeedMask Coordinator.
+          </li>
+          <li>Confirm <strong>Open Anyway</strong> when macOS asks again.</li>
+        </ol>
+        <p class="macos-gatekeeper-why">
+          <strong>Why?</strong> macOS only fully trusts apps Apple has notarized. We are shipping a public alpha before
+          SeedMask Developer signing is ready. Coordinator is watch-only and never holds your seed — this warning is
+          about Apple’s distribution rules, not a claim that the file is malware. A notarized SeedMask build will remove
+          this step.
+        </p>
+        <figure class="macos-gatekeeper-figure">
+          <img
+            src="/app/macos-open-anyway.png"
+            alt="macOS System Settings Privacy and Security, with Open Anyway highlighted next to SeedMask Coordinator was blocked"
+            width="1024"
+            height="662"
+            loading="lazy"
+          />
+          <figcaption>System Settings → Privacy &amp; Security → Open Anyway</figcaption>
+        </figure>
+      </aside>
     </div>
   </section>
 
