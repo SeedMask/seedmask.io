@@ -3374,7 +3374,8 @@ a.download-card:hover {
   margin-top: 36px;
   padding: 28px 0 0;
   border-top: 1px solid var(--border);
-  max-width: none;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .macos-gatekeeper h3 {
@@ -3386,9 +3387,14 @@ a.download-card:hover {
 
 .macos-gatekeeper-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.95fr);
-  gap: 28px 36px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 28px 32px;
   align-items: start;
+  min-width: 0;
+}
+
+.macos-gatekeeper-copy {
+  min-width: 0;
 }
 
 .macos-gatekeeper-copy p {
@@ -3423,6 +3429,7 @@ a.download-card:hover {
 .macos-gatekeeper-figure {
   margin: 0;
   padding: 0;
+  min-width: 0;
 }
 
 .macos-settings-card {
@@ -3430,7 +3437,7 @@ a.download-card:hover {
   border: 1px solid #d8d8dc;
   background: #ffffff;
   box-shadow: var(--shadow-sm);
-  padding: 18px 16px 16px;
+  padding: 16px 14px 14px;
   color: #1d1d1f;
   font-family:
     -apple-system,
@@ -3440,6 +3447,7 @@ a.download-card:hover {
     Helvetica,
     Arial,
     sans-serif;
+  overflow: hidden;
 }
 
 .macos-settings-card-title {
@@ -3452,22 +3460,29 @@ a.download-card:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   padding: 10px 12px;
   border-radius: 10px;
   background: #f2f2f7;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
+}
+
+.macos-settings-row > span:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .macos-settings-select {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  max-width: 100%;
   padding: 4px 10px;
   border-radius: 8px;
   background: #e8e8ed;
   color: #1d1d1f;
-  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .macos-settings-select::after {
@@ -3478,21 +3493,27 @@ a.download-card:hover {
   border-right: 4px solid transparent;
   border-top: 5px solid #6e6e73;
   margin-top: 1px;
+  flex-shrink: 0;
 }
 
 .macos-settings-block {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
   align-items: start;
   margin-top: 14px;
   padding-top: 14px;
   border-top: 1px solid #ebebef;
+  min-width: 0;
+}
+
+.macos-settings-block-main {
+  min-width: 0;
 }
 
 .macos-settings-block-msg {
   margin: 0;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 600;
   line-height: 1.35;
   color: #1d1d1f;
@@ -3512,11 +3533,10 @@ a.download-card:hover {
   padding: 7px 12px;
   border-radius: 8px;
   background: #e8e8ed;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   white-space: nowrap;
-  outline: 3px solid #dc2626;
-  outline-offset: 3px;
+  box-shadow: 0 0 0 3px #dc2626;
 }
 
 .macos-gatekeeper-figure figcaption {
@@ -3525,10 +3545,21 @@ a.download-card:hover {
   font-size: 0.85rem;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .macos-gatekeeper-layout {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .macos-settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .macos-settings-block {
+    grid-template-columns: 1fr;
   }
 }
 
