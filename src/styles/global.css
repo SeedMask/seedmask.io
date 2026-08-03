@@ -3374,21 +3374,29 @@ a.download-card:hover {
   margin-top: 36px;
   padding: 28px 0 0;
   border-top: 1px solid var(--border);
-  max-width: 52rem;
+  max-width: none;
 }
 
 .macos-gatekeeper h3 {
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 2vw, 1.55rem);
-  margin: 6px 0 12px;
+  margin: 6px 0 18px;
   color: var(--text);
 }
 
-.macos-gatekeeper > p {
+.macos-gatekeeper-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.95fr);
+  gap: 28px 36px;
+  align-items: start;
+}
+
+.macos-gatekeeper-copy p {
   color: var(--text-muted);
   font-size: 0.98rem;
   line-height: 1.55;
-  max-width: 62ch;
+  max-width: 54ch;
+  margin: 0;
 }
 
 .macos-gatekeeper-steps {
@@ -3397,7 +3405,7 @@ a.download-card:hover {
   color: var(--text);
   font-size: 0.95rem;
   line-height: 1.55;
-  max-width: 62ch;
+  max-width: 54ch;
 }
 
 .macos-gatekeeper-steps li + li {
@@ -3409,11 +3417,11 @@ a.download-card:hover {
   color: var(--text-muted);
   font-size: 0.92rem;
   line-height: 1.55;
-  max-width: 62ch;
+  max-width: 54ch;
 }
 
 .macos-gatekeeper-figure {
-  margin: 22px 0 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -3424,13 +3432,21 @@ a.download-card:hover {
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
-  background: #111;
+  background: #f5f5f7;
+  image-rendering: auto;
 }
 
 .macos-gatekeeper-figure figcaption {
   margin-top: 10px;
   color: var(--text-dim);
   font-size: 0.85rem;
+}
+
+@media (max-width: 860px) {
+  .macos-gatekeeper-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 /* ——— Footer ——— */
