@@ -102,13 +102,25 @@ const downloads = {
             </p>
           </div>
           <figure class="macos-gatekeeper-figure">
-            <img
-              src="/app/macos-open-anyway.png"
-              alt="macOS System Settings Privacy and Security, with Open Anyway highlighted next to SeedMask Coordinator was blocked"
-              width="540"
-              height="512"
-              loading="lazy"
-            />
+            <div class="macos-settings-card" role="img" aria-label="macOS Privacy and Security: SeedMask Coordinator was blocked, with Open Anyway highlighted">
+              <div class="macos-settings-card-title">Security</div>
+              <div class="macos-settings-row">
+                <span>Allow applications from</span>
+                <span class="macos-settings-select">App Store &amp; Known Developers</span>
+              </div>
+              <div class="macos-settings-block">
+                <div class="macos-settings-block-main">
+                  <p class="macos-settings-block-msg">
+                    “SeedMask Coordinator” was blocked to protect your Mac.
+                  </p>
+                  <p class="macos-settings-block-note">
+                    Apple could not verify “SeedMask Coordinator” is free of malware that may harm your Mac or
+                    compromise your privacy.
+                  </p>
+                </div>
+                <span class="macos-settings-open-anyway">Open Anyway</span>
+              </div>
+            </div>
             <figcaption>System Settings → Privacy &amp; Security → Open Anyway</figcaption>
           </figure>
         </div>

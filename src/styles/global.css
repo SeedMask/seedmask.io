@@ -3425,15 +3425,98 @@ a.download-card:hover {
   padding: 0;
 }
 
-.macos-gatekeeper-figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+.macos-settings-card {
+  border-radius: 14px;
+  border: 1px solid #d8d8dc;
+  background: #ffffff;
   box-shadow: var(--shadow-sm);
-  background: #f5f5f7;
-  image-rendering: auto;
+  padding: 18px 16px 16px;
+  color: #1d1d1f;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'SF Pro Text',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.macos-settings-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.macos-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f2f2f7;
+  font-size: 0.82rem;
+}
+
+.macos-settings-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #e8e8ed;
+  color: #1d1d1f;
+  white-space: nowrap;
+}
+
+.macos-settings-select::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid #6e6e73;
+  margin-top: 1px;
+}
+
+.macos-settings-block {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: start;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #ebebef;
+}
+
+.macos-settings-block-msg {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #1d1d1f;
+}
+
+.macos-settings-block-note {
+  margin: 8px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: #6e6e73;
+}
+
+.macos-settings-open-anyway {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: #e8e8ed;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  outline: 3px solid #dc2626;
+  outline-offset: 3px;
 }
 
 .macos-gatekeeper-figure figcaption {
