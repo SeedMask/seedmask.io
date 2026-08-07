@@ -27,7 +27,8 @@ Output lands in `dist/`. Preview with `npm run preview`.
 
 ### Coordinator downloads
 
-macOS Apple Silicon `.dmg` is linked from `/app` as `/downloads/SeedMask-Coordinator-1.0.0-arm64.dmg`.
+macOS Apple Silicon `.dmg` is linked from `/app` to the GitHub Release
+`coordinator-v1.0.1` asset `SeedMask-Coordinator-1.0.1-arm64.dmg`.
 
 - Keep the binary in `public/downloads/` (symlink from `SeedMask_Coordinator/electron/release/` is fine locally).
 - Make sure `dist/downloads/` is uploaded to the host — large files may need FTP rather than browser upload.
