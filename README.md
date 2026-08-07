@@ -17,22 +17,28 @@ npm run build
 
 Output lands in `dist/`. Preview with `npm run preview`.
 
-## Deploy to Namecheap
+## Deploy (Cloudflare Pages)
 
-1. Run `npm run build` locally.
-2. Open Namecheap hosting (cPanel **File Manager** or FTP).
-3. Upload **the contents** of `dist/` into `public_html` (not the `dist` folder itself). Replace the old template files.
-4. Confirm HTTPS is already active on `seedmask.io`.
-5. Visit the domain and click through Products / App / Learn / About.
+The site is a static Astro build (`dist/`). Production is **Cloudflare Pages** for `seedmask.io`.
+
+If the GitHub repo is connected to Pages on `main`, a push already triggers the deploy — no manual upload.
+
+Otherwise from this folder:
+
+```sh
+npm run build
+npx wrangler pages deploy dist --project-name=<your-pages-project>
+```
+
+Confirm build settings in the Cloudflare dashboard: framework Astro (or static), build command `npm run build`, output `dist`.
 
 ### Coordinator downloads
 
 macOS Apple Silicon `.dmg` is linked from `/app` to the GitHub Release
-`coordinator-v1.0.1` asset `SeedMask-Coordinator-1.0.1-arm64.dmg`.
+`v1.0.1` asset `SeedMask-Coordinator-1.0.1-arm64.dmg`.
 
-- Keep the binary in `public/downloads/` (symlink from `SeedMask_Coordinator/electron/release/` is fine locally).
-- Make sure `dist/downloads/` is uploaded to the host — large files may need FTP rather than browser upload.
-- When Windows/Linux packages exist, drop them in the same folder and enable the cards in `src/pages/app.astro`.
+- The download button points at the GitHub Release asset (not a file hosted in `dist/`).
+- When Windows/Linux packages exist, enable those cards in `src/pages/app.astro`.
 
 ### Editing later
 
@@ -41,7 +47,7 @@ macOS Apple Silicon `.dmg` is linked from `/app` to the GitHub Release
 - Brand tokens / layout: `src/styles/global.css`
 - Logo / favicon: `public/branding/`, `public/favicon.png`
 
-Rebuild and re-upload `dist/` after changes.
+Push to `main` (or redeploy Pages) after changes.
 
 ## Site map
 
