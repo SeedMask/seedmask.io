@@ -1766,6 +1766,10 @@ p {
   white-space: nowrap;
 }
 
+.page-hero p.tut-hero-lead strong {
+  font-weight: 800;
+}
+
 .page-hero p.tut-hero-lead + p.tut-hero-lead {
   margin-top: 6px;
 }
@@ -2035,6 +2039,28 @@ p {
   margin: 0;
   flex: 1 1 12rem;
   min-width: 0;
+}
+
+.page-hero .app-hero-actions {
+  margin: 18px 0 0;
+}
+
+.page-hero .coord-intro {
+  margin-top: 36px;
+  margin-bottom: 28px;
+}
+
+.page-hero .coord-stage {
+  margin-bottom: 8px;
+}
+
+.page-hero .app-hero-pillars {
+  margin-top: 40px;
+}
+
+.page-hero .app-hero-prose {
+  margin-top: 48px;
+  max-width: 62ch;
 }
 
 .audit-banner-hero {
@@ -3521,6 +3547,7 @@ p {
   margin-top: 8px;
   display: grid;
   gap: 18px;
+  scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
 /* Compact tutorial detail: hero + walkthrough fit without scrolling */
@@ -4644,13 +4671,26 @@ a.download-card:hover {
 .hero-premium .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  grid-template-areas:
+    "copy visual"
+    "tech visual";
   gap: 40px 72px;
   align-items: start;
   padding-top: 8px;
 }
 
 .hero-premium .hero-copy {
+  grid-area: copy;
   padding-top: 36px;
+}
+
+.hero-premium .hero-atelier {
+  grid-area: visual;
+}
+
+.hero-premium .hero-tech {
+  grid-area: tech;
+  margin: 0;
 }
 
 .hero-eyebrow {
@@ -4857,13 +4897,12 @@ a.download-card:hover {
 .hero-tech-more {
   margin-left: 1.1em;
   font-size: 0.78em;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0;
-  color: color-mix(in srgb, #f2fbf8 72%, #8aa8a2);
 }
 
 .hero-tech-more a {
-  color: inherit;
+  color: var(--teal);
   text-decoration: none;
 }
 
@@ -5093,6 +5132,14 @@ a.download-card:hover {
   color: var(--text-muted);
 }
 
+.home-backup-diagram-fit {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
 @media (max-width: 1100px) {
   .home-backup-grid {
     grid-template-columns: 1fr;
@@ -5106,24 +5153,24 @@ a.download-card:hover {
   .home-backup-figure {
     justify-self: stretch;
     width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .home-backup-diagram-fit {
+    container-type: inline-size;
+    overflow: hidden;
   }
 
   .home-backup-diagram {
-    flex-wrap: wrap;
-    padding: 36px 24px;
-  }
-
-  .home-backup-unit {
-    flex: 1 1 156px;
-    width: auto;
-    min-width: 140px;
-    max-width: 220px;
-  }
-}
-
-@media (max-width: 520px) {
-  .home-backup-op {
-    display: none;
+    --diagram-w: 760px;
+    --diagram-h: 310px;
+    --diagram-s: min(1, calc(100cqi / var(--diagram-w)));
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    transform: scale(var(--diagram-s));
+    transform-origin: top center;
+    margin-bottom: calc((var(--diagram-s) - 1) * var(--diagram-h));
   }
 }
 
@@ -5182,7 +5229,23 @@ a.download-card:hover {
 
   .hero-premium .hero-grid {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "visual"
+      "tech";
     gap: 20px;
+  }
+
+  .hero-premium .hero-copy {
+    padding-top: 4px;
+  }
+
+  .hero-premium .hero-visual {
+    order: 0;
+  }
+
+  .hero-premium .hero-headline {
+    white-space: normal;
   }
 
   .hero-atelier {
@@ -5194,16 +5257,8 @@ a.download-card:hover {
     max-width: min(380px, 76vw);
   }
 
-  .hero-tech {
-    max-width: none;
-  }
-
   .hero-tech-head {
     padding: 12px 16px 11px;
-  }
-
-  .hero-tech-grid > div {
-    padding: 14px 16px 15px;
   }
 
   .home-flow-head .section-title {
@@ -5216,40 +5271,6 @@ a.download-card:hover {
 }
 
 @media (max-width: 520px) {
-  .hero-tech {
-    border-radius: 16px;
-  }
-
-  .hero-tech-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-tech-grid > div:nth-child(odd) {
-    border-right: none;
-  }
-
-  .hero-tech-grid > div {
-    border-bottom: 1px solid color-mix(in srgb, var(--teal) 30%, rgba(255, 255, 255, 0.04));
-    padding: 16px 18px 18px;
-  }
-
-  .hero-tech-grid > div:nth-child(n + 3) {
-    border-bottom: 1px solid color-mix(in srgb, var(--teal) 28%, rgba(255, 255, 255, 0.04));
-  }
-
-  .hero-tech-grid > div:nth-child(n + 5),
-  .hero-tech-grid > div:nth-child(n + 7) {
-    border-bottom: 1px solid color-mix(in srgb, var(--teal) 28%, rgba(255, 255, 255, 0.04));
-  }
-
-  .hero-tech-grid > div:last-child {
-    border-bottom: none;
-  }
-
-  .hero-tech-grid dd {
-    font-size: 1.02rem;
-  }
-
   .atelier-stage .device-photo {
     max-width: 400px;
   }

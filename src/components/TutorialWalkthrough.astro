@@ -311,6 +311,7 @@ const { steps } = Astro.props;
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         show(Number(tab.getAttribute('data-tut-tab')));
+        root.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 

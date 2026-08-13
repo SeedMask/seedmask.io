@@ -21,24 +21,78 @@ const downloads = {
         <aside class="audit-banner audit-banner-hero" role="note">
           <strong>Not audited yet.</strong>
           <p>
-            SeedMask Coordinator is early software. It has not completed a third-party security audit and may contain bugs, errors, or incomplete behavior. Use demo amounts and test networks where possible. Do not rely on it as production-ready custody software until audits and maturity catch up.
+            Coordinator is watch-only and never holds your seed. Treat it as early software until a third-party audit lands.
           </p>
         </aside>
       </div>
-      <p class="tut-hero-lead"><strong>A Kaspa-first watch-only desktop app.</strong></p>
+      <p class="tut-hero-lead">A <strong>Kaspa-first</strong> watch-only desktop app.</p>
       <p class="tut-hero-lead">
         See balances, manage addresses and coins, and prepare unsigned transactions — without ever holding your keys.
       </p>
+      <div class="hero-actions app-hero-actions">
+        <a class="btn btn-primary" href="#download">Download</a>
+      </div>
+      <div class="coord-intro">
+        <p class="eyebrow">Interface</p>
+        <h2 class="section-title">Watch-only by architecture</h2>
+        <p class="section-lead">
+          The Coordinator tracks public wallet state and helps you build unsigned transactions you will sign on SeedMask. Private keys never enter the application.
+        </p>
+      </div>
+      <div class="coord-stage">
+        <CoordinatorMock />
+      </div>
+      <div class="pillars app-hero-pillars">
+        <article class="pillar">
+          <span class="pillar-index">01</span>
+          <h3>Keys stay offline</h3>
+          <p>Your seed never enters Coordinator. Signing happens only on SeedMask.</p>
+        </article>
+        <article class="pillar">
+          <span class="pillar-index">02</span>
+          <h3>Review before you sign</h3>
+          <p>Check amount and destination on desktop, then confirm again on the device screen.</p>
+        </article>
+        <article class="pillar">
+          <span class="pillar-index">03</span>
+          <h3>Air-gapped end to end</h3>
+          <p>
+            Build an unsigned transaction on desktop, sign it on SeedMask, then bring the signed transaction back to broadcast — nothing spends without your on-device approval.
+          </p>
+        </article>
+        <article class="pillar">
+          <span class="pillar-index">04</span>
+          <h3>No hot wallet</h3>
+          <p>
+            Coordinator is watch-only by design. There is no hot wallet inside the app, so a compromised desktop cannot silently move funds.
+          </p>
+        </article>
+      </div>
+      <div class="prose app-hero-prose">
+        <h2>Air-gapped signing story</h2>
+        <p>
+          Prepare a transaction on your computer. Move the unsigned payload to your SeedMask device. Confirm amounts and destinations on the device screen. Bring the signature back and broadcast when you are ready.
+        </p>
+        <h2>Built for Bitcoin &amp; Kaspa</h2>
+        <p>
+          One clear desktop view for the chains SeedMask supports — balances, history, addresses, and coin (UTXO) lists aligned with how you actually custody funds. Light and dark themes ship with the app; the mock above shows Light mode.
+        </p>
+        <p>
+          Coordinator can also watch wallets whose keys already live on a Ledger or OneKey — same rule as SeedMask: public state on the desktop, signing on the device.
+        </p>
+        <p class="home-backup-note">
+          <strong>SeedMask is not affiliated with Ledger or OneKey.</strong>
+        </p>
+      </div>
     </div>
   </section>
 
   <section class="section-tight" id="download">
     <div class="container">
-      <p class="eyebrow">Download</p>
       <h2 class="section-title">Get Coordinator v{downloads.version}</h2>
       <p class="section-lead tut-hero-lead">Watch-only desktop app for macOS, Windows, and Linux.</p>
       <p class="section-lead tut-hero-lead">
-        Private keys never enter the Coordinator — signing stays on SeedMask.
+        Private keys never enter the Coordinator — signing stays on hardware wallet (cold storage).
       </p>
       <div class="download-grid">
         <a class="download-card" href={downloads.macArm} download>
@@ -119,57 +173,6 @@ const downloads = {
 
   <section class="section">
     <div class="container">
-      <div class="coord-intro">
-        <div>
-          <p class="eyebrow">Interface</p>
-          <h2 class="section-title">Watch-only by architecture</h2>
-          <p class="section-lead">
-            The Coordinator tracks public wallet state and helps you build unsigned transactions you will sign on SeedMask. Private keys never enter the application.
-          </p>
-        </div>
-      </div>
-      <div class="coord-stage">
-        <CoordinatorMock />
-      </div>
-
-      <div class="pillars" style="margin-top: 40px">
-        <article class="pillar">
-          <span class="pillar-index">01</span>
-          <h3>Keys stay offline</h3>
-          <p>Your seed never enters Coordinator. Signing happens only on SeedMask.</p>
-        </article>
-        <article class="pillar">
-          <span class="pillar-index">02</span>
-          <h3>Review before you sign</h3>
-          <p>Check amount and destination on desktop, then confirm again on the device screen.</p>
-        </article>
-        <article class="pillar">
-          <span class="pillar-index">03</span>
-          <h3>Air-gapped end to end</h3>
-          <p>
-            Build an unsigned transaction on desktop, sign it on SeedMask, then bring the signed transaction back to broadcast — nothing spends without your on-device approval.
-          </p>
-        </article>
-        <article class="pillar">
-          <span class="pillar-index">04</span>
-          <h3>No hot wallet</h3>
-          <p>
-            Coordinator is watch-only by design. There is no hot wallet inside the app, so a compromised desktop cannot silently move funds.
-          </p>
-        </article>
-      </div>
-
-      <div class="prose" style="margin-top: 48px; max-width: 62ch">
-        <h2>Air-gapped signing story</h2>
-        <p>
-          Prepare a transaction on your computer. Move the unsigned payload to your SeedMask device. Confirm amounts and destinations on the device screen. Bring the signature back and broadcast when you are ready.
-        </p>
-        <h2>Built for Bitcoin &amp; Kaspa</h2>
-        <p>
-          One clear desktop view for the chains SeedMask supports — balances, history, addresses, and coin (UTXO) lists aligned with how you actually custody funds. Light and dark themes ship with the app; the mock above shows Light mode.
-        </p>
-      </div>
-
       <section class="magic-panel magic-nodes" id="own-nodes">
         <div class="magic-panel-copy">
           <p class="eyebrow">Infrastructure</p>

@@ -26,46 +26,6 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
             <ComingSoonButton />
             <a class="btn btn-ghost hero-ghost" href="/features/device">Explore features</a>
           </div>
-          <div class="hero-tech reveal delay-3">
-            <div class="hero-tech-head">
-              <p>Device profile</p>
-              <span class="hero-tech-note">Upcoming retail device</span>
-            </div>
-            <dl class="hero-tech-grid">
-              <div>
-                <dt>Signing</dt>
-                <dd>Air-gapped</dd>
-              </div>
-              <div>
-                <dt>Display</dt>
-                <dd>4″ touch</dd>
-              </div>
-              <div>
-                <dt>Chains</dt>
-                <dd>Bitcoin · Kaspa</dd>
-              </div>
-              <div>
-                <dt>Also on device</dt>
-                <dd>Passwords · 2FA · Notes</dd>
-              </div>
-              <div>
-                <dt>Backup code</dt>
-                <dd>Password-gated</dd>
-              </div>
-              <div>
-                <dt>Seed</dt>
-                <dd>On device only</dd>
-              </div>
-              <div>
-                <dt>Firmware &amp; Hardware</dt>
-                <dd>Open-source</dd>
-              </div>
-              <div>
-                <dt>Security</dt>
-                <dd>Anti-tamper · Secure element <span class="hero-tech-more"><a href="/about#physical-security">and more</a></span></dd>
-              </div>
-            </dl>
-          </div>
         </div>
 
         <div class="hero-visual hero-atelier">
@@ -74,6 +34,47 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
             <p class="atelier-mark">Offline signer - and beyond</p>
             <p class="atelier-note">Preview render — not the final look of the device</p>
           </div>
+        </div>
+
+        <div class="hero-tech reveal delay-3">
+          <div class="hero-tech-head">
+            <p>Device profile</p>
+            <span class="hero-tech-note">Upcoming retail device</span>
+          </div>
+          <dl class="hero-tech-grid">
+            <div>
+              <dt>Signing</dt>
+              <dd>Air-gapped</dd>
+            </div>
+            <div>
+              <dt>Display</dt>
+              <dd>4″ touch</dd>
+            </div>
+            <div>
+              <dt>Chains</dt>
+              <dd>Bitcoin · Kaspa</dd>
+            </div>
+            <div>
+              <dt>Also on device</dt>
+              <dd>Passwords · 2FA · Notes</dd>
+            </div>
+            <div>
+              <dt>Backup code</dt>
+              <dd>Password-gated</dd>
+            </div>
+            <div>
+              <dt>Seed</dt>
+              <dd>On device only</dd>
+            </div>
+            <div>
+              <dt>Firmware &amp; Hardware</dt>
+              <dd>Open-source</dd>
+            </div>
+            <div>
+              <dt>Security</dt>
+              <dd>Anti-tamper · Secure element <span class="hero-tech-more"><a href="/about#physical-security">and more</a></span></dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
@@ -129,6 +130,7 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
           </p>
         </div>
         <figure class="home-backup-figure">
+          <div class="home-backup-diagram-fit">
           <div class="home-backup-diagram" aria-hidden="true">
             <div class="home-backup-unit">
               <p class="home-backup-kicker">Backup code</p>
@@ -154,6 +156,7 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
               </div>
               <p class="home-backup-meta">Always the same</p>
             </div>
+          </div>
           </div>
           <figcaption class="home-backup-caption">
             Backup code + password → seed. Same inputs, same result — every time.
