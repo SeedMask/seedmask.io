@@ -3,7 +3,7 @@ interface Props {
   href?: string;
   class?: string;
 }
-const { href = '/products', class: className = '' } = Astro.props;
+const { href = '/products/hardware', class: className = '' } = Astro.props;
 ---
 
 <a class={`btn btn-primary${className ? ` ${className}` : ''}`} href={href} aria-disabled="false">

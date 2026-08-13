@@ -1,64 +1,166 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import DeviceScene from '../../../components/DeviceScene.astro';
 import TutorialWalkthrough from '../../../components/TutorialWalkthrough.astro';
+
+const firmwarePage = '/features/firmware';
+const repoUrl = 'https://github.com/SeedMask/SeedMask-Firmware';
 
 const steps = [
   {
-    title: 'Power on and inspect',
-    body: 'Confirm the device boots to the SeedMask screen and that packaging seals look intact. If anything feels off, stop and contact support before continuing.',
+    title: 'Get the ESP32-S3 3.5B-C',
+    body: 'This hardware preview uses the ESP32-S3 3.5B-C development board (Waveshare ESP32-S3-Touch-LCD-3.5B-C) — not the final SeedMask retail enclosure. Buy that exact model from the Waveshare official website or Amazon, plus a trusted USB cable / power source.',
     graphic: 'power' as const,
   },
   {
-    title: 'Verify the firmware path',
-    body: 'Follow the on-device prompts to view the firmware version and hash/fingerprint SeedMask displays. Compare it against the published value on seedmask.io when hardware ships. Do not skip this step on a new device.',
+    title: 'Open Features → Firmware',
+    body: 'On seedmask.io go to Features → Firmware. You’ll see the preview version (v0.1.0). This build is highly experimental — not for significant funds.',
+    graphic: 'firmwareWeb' as const,
+  },
+  {
+    title: 'Flash firmware',
+    body: 'Use Chrome or Edge. Plug in the board over USB, click Flash firmware, choose the board’s serial port when asked, and wait for In progress to finish. The page checks the official image for you — you do not need to download or verify a hash by hand.',
     graphic: 'firmware' as const,
   },
   {
+    title: 'Press Reboot on the board',
+    body: 'When flashing finishes, click the Reboot button on your board (the middle one). The SeedMask UI should appear on the screen.',
+    graphic: 'reboot' as const,
+  },
+  {
     title: 'Create or restore a wallet',
-    body: 'Prefer creating a new seed on the device itself. Write the words on paper or metal, double-check order, and never type the seed into a computer or phone.',
+    body: 'On first boot: prefer creating a new seed on the device. Write the words on paper or metal, double-check order, and never type the seed into a computer or phone. Or restore only on-device from your backup words.',
     graphic: 'seed' as const,
   },
   {
-    title: 'Set a PIN and confirm',
-    body: 'Choose a PIN you will remember offline. Confirm a small receive address on-device so you know the wallet was created correctly — still without connecting keys to the Coordinator.',
+    title: 'Set a PIN/password and confirm',
+    body: 'Choose a PIN or password you will remember offline.\n\nOptional: Confirm a receive address on-device, wipe the device and restore with your seed so you assure the wallet was created correctly.',
     graphic: 'pin' as const,
+  },
+  {
+    title: 'Backup code (optional)',
+    body: 'When offered, choose whether to create a Backup code. A Backup code helps you recover without depending only on a microSD card or a paper/metal copy of the raw seed words — useful if you want portability and a second recovery path. You can skip it, but write down whatever you do create and store it offline.',
+    graphic: 'backup' as const,
+  },
+  {
+    title: 'Explore — carefully',
+    body: 'Try the menus and features so you learn the device. This is still an experimental preview: expect bugs and unfinished behavior. Do not put significant funds on it until SeedMask marks a build as ready for real use.',
+    graphic: 'explore' as const,
   },
 ];
 ---
 
 <BaseLayout
-  title="Unbox & first boot — SeedMask Tutorials"
-  description="Initialize SeedMask offline, verify firmware path, and secure your seed phrase."
+  title="Hardware preview setup — SeedMask Tutorials"
+  description="Flash SeedMask preview firmware from Features → Firmware, reboot the ESP32-S3 3.5B-C board, and complete first wallet setup."
 >
+  <div class="tut-detail-fit">
   <section class="page-hero page-hero-learn">
     <div class="container learn-article-head">
       <p class="eyebrow">Tutorials · 01</p>
-      <h1>Unbox &amp; first boot</h1>
-      <p>Get SeedMask ready offline before the Coordinator ever enters the picture.</p>
+      <h1>Hardware preview setup</h1>
+      <p class="tut-hero-lead">
+        Run SeedMask on the <strong>ESP32-S3 3.5B-C</strong> development board using the browser flasher on{' '}
+        <a class="tut-ext-link" href={firmwarePage}>Features → Firmware</a>.
+      </p>
+      <p class="tut-hero-lead">
+        <strong>This is not the final retail SeedMask device — enclosure and packaging will differ when hardware ships.</strong>
+      </p>
       <div class="learn-meta-row">
-        <span>~10 min</span>
-        <span>Hardware</span>
+        <span>~15–30 min</span>
+        <span>Hardware preview</span>
       </div>
     </div>
   </section>
 
   <section class="section-tight">
     <div class="container">
-      <div class="article-device article-device-scene">
-        <DeviceScene scene="unbox" />
-      </div>
-
       <div class="tut-need">
-        <h2>What you need</h2>
+        <div class="tut-need-head">
+          <h2>What you need</h2>
+          <p class="tut-need-note">SeedMask is not affiliated with Waveshare.</p>
+        </div>
         <ul>
-          <li>Your SeedMask device and a trusted power source</li>
+          <li>
+            ESP32-S3 <strong>3.5B-C</strong> board (Waveshare ESP32-S3-Touch-LCD-3.5B-C) and a trusted USB
+            cable — available from the{' '}
+            <a
+              class="tut-ext-link"
+              href="https://www.waveshare.com/esp32-s3-touch-lcd-3.5b.htm?sku=31334"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Waveshare official website</a
+            >{' '}
+            or Amazon
+          </li>
+          <li>Computer (macOS, Windows, or Linux)</li>
+          <li>
+            <strong>Chrome</strong> or <strong>Edge</strong> (required for the browser flasher)
+          </li>
+          <li>
+            The flasher on{' '}
+            <a class="tut-ext-link" href={firmwarePage}>Features → Firmware</a>
+            {' '}(preview <strong>v0.1.0</strong>)
+          </li>
           <li>A private place to write your seed (never photograph it)</li>
           <li>Optional: a second offline location for a backup copy</li>
         </ul>
       </div>
 
       <TutorialWalkthrough steps={steps} />
+
+      <div class="tut-arduino-tools" id="flash">
+        <h2>Flash (recommended)</h2>
+        <ol class="tut-arduino-install-list">
+          <li>
+            Open{' '}
+            <a class="tut-ext-link" href={firmwarePage}>Features → Firmware</a>.
+          </li>
+          <li>Plug in the board over USB.</li>
+          <li>Click <strong>Flash firmware</strong> and select the board’s serial port.</li>
+          <li>Wait until flashing finishes, then press the <strong>Reboot</strong> button on the board (the middle one).</li>
+        </ol>
+      </div>
+
+      <div class="tut-arduino-tools" id="flash-esptool">
+        <h2>Flash with esptool (backup)</h2>
+        <p class="muted">
+          Only if the browser flasher is unavailable. Download the merged image from{' '}
+          <a class="tut-ext-link" href={firmwarePage}>Features → Firmware</a>
+          {' '}(or the GitHub Release), verify <code>SHA256SUMS</code>, then:
+        </p>
+        <ol class="tut-arduino-install-list">
+          <li>
+            Install esptool if needed:
+            <code class="tut-code-block">pip install esptool</code>
+          </li>
+          <li>Plug in the board and note its serial port (for example <code>/dev/cu.usbmodem…</code> on macOS or <code>COMx</code> on Windows).</li>
+          <li>
+            From the folder that contains the downloaded file, run (replace <code>PORT</code>):
+            <code class="tut-code-block"
+              >esptool --chip esp32s3 -p PORT write_flash 0x0 SeedMask_Firmware.merged.bin</code
+            >
+          </li>
+          <li>When it finishes, press the <strong>Reboot</strong> button on the board (the middle one).</li>
+        </ol>
+        <p class="muted">
+          Verify hash first (example on macOS/Linux):
+          <code class="tut-code-block">shasum -a 256 -c SHA256SUMS</code>
+          Confirm the <code>SeedMask_Firmware.merged.bin</code> line is OK.
+        </p>
+      </div>
+
+      <div class="tut-arduino-tools" id="from-source">
+        <h2>Build from source (optional)</h2>
+        <p class="muted">
+          Most preview users should use the browser flasher. Developers who want to compile themselves can follow
+          the Arduino IDE or Docker path in the{' '}
+          <a class="tut-ext-link" href={repoUrl} rel="noopener noreferrer" target="_blank"
+            >SeedMask-Firmware</a
+          >{' '}
+          README. Only the Docker path is the byte-for-byte release build.
+        </p>
+      </div>
     </div>
   </section>
+  </div>
 </BaseLayout>

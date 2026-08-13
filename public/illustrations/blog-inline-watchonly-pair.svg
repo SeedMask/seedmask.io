@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" fill="none" role="img" aria-label="Watch-only and air gap lock together into a cold path; remove either and it fails">
+  <rect width="960" height="320" rx="18" fill="#0f161e"/>
+
+  <!-- Left half: Watch-only -->
+  <g transform="translate(48 50)">
+    <path d="M0 40 H170 A90 90 0 0 1 170 220 H0 Z" fill="#12352f" stroke="#1ab79e" stroke-width="2"/>
+    <text x="95" y="120" text-anchor="middle" fill="#7dffe8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="750">Watch-only</text>
+    <text x="95" y="148" text-anchor="middle" fill="#8b9aab" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">App never holds</text>
+    <text x="95" y="168" text-anchor="middle" fill="#8b9aab" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">the seed</text>
+  </g>
+
+  <!-- Right half: Air gap -->
+  <g transform="translate(278 50)">
+    <path d="M90 40 H260 V220 H90 A90 90 0 0 1 90 40 Z" fill="#1a2430" stroke="#1ab79e" stroke-width="2"/>
+    <text x="165" y="120" text-anchor="middle" fill="#7dffe8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="750">Air gap</text>
+    <text x="165" y="148" text-anchor="middle" fill="#8b9aab" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Confirm on device</text>
+    <text x="165" y="168" text-anchor="middle" fill="#8b9aab" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">before anything moves</text>
+  </g>
+
+  <!-- Center lock when joined -->
+  <circle cx="278" cy="160" r="28" fill="#0f161e" stroke="#7dffe8" stroke-width="2.5"/>
+  <rect x="266" y="158" width="24" height="18" rx="3" fill="#1ab79e" opacity="0.35" stroke="#7dffe8"/>
+  <path d="M270 158 V152 a8 8 0 0 1 16 0 V158" stroke="#7dffe8" stroke-width="2" fill="none"/>
+
+  <!-- Arrow to outcomes -->
+  <path d="M560 160 H620" stroke="#3a4a5c" stroke-width="2"/>
+  <path d="M608 152 L620 160 L608 168" fill="#3a4a5c"/>
+
+  <!-- Outcomes stacked -->
+  <g transform="translate(640 36)" font-family="ui-sans-serif, system-ui, sans-serif">
+    <rect width="280" height="100" rx="14" fill="#12352f" stroke="#1ab79e"/>
+    <text x="24" y="42" fill="#7dffe8" font-size="13" font-weight="800" letter-spacing="0.08em">BOTH</text>
+    <text x="24" y="72" fill="#e8eef4" font-size="16" font-weight="700">Cold path holds</text>
+
+    <rect y="124" width="280" height="100" rx="14" fill="#2a1518" stroke="#c45c5c"/>
+    <text x="24" y="166" fill="#f0a0a0" font-size="13" font-weight="800" letter-spacing="0.08em">REMOVE ONE</text>
+    <text x="24" y="196" fill="#e8b4b4" font-size="16" font-weight="700">Story breaks</text>
+  </g>
+
+  <text x="278" y="300" text-anchor="middle" fill="#6f8194" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Same design. Two halves. One custody story.</text>
+</svg>

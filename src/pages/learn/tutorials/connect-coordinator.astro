@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import DeviceScene from '../../../components/DeviceScene.astro';
 import TutorialWalkthrough from '../../../components/TutorialWalkthrough.astro';
 
 const steps = [
@@ -11,17 +10,25 @@ const steps = [
   },
   {
     title: 'Create a watch-only wallet',
-    body: 'Choose Bitcoin or Kaspa. Export public wallet information from SeedMask (QR / air-gap transfer) into Coordinator. You should never be asked for a seed phrase. If you are, stop.',
+    body: `On SeedMask device (but currently ESP32-S3 3.5B-C), go to Bitcoin/Kaspa menu → Export xPub/kPub → choose the corresponding type.
+
+In Coordinator, go to <strong>+</strong> → Connect software → Airgapped → SeedMask → click the QR icon. Point the QR code from Export xPub/kPub → Add wallet. (Don’t forget to name your wallet.)
+
+<span class="tut-walk-warn">SeedMask Coordinator never asks for a seed. If it does, stop.</span>`,
     graphic: 'export' as const,
   },
   {
     title: 'Confirm balances and addresses',
-    body: 'Once synced, check that receive addresses shown in Coordinator match what SeedMask displays for the same account. Label wallets clearly (for example Travel Fund / Savings).',
+    body: `Once synced, check that receive addresses shown in Coordinator match what SeedMask displays for the same account. You can do this by going to Kaspa/Bitcoin menu → Receive.
+
+Label wallets clearly (for example Travel Fund / Savings).`,
     graphic: 'confirm' as const,
   },
   {
-    title: 'Keep Coordinator watch-only',
-    body: 'Coordinator can build unsigned transactions and track history. It cannot authorize spends. Signing always returns to the device in the next tutorial.',
+    title: 'Coordinator stays watch-only',
+    body: `Coordinator can build unsigned transactions and track history. It cannot authorize spends. The cold wallet is the only signer, and as such has to be treated with care.
+
+There is no way for Coordinator to sign — it has no hot wallet, and the key always stays on the cold wallet.`,
     graphic: 'watchonly' as const,
   },
 ];
@@ -31,6 +38,7 @@ const steps = [
   title="Connect Coordinator — SeedMask Tutorials"
   description="Set up SeedMask Coordinator as a watch-only desktop wallet for Bitcoin and Kaspa."
 >
+  <div class="tut-detail-fit">
   <section class="page-hero page-hero-learn">
     <div class="container learn-article-head">
       <p class="eyebrow">Tutorials · 02</p>
@@ -45,11 +53,8 @@ const steps = [
 
   <section class="section-tight">
     <div class="container">
-      <div class="article-device article-device-scene">
-        <DeviceScene scene="connect" />
-      </div>
-
       <TutorialWalkthrough steps={steps} />
     </div>
   </section>
+  </div>
 </BaseLayout>

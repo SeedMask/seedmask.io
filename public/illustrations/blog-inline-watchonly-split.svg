@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" fill="none" role="img" aria-label="Hard line: desktop may watch and build; seed and signing stay on SeedMask">
+  <rect width="960" height="340" rx="18" fill="#f4f7f8"/>
+  <rect x="1" y="1" width="958" height="338" rx="17" stroke="#d5dee4"/>
+
+  <!-- Desktop zone -->
+  <rect x="28" y="28" width="380" height="284" rx="4" fill="#fff" stroke="#c9d4dc"/>
+  <text x="48" y="58" fill="#5a6b78" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="0.16em">DESKTOP WORKSPACE</text>
+  <text x="48" y="92" fill="#1a2430" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" font-weight="750">Coordinator</text>
+  <path d="M48 112 H360" stroke="#e2e8ec"/>
+  <circle cx="60" cy="148" r="5" fill="#1ab79e"/>
+  <text x="78" y="153" fill="#31404c" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15">Balances and history</text>
+  <circle cx="60" cy="184" r="5" fill="#1ab79e"/>
+  <text x="78" y="189" fill="#31404c" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15">Public addresses</text>
+  <circle cx="60" cy="220" r="5" fill="#1ab79e"/>
+  <text x="78" y="225" fill="#31404c" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15">Unsigned construction</text>
+  <circle cx="60" cy="256" r="5" fill="#1ab79e"/>
+  <text x="78" y="261" fill="#31404c" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15">Broadcast when ready</text>
+
+  <!-- Hard line -->
+  <rect x="448" y="28" width="10" height="284" fill="#1ab79e"/>
+  <rect x="430" y="140" width="46" height="60" rx="8" fill="#0f161e"/>
+  <text x="453" y="165" text-anchor="middle" fill="#7dffe8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="800">HARD</text>
+  <text x="453" y="182" text-anchor="middle" fill="#7dffe8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="800">LINE</text>
+
+  <!-- Device zone -->
+  <rect x="502" y="28" width="430" height="284" rx="4" fill="#121a22"/>
+  <text x="526" y="58" fill="#6f8194" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="0.16em">DEVICE AUTHORITY</text>
+  <text x="526" y="92" fill="#e8eef4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" font-weight="750">SeedMask</text>
+  <path d="M526 112 H900" stroke="#2a3746"/>
+  <rect x="526" y="132" width="382" height="56" rx="10" fill="#1a2430" stroke="#1ab79e"/>
+  <text x="546" y="166" fill="#7dffe8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="700">Seed and private keys live here</text>
+  <rect x="526" y="204" width="180" height="72" rx="10" fill="#1a2430" stroke="#3a4a5c"/>
+  <text x="616" y="236" text-anchor="middle" fill="#c5d0db" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="650">Confirm</text>
+  <text x="616" y="258" text-anchor="middle" fill="#8b9aab" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12">Amount + destination</text>
+  <rect x="728" y="204" width="180" height="72" rx="10" fill="#1a2430" stroke="#3a4a5c"/>
+  <text x="818" y="236" text-anchor="middle" fill="#c5d0db" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="650">Sign / refuse</text>
+  <text x="818" y="258" text-anchor="middle" fill="#8b9aab" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12">Authorization only</text>
+</svg>

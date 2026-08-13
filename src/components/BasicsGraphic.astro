@@ -431,11 +431,11 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
         <div class="basics-card basics-card-hot">
           <span class="basics-card-kicker">Hot</span>
           <strong>Online software</strong>
-          <em>Can sign while connected</em>
+          <em>Keys can sign while connected</em>
         </div>
         <div class="basics-card basics-card-cold">
           <span class="basics-card-kicker">Cold</span>
-          <strong>SeedMask</strong>
+          <strong>Hardware signer</strong>
           <em>Keys stay offline until you approve</em>
         </div>
       </div>
@@ -490,13 +490,13 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
       <div class={`basics-cards basics-cards-2${compact ? ' is-compact' : ''}`}>
         <div class="basics-card basics-card-hot">
           <span class="basics-card-kicker">Hot · online</span>
-          <strong>Coordinator</strong>
-          <em>Balances · history · unsigned TX</em>
+          <strong>Software wallet</strong>
+          <em>Signs on the connected device</em>
         </div>
         <div class="basics-card basics-card-cold">
           <span class="basics-card-kicker">Cold · offline</span>
-          <strong>SeedMask</strong>
-          <em>Review · sign · authority</em>
+          <strong>Hardware wallet</strong>
+          <em>Review on screen, then sign</em>
         </div>
       </div>
     </div>
@@ -546,7 +546,7 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
       <div class={`basics-cards basics-cards-1${compact ? ' is-compact' : ''}`}>
         <div class="basics-card basics-card-accent">
           <span class="basics-card-kicker">Watch-only</span>
-          <strong>See · don’t spend</strong>
+          <strong>See - don’t spend</strong>
           <em>Public state without signing power</em>
         </div>
       </div>
@@ -596,13 +596,13 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
       </svg>
       <div class={`basics-cards basics-cards-2${compact ? ' is-compact' : ''}`}>
         <div class="basics-card">
-          <span class="basics-card-kicker">Coordinator</span>
+          <span class="basics-card-kicker">Watch-only</span>
           <strong>Unsigned TX</strong>
           <em>Prepared · not authorized</em>
         </div>
         <div class="basics-card basics-card-accent">
           <span class="basics-card-kicker">Required</span>
-          <strong>Needs SeedMask</strong>
+          <strong>Needs a cold signer</strong>
           <em>Signature from the device</em>
         </div>
       </div>
@@ -876,12 +876,12 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
         <div class="basics-card">
           <span class="basics-card-kicker">01</span>
           <strong>Prepare</strong>
-          <em>On Coordinator</em>
+          <em>On the computer or phone</em>
         </div>
         <div class="basics-card basics-card-accent">
           <span class="basics-card-kicker">02</span>
           <strong>Air gap</strong>
-          <em>Sign on SeedMask</em>
+          <em>Sign on the device</em>
         </div>
         <div class="basics-card">
           <span class="basics-card-kicker">03</span>
@@ -1255,7 +1255,7 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
           <use href={`#${uid}-btcb`} x="880" y="232" />
         </g>
       </svg>
-      <div class={`basics-cards basics-cards-3${compact ? ' is-compact' : ''}`}>
+      <div class={`basics-cards basics-cards-2${compact ? ' is-compact' : ''}`}>
         <div class="basics-card basics-card-btc">
           <span class="basics-card-kicker">Supported</span>
           <strong>BTC</strong>
@@ -1265,11 +1265,6 @@ const uid = name.replace(/[^a-z0-9-]/gi, '');
           <span class="basics-card-kicker">Supported</span>
           <strong>KAS</strong>
           <em>In scope</em>
-        </div>
-        <div class="basics-card basics-card-muted">
-          <span class="basics-card-kicker">Not added</span>
-          <strong>Everything else</strong>
-          <em>Smaller surface</em>
         </div>
       </div>
     </div>

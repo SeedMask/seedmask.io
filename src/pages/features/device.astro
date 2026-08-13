@@ -1,0 +1,835 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const features = [
+  {
+    id: 'password-manager',
+    index: '01',
+    title: 'Password manager',
+    lead: 'Create, store, and send credentials on SeedMask — secrets stay on the device until you approve reveal on the touchscreen.',
+    graphic: 'passwords',
+    body: [
+      'A password manager on a phone or laptop is convenient — and exposed to the same malware and cloud sync risks as everything else on that machine. SeedMask keeps credentials offline: generate or store them on the device, then reveal or send only after you confirm on the screen.',
+      'Use it for accounts that matter: exchange logins, email, and any service where a leak would put funds or identity at risk. For stricter generation rules, see Advanced options — advanced password creation.',
+    ],
+    advice: [
+      'Prefer device-generated passwords over inventing your own.',
+      'Confirm the destination on-screen before any “send” or reveal.',
+      'Never photograph passwords or paste them into chat apps.',
+      'Keep a clear naming scheme so you do not mix similar accounts.',
+    ],
+    tip: 'Treat SeedMask passwords like seed material: offline by default, human confirmation before anything leaves the device.',
+  },
+  {
+    id: 'notes',
+    index: '02',
+    title: 'Secure notes',
+    lead: 'Keep short private notes offline — secrets, labels, or instructions you do not want in a phone notes app.',
+    graphic: 'notes',
+    body: [
+      'Phone notes sync, get screenshotted, and sit next to the same apps that browse the web. SeedMask notes are meant for small, high-sensitivity text that should live with your cold vault — not in iCloud or Google.',
+      'Good fits: wallet labels, recovery passphrases, backup codes, safe-deposit reminders, or setup steps you might need years later. Bad fits: long documents, anything you need to edit every day, or the same secret stored in cleartext elsewhere too.',
+    ],
+    advice: [
+      'Keep notes short and deliberate — this is a vault, not a journal... for now.',
+      'Secure notes can hold real secrets — passphrases, backup codes, and other sensitive text that should stay on the device.',
+      'Do not keep a second copy in a synced notes app or a screenshot; SeedMask should be the offline source.',
+      'Review notes occasionally and delete what you no longer need.',
+    ],
+    tip: 'If a note would be catastrophic if leaked, it belongs on SeedMask — and nowhere that auto-syncs.',
+  },
+  {
+    id: '2fa',
+    index: '03',
+    title: '2FA authenticator',
+    lead: 'Store TOTP secrets on SeedMask and show one-time codes on the 4″ screen — air-gapped from the browser.',
+    graphic: '2fa',
+    body: [
+      'Authenticator apps on phones are better than SMS — but the phone is still online, lost, reset, and backed up in ways you may not control. SeedMask can hold TOTP secrets and display codes only when you unlock and open them on the device.',
+      'That pairs well with exchange and email accounts that already demand 2FA. The code lives behind your PIN and physical device, not in a notification shade on a compromised handset.',
+    ],
+    advice: [
+      'Add 2FA for exchanges, email, and password managers first.',
+      'Save issuer backup codes offline when the service offers them.',
+      'Confirm you can still log in before you remove an old authenticator.',
+      'Do not leave the TOTP secret in email or screenshots after setup.',
+    ],
+    tip: '2FA on SeedMask raises the bar: stealing a password alone is no longer enough if the second factor never leaves the vault.',
+  },
+  {
+    id: 'passphrase',
+    index: '04',
+    title: 'Passphrase',
+    lead: 'Add a BIP39 passphrase for layered wallets. Enter it only on SeedMask — it never leaves the device.',
+    graphic: 'pass',
+    body: [
+      'A passphrase (sometimes called a “25th word”) combines with your seed to derive a different wallet. The same seed with no passphrase is not the same vault as the same seed with a passphrase.',
+      'People use this for stronger isolation or plausible deniability. Both uses fail if you forget the passphrase, mistype it into the wrong place, or store it less carefully than the seed itself.',
+    ],
+    advice: [
+      'Only enable a passphrase if you will back it up as carefully as the seed.',
+      'Never store the seed and passphrase together in plain text — keep them in separate places.',
+      'A passphrase opens a hidden wallet — take the same care with it as your seed.',
+      'Test recovery with a tiny amount before you rely on a passphrase wallet.',
+      'Remember: lose the passphrase and that wallet is gone, even with the seed.',
+    ],
+    tip: 'Passphrase is power with sharp edges. If you are unsure, use seed-only until your backup discipline is rock solid.',
+  },
+  {
+    id: 'bip85',
+    index: '05',
+    title: 'BIP85 child seeds',
+    lead: 'Derive child mnemonics from your master seed for separate wallets — the parent stays on SeedMask.',
+    graphic: 'bip85',
+    body: [
+      'BIP85 lets you generate child seeds from a master seed in a deterministic way. That can help you spin up separate wallets for different purposes without inventing unrelated backups from scratch.',
+      'The master remains the root of recovery for those children. That is convenient — and it means the master backup is even more important. Compromising the master compromises the tree.',
+    ],
+    advice: [
+      'Keep a clear map of which child index is for which purpose.',
+      'Do not treat child seeds as “disposable” if they will hold real funds.',
+      'Protect the master seed as the recovery root for the whole family.',
+      'Prefer documented indexes over improvising new ones under stress.',
+    ],
+    tip: 'BIP85 is organization for advanced users. Master-seed discipline still rules everything downstream.',
+  },
+  {
+    id: 'stateless',
+    index: '06',
+    title: 'Temporary / Stateless',
+    lead: 'Temporary and Stateless are two different modes. Temporary: a session seed in RAM while your master stays saved. Stateless: no permanent seed on the device — enter a phrase fresh every boot.',
+    graphic: 'temp',
+    body: [
+      'Temporary seed: load a secondary recovery phrase into device RAM for a single session. Your permanent master seed stays saved on SeedMask. When you are done, remove the temporary seed — it leaves; the master is untouched.',
+      'Stateless: the device never stores a permanent seed at all. Every time it boots, you input a phrase fresh for that session. Nothing lasting stays on the hardware when you power down or wipe.',
+      'Use temporary when you want a session wallet without disturbing what is already stored. Use stateless when you want the device itself to hold no lasting custody state — travel, shared handling, or an empty-vault habit. Funds follow your offline backup, not device memory.',
+    ],
+    advice: [
+      'Temporary: master stays saved; session seed lives in RAM until you remove it.',
+      'Stateless: no permanent seed on device — enter a phrase fresh each boot.',
+      'Do not confuse the two: removing a temporary seed does not wipe your master.',
+      'Still confirm amount and destination on the screen every time.',
+    ],
+    tip: 'Temporary = session on top of a saved master. Stateless = no permanent seed stored at all.',
+  },
+  {
+    id: 'air-gapped',
+    index: '07',
+    title: 'Air-gapped · QR & MicroSD',
+    lead: 'Move unsigned and signed data without putting SeedMask on your everyday network — via QR codes or a MicroSD card.',
+    graphic: 'airgap',
+    body: [
+      'Air-gapped signing means the keys stay offline while you still complete real transactions. Coordinator prepares; SeedMask authorizes; the result goes back out for broadcast.',
+      'QR is fast for many flows: show or scan what needs to cross the gap. MicroSD helps when payloads are larger or you prefer a physical handoff. Either way, the point is the same — the signing brain does not need Wi‑Fi sitting next to your browser.',
+    ],
+    advice: [
+      'Always read amount and destination on the SeedMask screen before approving.',
+      'Prefer a known-good MicroSD reserved for wallet work when you use cards.',
+      'Do not photograph seed words “to make QR easier later.”',
+      'If a transfer looks wrong on-device, reject it — never approve from habit.',
+    ],
+    tip: 'QR and MicroSD are transport. Confirmation on the screen is still the security boundary.',
+  },
+  {
+    id: 'backup-code',
+    index: '08',
+    title: 'Backup code',
+    lead: 'A compact restore path for your seed — built for easier recovery when you need the vault back on a wiped or new device.',
+    graphic: 'backup',
+    body: [
+      'Writing twenty-four words carefully is the classic backup. A backup code is meant to make restoration less painful when you must bring a wiped SeedMask — or a replacement unit — back to a working signer.',
+      'The code alone is not enough: restore always needs your password too. A strong password is what protects a found code. Still keep the code offline and private — verified copy, not cloud notes or screenshots.',
+    ],
+    advice: [
+      'Create and verify the backup code before you rely on a wipe-and-restore habit.',
+      'Use a strong password — it is the gate that protects the code.',
+      'Store the code offline — never in cloud notes, email, or screenshots.',
+      'Test restore once with funds you can afford to practice on.',
+      'If you also use a passphrase, back that up with equal care.',
+    ],
+    tip: 'The backup code is portable; the password is the gate. Easier restore is not an excuse to be careless with either.',
+  },
+  {
+    id: 'dice-roll',
+    index: '09',
+    title: 'Dice roll',
+    lead: 'Build seed entropy from physical dice rolls on the device — instead of taking the first hardware-random suggestion.',
+    graphic: 'dice',
+    body: [
+      'When you create a wallet, entropy is everything. SeedMask can use hardware randomness, let you regenerate until you are satisfied, or collect dice rolls on the touchscreen.',
+      'Dice roll is for people who want entropy to come from a physical process they control. You roll on-device, the firmware tracks enough rolls for a 12- or 24-word seed, then continues into the normal create flow.',
+    ],
+    advice: [
+      'Use fair dice and a clean surface — no loaded dice, no shortcuts.',
+      'Follow the on-screen roll count for your word length (often ~50 rolls for 12 words, ~100 for 24).',
+      'Write the resulting seed offline immediately after creation — same discipline as any other path.',
+      'Dice roll is optional. If you restore an existing seed, you are trusting whatever created it originally.',
+    ],
+    tip: 'Dice roll does not replace backup discipline. It replaces “trust the first random suggestion” with rolls you performed yourself.',
+  },
+  {
+    id: 'advanced',
+    index: '10',
+    title: 'Advanced options',
+    lead: 'Deeper controls: advanced password creation, passphrase & BIP85 combinations, duress unlock paths, and attempt limits.',
+    graphic: 'advanced',
+    body: [
+      'Advanced options are for people who already understand seed, PIN, and backup basics. They add power — and more ways to confuse yourself if you skip documentation and practice.',
+    ],
+    sections: [
+      {
+        title: 'Advanced password creation',
+        body: 'Inside the password manager, advanced creation lets you set stricter generation rules — length, character sets, and patterns that match what a site will accept — while still keeping the secret on SeedMask until you approve reveal or send.',
+        points: [
+          'Generate on-device; do not invent “clever” passwords by hand.',
+          'Match site rules without weakening length when you can avoid it.',
+        ],
+      },
+      {
+        title: 'Passphrase + BIP85 ≠ BIP85 temporary + passphrase',
+        body: 'These are different setups with different recovery stories. Do not mix them up under stress.',
+        points: [
+          'Passphrase on your master seed derives a different wallet from that same mnemonic. Recovery = master seed words + that passphrase.',
+          'BIP85 creates a child mnemonic from the master. That child can be used on its own (including as a temporary / wiped session).',
+          'A BIP85 child used as a temporary wallet, then unlocked with a passphrase on that child, is not the same wallet as “master seed + passphrase,” and not the same as “master + BIP85 index” without the child’s passphrase.',
+          'Write down which path you used: master+passphrase, BIP85 index, and whether a passphrase applies to the child. Wrong combination = empty wallet.',
+        ],
+      },
+      {
+        title: 'Duress mode',
+        body: 'A duress PIN or password opens an alternate path when you are forced to unlock. SeedMask can present different duress types so the device does not hand over your real vault.',
+        points: [
+          'No-crypto — unlock looks normal but crypto signing / vault access is not your real wallet path.',
+          'Games — the device opens into a benign diversion instead of custody tools.',
+          'Decoy — unlock opens a real-looking wallet that is not your main one. SeedMask derives it from your master seed with BIP85 at a fixed child index (1001 if your master is 24 words, 2001 if it is 12 words). Same master + same index always rebuilds the same decoy; your primary wallet stays separate.',
+          'Rehearse your duress choice. Under pressure you will use whatever you practiced — or freeze.',
+        ],
+      },
+      {
+        title: 'Attempt limit',
+        body: 'Control what a thief sees on the lock screen while they guess, and what the device does when guesses run out.',
+        points: [
+          'Show or hide remaining attempts on the locked screen.',
+          'Wipe silently when the limit is hit — so the hardware empties without a dramatic countdown theater.',
+          'Silent wipe only helps if your backup code / seed backup is intact and reachable by you alone.',
+        ],
+      },
+    ],
+    advice: [
+      'Turn on advanced options only after seed backup and restore are proven.',
+      'Document passphrase vs BIP85 vs duress choices offline — briefly, privately.',
+      'Practice duress unlock once so muscle memory matches your plan.',
+      'Silent wipe without a tested backup is a self-destruct button.',
+    ],
+    tip: 'Advanced features multiply outcomes. Clarity on paper beats cleverness in your head.',
+  },
+];
+---
+
+<BaseLayout
+  title="SeedMask Features — password manager, notes, 2FA & more"
+  description="Explore SeedMask features: air-gapped QR & MicroSD, backup code, password manager, notes, 2FA, passphrase, BIP85, dice roll, stateless mode, duress, and advanced options."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">Features · Device</p>
+      <h1>SeedMask Features</h1>
+      <p>
+        Beyond signing Bitcoin and Kaspa — air-gapped transport, backup, vault tools, and advanced controls on the 4″ device.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container feature-explorer" data-feature-explorer>
+      <p class="feature-explorer-hint">Select a feature for the full walkthrough.</p>
+      <div class="feature-mosaic">
+        {
+          features.map((feature) => (
+            <article
+              class="feature-tile"
+              id={feature.id}
+              data-feature-tile={feature.id}
+            >
+              <button
+                type="button"
+                class="feature-tile-trigger"
+                data-feature-trigger={feature.id}
+                aria-expanded="false"
+                aria-controls={`feature-panel-${feature.id}`}
+              >
+                <div class={`feature-graphic graphic-${feature.graphic}`} aria-hidden="true">
+                  {feature.graphic === 'passwords' && (
+                    <div class="passwords-card">
+                      <div class="passwords-visual" aria-hidden="true">
+                        <div class="passwords-flow">
+                          <span class="passwords-flow-step is-done">
+                            <svg viewBox="0 0 16 16" width="10" height="10" fill="none" aria-hidden="true">
+                              <path d="M8 2.5v4.2l2.2 1.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                              <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4" />
+                            </svg>
+                            Create
+                          </span>
+                          <i class="passwords-flow-line"></i>
+                          <span class="passwords-flow-step is-done">
+                            <svg viewBox="0 0 16 16" width="10" height="10" fill="none" aria-hidden="true">
+                              <rect x="3.5" y="7" width="9" height="6.5" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+                              <path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                            </svg>
+                            Store
+                          </span>
+                          <i class="passwords-flow-line"></i>
+                          <span class="passwords-flow-step is-active">
+                            <svg viewBox="0 0 16 16" width="10" height="10" fill="none" aria-hidden="true">
+                              <path d="M3.5 8.2 6.4 11.1 12.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Send
+                          </span>
+                        </div>
+                        <article class="passwords-credential">
+                          <header class="passwords-credential-head">
+                            <span class="passwords-site-icon" aria-hidden="true">
+                              <svg viewBox="0 0 16 16" width="13" height="13" fill="none">
+                                <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4" />
+                                <path d="M2.5 8h11M8 2.5a10 10 0 0 1 0 11M8 2.5a10 10 0 0 0 0 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                              </svg>
+                            </span>
+                            <div class="passwords-credential-meta">
+                              <span class="passwords-credential-label">Exchange login</span>
+                              <strong>user@email.com</strong>
+                            </div>
+                          </header>
+                          <div class="passwords-field">
+                            <span class="passwords-mask">••••••••••••</span>
+                            <span class="passwords-reveal">Reveal</span>
+                          </div>
+                          <footer class="passwords-foot">
+                            <span>On device</span>
+                            <span>Confirm to send</span>
+                          </footer>
+                        </article>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'notes' && (
+                    <div class="notes-card">
+                      <div class="notes-stack" aria-hidden="true">
+                        <span class="notes-stack-layer notes-stack-layer-3"></span>
+                        <span class="notes-stack-layer notes-stack-layer-2"></span>
+                        <article class="notes-stack-front">
+                          <header class="notes-stack-head">
+                            <span class="notes-stack-lock">
+                              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true">
+                                <rect x="3.5" y="7" width="9" height="6.5" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+                                <path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                              </svg>
+                            </span>
+                            <div class="notes-stack-title">
+                              <strong>Secure note</strong>
+                              <span>Private · on vault</span>
+                            </div>
+                          </header>
+                          <ul class="notes-stack-list">
+                            <li>Wallet label · A</li>
+                            <li>Deposit box #12</li>
+                            <li class="notes-stack-muted">Private reminder</li>
+                          </ul>
+                          <footer class="notes-stack-foot">
+                            <span>No cloud sync</span>
+                            <span>Offline</span>
+                          </footer>
+                        </article>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === '2fa' && (
+                    <div class="twofa-card">
+                      <div class="twofa-device" aria-hidden="true">
+                        <span class="twofa-speaker"></span>
+                        <span class="twofa-screen">
+                          <span class="twofa-kicker">TOTP</span>
+                          <div class="twofa-code">
+                            <span>4</span><span>8</span><span>2</span>
+                            <span>9</span><span>1</span><span>3</span>
+                          </div>
+                          <div class="twofa-timer">
+                            <span class="twofa-timer-fill"></span>
+                          </div>
+                          <div class="twofa-meta">
+                            <span class="twofa-issuer">Exchange</span>
+                            <span class="twofa-countdown">30s</span>
+                          </div>
+                        </span>
+                        <span class="twofa-home-dot"></span>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'pass' && (
+                    <div class="passphrase-card">
+                      <div class="passphrase-visual" aria-hidden="true">
+                        <div class="passphrase-diagram">
+                          <div class="passphrase-sources">
+                            <article class="passphrase-source passphrase-source-seed">
+                              <p class="passphrase-source-label">Seed</p>
+                              <div class="passphrase-seed-grid">
+                                <span>word</span><span>list</span><span>base</span>
+                                <span>core</span><span>safe</span><span>key</span>
+                              </div>
+                            </article>
+                            <span class="passphrase-plus" aria-hidden="true">+</span>
+                            <article class="passphrase-source passphrase-source-pass">
+                              <p class="passphrase-source-label">Passphrase</p>
+                              <div class="passphrase-pass-input">
+                                <span class="passphrase-pass-dots">••••••••</span>
+                              </div>
+                            </article>
+                          </div>
+                          <svg class="passphrase-merge" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M42 0 V8 M158 0 V8 M42 8 H100 M158 8 H100 M100 8 V24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                          </svg>
+                          <article class="passphrase-vault">
+                            <span class="passphrase-vault-glow" aria-hidden="true"></span>
+                            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" aria-hidden="true">
+                              <rect x="3.5" y="7" width="9" height="6.5" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+                              <path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                            </svg>
+                            <div class="passphrase-vault-copy">
+                              <strong>Hidden wallet</strong>
+                              <span>Separate derivation</span>
+                            </div>
+                          </article>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'bip85' && (
+                    <div class="bip85-card">
+                      <div class="bip85-visual" aria-hidden="true">
+                        <div class="bip85-diagram">
+                          <div class="bip85-master">
+                            <span class="bip85-master-badge">BIP85</span>
+                            <strong>Master seed</strong>
+                          </div>
+                          <svg class="bip85-connectors" viewBox="0 0 160 26" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M80 0 V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M22 9 H138" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M22 9 V26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M80 9 V26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M138 9 V26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                          </svg>
+                          <div class="bip85-children">
+                            <span class="bip85-child">
+                              <em>0</em>
+                              Child
+                            </span>
+                            <span class="bip85-child is-active">
+                              <em>1</em>
+                              Child
+                            </span>
+                            <span class="bip85-child">
+                              <em>2</em>
+                              Child
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'temp' && (
+                    <div class="stateless-card">
+                      <div class="stateless-visual" aria-hidden="true">
+                        <div class="stateless-flow">
+                          <article class="stateless-unit">
+                            <div class="stateless-device">
+                              <span class="stateless-screen">
+                                <span class="stateless-seed-grid">
+                                  <i></i><i></i><i></i><i></i>
+                                </span>
+                              </span>
+                              <span class="stateless-device-dot"></span>
+                            </div>
+                            <span>Seed on device</span>
+                          </article>
+                          <div class="stateless-wipe">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                              <path d="M5 12h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                              <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M4 7l3 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.72" />
+                            </svg>
+                            <span>Wipe</span>
+                          </div>
+                          <article class="stateless-unit stateless-unit-clean">
+                            <div class="stateless-device">
+                              <span class="stateless-screen stateless-screen-empty">
+                                <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true">
+                                  <path d="M4 8.5 6.5 11 12 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                              </span>
+                              <span class="stateless-device-dot"></span>
+                            </div>
+                            <span>Acts as new</span>
+                          </article>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'airgap' && (
+                    <div class="airgap-card">
+                      <div class="airgap-visual" aria-hidden="true">
+                        <div class="airgap-transports">
+                          <article class="airgap-transport airgap-transport-qr">
+                            <div class="airgap-qr-frame">
+                              <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                                <rect width="40" height="40" fill="#fff" rx="3" />
+                                <rect x="3" y="3" width="10" height="10" fill="#1a2430" />
+                                <rect x="5" y="5" width="6" height="6" fill="#fff" />
+                                <rect x="7" y="7" width="2" height="2" fill="#1a2430" />
+                                <rect x="27" y="3" width="10" height="10" fill="#1a2430" />
+                                <rect x="29" y="5" width="6" height="6" fill="#fff" />
+                                <rect x="31" y="7" width="2" height="2" fill="#1a2430" />
+                                <rect x="3" y="27" width="10" height="10" fill="#1a2430" />
+                                <rect x="5" y="29" width="6" height="6" fill="#fff" />
+                                <rect x="7" y="31" width="2" height="2" fill="#1a2430" />
+                                <rect x="16" y="3" width="2" height="2" fill="#1a2430" />
+                                <rect x="20" y="3" width="2" height="2" fill="#1a2430" />
+                                <rect x="16" y="7" width="2" height="2" fill="#1a2430" />
+                                <rect x="22" y="7" width="2" height="2" fill="#1a2430" />
+                                <rect x="18" y="11" width="2" height="2" fill="#1a2430" />
+                                <rect x="3" y="16" width="2" height="2" fill="#1a2430" />
+                                <rect x="7" y="16" width="2" height="2" fill="#1a2430" />
+                                <rect x="11" y="18" width="2" height="2" fill="#1a2430" />
+                                <rect x="15" y="16" width="2" height="2" fill="#1a2430" />
+                                <rect x="19" y="18" width="4" height="4" fill="#1a2430" />
+                                <rect x="25" y="16" width="2" height="2" fill="#1a2430" />
+                                <rect x="29" y="18" width="2" height="2" fill="#1a2430" />
+                                <rect x="33" y="16" width="2" height="2" fill="#1a2430" />
+                                <rect x="16" y="24" width="2" height="2" fill="#1a2430" />
+                                <rect x="20" y="26" width="2" height="2" fill="#1a2430" />
+                                <rect x="24" y="24" width="2" height="2" fill="#1a2430" />
+                                <rect x="28" y="28" width="2" height="2" fill="#1a2430" />
+                                <rect x="32" y="26" width="2" height="2" fill="#1a2430" />
+                                <rect x="16" y="30" width="2" height="2" fill="#1a2430" />
+                                <rect x="22" y="32" width="2" height="2" fill="#1a2430" />
+                                <rect x="28" y="34" width="2" height="2" fill="#1a2430" />
+                                <rect x="34" y="32" width="2" height="2" fill="#1a2430" />
+                              </svg>
+                            </div>
+                            <span>QR</span>
+                          </article>
+                          <span class="airgap-or">or</span>
+                          <article class="airgap-transport airgap-transport-sd">
+                            <div class="airgap-sd-frame">
+                              <span class="airgap-sd-shell">
+                                <span class="airgap-sd-contacts">
+                                  <i></i><i></i><i></i><i></i><i></i><i></i>
+                                </span>
+                                <span class="airgap-sd-label">microSD</span>
+                              </span>
+                            </div>
+                            <span>MicroSD</span>
+                          </article>
+                        </div>
+                        <div class="airgap-gap">
+                          <i></i>
+                          <span>Air gap</span>
+                          <i></i>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'backup' && (
+                    <div class="backup-code-card">
+                      <div class="backup-code-visual" aria-hidden="true">
+                        <div class="backup-code-stack">
+                          <span class="backup-code-stack-shadow"></span>
+                          <article class="backup-code-paper">
+                            <span class="backup-code-paper-accent"></span>
+                            <span class="backup-code-seal">
+                              <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+                                <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.4" />
+                                <path d="M6.5 10.2 8.8 12.5 13.8 7.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                            </span>
+                            <p class="backup-code-paper-label">Backup code</p>
+                            <div class="backup-code-grid">
+                              <code>A7K</code><code>M2P</code><code>R9X</code>
+                              <code>F4N</code><code>T8Q</code><code>W1Z</code>
+                            </div>
+                            <span class="backup-code-perforation"></span>
+                          </article>
+                        </div>
+                        <div class="backup-code-rail">
+                          <span class="backup-code-rail-step">
+                            <svg viewBox="0 0 16 16" width="11" height="11" fill="none" aria-hidden="true">
+                              <path d="M8 3.5V1.5M8 3.5a4.5 4.5 0 1 1-3.2 7.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M4.8 1.5H8v3.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Restore
+                          </span>
+                          <i class="backup-code-rail-line"></i>
+                          <span class="backup-code-rail-step is-active">
+                            <svg viewBox="0 0 16 16" width="11" height="11" fill="none" aria-hidden="true">
+                              <path d="M3.5 8.2 6.4 11.1 12.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Verify
+                          </span>
+                          <i class="backup-code-rail-line"></i>
+                          <span class="backup-code-rail-step">
+                            <svg viewBox="0 0 16 16" width="11" height="11" fill="none" aria-hidden="true">
+                              <rect x="3.5" y="7" width="9" height="6.5" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+                              <path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                            </svg>
+                            Offline
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'advanced' && (
+                    <div class="advanced-card">
+                      <div class="advanced-console" aria-hidden="true">
+                        <header class="advanced-console-head">
+                          <span class="advanced-console-icon">
+                            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" aria-hidden="true">
+                              <path d="M8 2.2v1.6M8 12.2v1.6M2.2 8h1.6M12.2 8h1.6M4.1 4.1l1.1 1.1M10.8 10.8l1.1 1.1M4.1 11.9l1.1-1.1M10.8 5.2l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                              <circle cx="8" cy="8" r="2.6" stroke="currentColor" stroke-width="1.4" />
+                            </svg>
+                          </span>
+                          <div class="advanced-console-title">
+                            <strong>Advanced options</strong>
+                            <span>Expert controls on device</span>
+                          </div>
+                        </header>
+                        <ul class="advanced-rows">
+                          <li class="advanced-row">
+                            <span class="advanced-row-icon">
+                              <svg viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true">
+                                <path d="M4 5.5h8M4 8h6M4 10.5h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                                <rect x="2.5" y="2.5" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.4" />
+                              </svg>
+                            </span>
+                            <div class="advanced-row-copy">
+                              <strong>Password creation</strong>
+                              <span>Length · charset · site rules</span>
+                            </div>
+                            <span class="advanced-meter" aria-hidden="true">
+                              <i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i></i>
+                            </span>
+                          </li>
+                          <li class="advanced-row">
+                            <span class="advanced-row-icon">
+                              <svg viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true">
+                                <path d="M3 12V6l5-3 5 3v6" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+                                <path d="M8 3v9M5.5 10.5 8 12l2.5-1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                            </span>
+                            <div class="advanced-row-copy">
+                              <strong>Passphrase · BIP85</strong>
+                              <span>Separate recovery paths</span>
+                            </div>
+                            <span class="advanced-tag">Paths</span>
+                          </li>
+                          <li class="advanced-row">
+                            <span class="advanced-row-icon">
+                              <svg viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true">
+                                <path d="M3.5 8.5c1.2-2.2 3.4-3.5 4.5-3.5s3.3 1.3 4.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                                <circle cx="8" cy="10" r="2.2" stroke="currentColor" stroke-width="1.4" />
+                              </svg>
+                            </span>
+                            <div class="advanced-row-copy">
+                              <strong>Duress mode</strong>
+                              <span>Decoy · games · no-crypto</span>
+                            </div>
+                            <span class="advanced-tag">Decoy</span>
+                          </li>
+                          <li class="advanced-row advanced-row-warn">
+                            <span class="advanced-row-icon">
+                              <svg viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true">
+                                <path d="M8 3.5v5M8 10.8v.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M8 1.8 14 13H2L8 1.8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+                              </svg>
+                            </span>
+                            <div class="advanced-row-copy">
+                              <strong>Attempt limit</strong>
+                              <span>Silent wipe when exhausted</span>
+                            </div>
+                            <span class="advanced-tag advanced-tag-warn">Wipe</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                  {feature.graphic === 'dice' && (
+                    <div class="dice-roll-card">
+                      <div class="dice-faces" aria-hidden="true">
+                        <span class="die die-4">
+                          <i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i>
+                        </span>
+                        <span class="die die-2">
+                          <i class="pip"></i><i class="pip"></i>
+                        </span>
+                        <span class="die die-6">
+                          <i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <span class="pillar-index">{feature.index}</span>
+                <h2>{feature.title}</h2>
+                <p>{feature.lead}</p>
+                <span class="feature-tile-more" aria-hidden="true">
+                  <span class="feature-tile-more-open">Read more</span>
+                  <span class="feature-tile-more-close">Close</span>
+                </span>
+              </button>
+
+              <div
+                class="feature-tile-panel"
+                id={`feature-panel-${feature.id}`}
+                data-feature-panel={feature.id}
+                hidden
+              >
+                {feature.body.map((p) => <p class="feature-panel-copy">{p}</p>)}
+                {feature.sections && (
+                  <div class="feature-sections">
+                    {feature.sections.map((section) => (
+                      <section class="feature-section">
+                        <h3>{section.title}</h3>
+                        <p>{section.body}</p>
+                        {section.points && (
+                          <ul>
+                            {section.points.map((point) => (
+                              <li>{point}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </section>
+                    ))}
+                  </div>
+                )}
+                <div class="feature-advice-block">
+                  <p class="feature-advice-label">Practical advice</p>
+                  <ol class="feature-advice">
+                    {feature.advice.map((item, ai) => (
+                      <li>
+                        <span class="feature-advice-num" aria-hidden="true">{String(ai + 1).padStart(2, '0')}</span>
+                        <span class="feature-advice-text">{item}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+                <p class="feature-tip">
+                  <span class="feature-tip-label">Keep in mind</span>
+                  {feature.tip}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <h2>Looking for firmware?</h2>
+          <p>Flash and verify SeedMask preview firmware from your browser.</p>
+        </div>
+        <a class="btn btn-ghost" href="/features/firmware">Firmware →</a>
+      </div>
+      <p style="margin-top: 24px">
+        <a class="btn btn-ghost" href="/features">← Features</a>
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const root = document.querySelector('[data-feature-explorer]');
+    if (root) {
+      const tiles = [...root.querySelectorAll('[data-feature-tile]')];
+
+      const headerOffset = () => {
+        const raw = getComputedStyle(document.documentElement)
+          .getPropertyValue('--header-h')
+          .trim();
+        const parsed = Number.parseFloat(raw);
+        return (Number.isFinite(parsed) ? parsed : 72) + 24;
+      };
+
+      const scrollToTile = (tile) => {
+        if (!tile) return;
+        const top = Math.max(
+          0,
+          window.scrollY + tile.getBoundingClientRect().top - headerOffset(),
+        );
+        window.scrollTo({ top, behavior: 'smooth' });
+      };
+
+      const open = (id, { scroll = false } = {}) => {
+        tiles.forEach((tile) => {
+          const on = tile.getAttribute('data-feature-tile') === id;
+          const trigger = tile.querySelector('[data-feature-trigger]');
+          const panel = tile.querySelector('[data-feature-panel]');
+          tile.classList.toggle('is-open', on);
+          trigger?.setAttribute('aria-expanded', on ? 'true' : 'false');
+          if (panel) panel.hidden = !on;
+        });
+        root.classList.add('has-open-feature');
+        history.replaceState(null, '', `#${id}`);
+        if (scroll) {
+          const tile = root.querySelector(`[data-feature-tile="${id}"]`);
+          // Wait for open layout (full-width reflow + panel) before scrolling.
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => scrollToTile(tile));
+          });
+        }
+      };
+
+      const closeAll = () => {
+        const openTile = tiles.find((tile) => tile.classList.contains('is-open'));
+        const anchorTop = openTile?.getBoundingClientRect().top ?? null;
+
+        tiles.forEach((tile) => {
+          tile.classList.remove('is-open');
+          tile.querySelector('[data-feature-trigger]')?.setAttribute('aria-expanded', 'false');
+          const panel = tile.querySelector('[data-feature-panel]');
+          if (panel) panel.hidden = true;
+        });
+        root.classList.remove('has-open-feature');
+        history.replaceState(null, '', window.location.pathname);
+
+        // Keep the closed tile in the same place on screen after layout shrinks.
+        if (openTile && anchorTop != null) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              const delta = openTile.getBoundingClientRect().top - anchorTop;
+              if (Math.abs(delta) > 0.5) {
+                window.scrollBy({ top: delta, behavior: 'auto' });
+              }
+            });
+          });
+        }
+      };
+
+      root.querySelectorAll('[data-feature-trigger]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-feature-trigger');
+          const tile = root.querySelector(`[data-feature-tile="${id}"]`);
+          if (tile?.classList.contains('is-open')) {
+            closeAll();
+            return;
+          }
+          open(id, { scroll: true });
+        });
+      });
+
+      const hash = location.hash.replace('#', '');
+      if (hash && root.querySelector(`[data-feature-tile="${hash}"]`)) {
+        open(hash, { scroll: true });
+      }
+    }
+  </script>
+</BaseLayout>

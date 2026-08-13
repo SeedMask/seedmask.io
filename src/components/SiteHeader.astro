@@ -1,5 +1,4 @@
 ---
-import DeviceAbstract from './DeviceAbstract.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
@@ -8,22 +7,24 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   <div class="header-shell">
     <a class="brand-link" href="/">
       <span class="brand-mark">
-        <img src="/branding/seedmask-mark.png" alt="" width="60" height="60" />
+        <img src="/branding/seedmask-mark-header.png" alt="" width="46" height="46" />
       </span>
       <span class="brand-word">SeedMask</span>
     </a>
 
     <nav class="nav-desktop" aria-label="Primary">
       <div class="nav-item">
-        <a class={`nav-trigger${path === '/products' ? ' active' : ''}`} href="/products">Products</a>
-        <div class="mega mega-products" role="menu">
-          <a class="mega-products-link" href="/products">
-            <DeviceAbstract compact />
-            <div class="mega-copy">
-              <strong>SeedMask hardware</strong>
-              <p>Bitcoin &amp; Kaspa-only cold storage. Air-gapped by design.</p>
-              <span class="coming">Coming soon →</span>
-            </div>
+        <a class={`nav-trigger${path.startsWith('/products') ? ' active' : ''}`} href="/products">Products</a>
+        <div class="mega mega-products mega-products-wide" role="menu">
+          <a class="mega-product-card" href="/products/hardware">
+            <img src="/illustrations/products-hardware.png" alt="" />
+            <strong>SeedMask hardware</strong>
+            <span><em class="mega-coming-soon">Coming soon</em> — Bitcoin &amp; Kaspa-only cold storage. Air-gapped by design.</span>
+          </a>
+          <a class="mega-product-card" href="/app">
+            <img src="/illustrations/products-coordinator.png" alt="" />
+            <strong>SeedMask Coordinator</strong>
+            <span>Watch-only desktop companion for balances and signing payloads</span>
           </a>
         </div>
       </div>
@@ -37,9 +38,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
             <span>Keys, wallets, and self-custody fundamentals</span>
           </a>
           <a class="mega-learn-card" href="/learn/tutorials">
-            <img src="/illustrations/device-35.png" alt="" />
+            <img src="/illustrations/learn-tutorials-3.png" alt="" />
             <strong>SeedMask tutorials</strong>
-            <span>Setup on the 3.5″ device and air-gapped signing</span>
+            <span>Hardware preview, Coordinator, and air-gapped signing</span>
           </a>
           <a class="mega-learn-card" href="/learn/blog">
             <img src="/illustrations/learn-blog.png" alt="" />
@@ -50,26 +51,14 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       </div>
       <div class="nav-item">
         <a class={`nav-trigger${path.startsWith('/features') ? ' active' : ''}`} href="/features">Features</a>
-        <div class="mega mega-features" role="menu">
+        <div class="mega mega-features mega-features-wide" role="menu">
           <a class="mega-feature-card" href="/features/firmware">
-            <span class="mega-feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                ><path d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"></path></svg
-              >
-            </span>
+            <img src="/illustrations/features-firmware-10.png" alt="" />
             <strong>Firmware</strong>
             <span>Download and verify SeedMask device firmware</span>
           </a>
-          <a class="mega-feature-card" href="/features">
-            <span class="mega-feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                ><path
-                  d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path
-                ></svg
-              >
-            </span>
+          <a class="mega-feature-card" href="/features/device">
+            <img src="/illustrations/features-device.png" alt="" />
             <strong>SeedMask Features</strong>
             <span>Password manager, notes, 2FA, air gap, backup, duress &amp; more</span>
           </a>
@@ -100,13 +89,15 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     <details class="nav-mobile-section">
       <summary>Products</summary>
       <div class="nav-mobile-mega nav-mobile-products">
-        <a class="mega-products-link" href="/products">
-          <DeviceAbstract compact />
-          <div class="mega-copy">
-            <strong>SeedMask hardware</strong>
-            <p>Bitcoin &amp; Kaspa-only cold storage. Air-gapped by design.</p>
-            <span class="coming">Coming soon →</span>
-          </div>
+        <a class="mega-product-card" href="/products/hardware">
+          <img src="/illustrations/products-hardware.png" alt="" />
+          <strong>SeedMask hardware</strong>
+          <span><em class="mega-coming-soon">Coming soon</em> — Bitcoin &amp; Kaspa-only cold storage. Air-gapped by design.</span>
+        </a>
+        <a class="mega-product-card" href="/app">
+          <img src="/illustrations/products-coordinator.png" alt="" />
+          <strong>SeedMask Coordinator</strong>
+          <span>Watch-only desktop companion for balances and signing payloads</span>
         </a>
       </div>
     </details>
@@ -122,9 +113,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
           <span>Keys, wallets, and self-custody fundamentals</span>
         </a>
         <a class="mega-learn-card" href="/learn/tutorials">
-          <img src="/illustrations/device-35.png" alt="" />
+          <img src="/illustrations/learn-tutorials-3.png" alt="" />
           <strong>SeedMask tutorials</strong>
-          <span>Setup on the 3.5″ device and air-gapped signing</span>
+          <span>Hardware preview, Coordinator, and air-gapped signing</span>
         </a>
         <a class="mega-learn-card" href="/learn/blog">
           <img src="/illustrations/learn-blog.png" alt="" />
@@ -138,24 +129,12 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       <summary>Features</summary>
       <div class="nav-mobile-mega nav-mobile-features">
         <a class="mega-feature-card" href="/features/firmware">
-          <span class="mega-feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-              ><path d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"></path></svg
-            >
-          </span>
+          <img src="/illustrations/features-firmware-10.png" alt="" />
           <strong>Firmware</strong>
           <span>Download and verify SeedMask device firmware</span>
         </a>
-        <a class="mega-feature-card" href="/features">
-          <span class="mega-feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-              ><path
-                d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path
-              ></svg
-            >
-          </span>
+        <a class="mega-feature-card" href="/features/device">
+          <img src="/illustrations/features-device.png" alt="" />
           <strong>SeedMask Features</strong>
           <span>Password manager, notes, 2FA, air gap, backup, duress &amp; more</span>
         </a>
@@ -174,5 +153,32 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     toggle.classList.toggle('is-open', Boolean(open));
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+
+  // Keep desktop mega menus open briefly on diagonal leave; only one open at a time
+  const navItems = [...document.querySelectorAll('.nav-desktop .nav-item')];
+  navItems.forEach((item) => {
+    let closeTimer = 0;
+    const open = () => {
+      window.clearTimeout(closeTimer);
+      navItems.forEach((other) => {
+        if (other !== item) {
+          window.clearTimeout(/** @type {any} */ (other)._megaCloseTimer || 0);
+          other.classList.remove('is-open');
+        }
+      });
+      item.classList.add('is-open');
+    };
+    const scheduleClose = () => {
+      window.clearTimeout(closeTimer);
+      closeTimer = window.setTimeout(() => item.classList.remove('is-open'), 160);
+      /** @type {any} */ (item)._megaCloseTimer = closeTimer;
+    };
+    item.addEventListener('pointerenter', open);
+    item.addEventListener('pointerleave', scheduleClose);
+    item.addEventListener('focusin', open);
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(/** @type {Node | null} */ (e.relatedTarget))) scheduleClose();
+    });
   });
 </script>

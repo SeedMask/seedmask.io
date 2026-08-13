@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Products — SeedMask"
+  description="Choose SeedMask hardware or the watch-only Coordinator companion."
+>
+  <section class="page-hero page-hero-learn">
+    <div class="container">
+      <p class="eyebrow">Products</p>
+      <h1>What do you need?</h1>
+      <p>SeedMask hardware for offline signing, or the Coordinator for a watch-only desktop workspace.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container features-hub">
+      <a class="learn-card" href="/products/hardware">
+        <img class="learn-card-cover" src="/illustrations/products-hardware.png" alt="" />
+        <span class="learn-card-meta">01 · Hardware</span>
+        <h3>SeedMask hardware</h3>
+        <p>Bitcoin &amp; Kaspa-only cold storage. Air-gapped by design — keys stay on the 4″ device.</p>
+        <span class="learn-card-cta">See the device →</span>
+      </a>
+      <a class="learn-card" href="/app">
+        <img class="learn-card-cover" src="/illustrations/products-coordinator.png" alt="" />
+        <span class="learn-card-meta">02 · Coordinator</span>
+        <h3>SeedMask Coordinator</h3>
+        <p>Watch-only desktop companion for balances, addresses, and air-gapped signing payloads.</p>
+        <span class="learn-card-cta">View the app →</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

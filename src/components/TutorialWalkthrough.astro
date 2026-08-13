@@ -3,38 +3,35 @@ export interface TutStep {
   title: string;
   body: string;
   /** Built-in graphic key */
-  graphic: 'power' | 'firmware' | 'seed' | 'pin' | 'download' | 'export' | 'confirm' | 'watchonly' | 'unsigned' | 'transfer' | 'approve' | 'broadcast';
+  graphic:
+    | 'power'
+    | 'firmware'
+    | 'seed'
+    | 'pin'
+    | 'download'
+    | 'export'
+    | 'confirm'
+    | 'watchonly'
+    | 'unsigned'
+    | 'transfer'
+    | 'approve'
+    | 'broadcast'
+    | 'firmwareWeb'
+    | 'reboot'
+    | 'backup'
+    | 'explore';
 }
 
 interface Props {
   steps: TutStep[];
-  backHref?: string;
 }
 
-const { steps, backHref = '/learn/tutorials' } = Astro.props;
+const { steps } = Astro.props;
 ---
 
 <div class="tut-walk" data-tut-walk>
   <div class="tut-walk-progress" aria-hidden="true">
     <span class="tut-walk-progress-fill" data-tut-progress></span>
-  </div>
-
-  <div class="tut-walk-nav" role="tablist" aria-label="Tutorial steps">
-    {
-      steps.map((step, i) => (
-        <button
-          type="button"
-          class={`tut-walk-tab${i === 0 ? ' is-active' : ''}`}
-          role="tab"
-          aria-selected={i === 0 ? 'true' : 'false'}
-          data-tut-tab={i}
-        >
-          <span class="tut-walk-tab-num">{String(i + 1).padStart(2, '0')}</span>
-          <span class="tut-walk-tab-label">{step.title}</span>
-          <span class="tut-walk-tab-meter" data-tut-meter></span>
-        </button>
-      ))
-    }
   </div>
 
   <div class="tut-walk-stage">
@@ -62,12 +59,13 @@ const { steps, backHref = '/learn/tutorials' } = Astro.props;
               <svg viewBox="0 0 280 180" fill="none">
                 <rect x="40" y="36" width="120" height="88" rx="12" stroke="currentColor" stroke-width="2" opacity="0.4" />
                 <path d="M56 58h72M56 72h48M56 86h60" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.35" />
-                <rect x="148" y="48" width="92" height="100" rx="12" stroke="currentColor" stroke-width="2" />
-                <rect x="160" y="62" width="68" height="52" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
-                <path d="M172 82h44M172 94h28" stroke="var(--teal-deep)" stroke-width="1.6" stroke-linecap="round" />
-                <circle cx="194" cy="132" r="10" fill="var(--teal)" opacity="0.9" />
-                <path d="M190 132l3 3 6-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                <text x="92" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Verify fingerprint</text>
+                <text x="56" y="108" fill="currentColor" font-size="10" font-family="Outfit,sans-serif" opacity="0.45">Flash firmware</text>
+                <path d="M168 78h16" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" />
+                <path d="M176 70l10 8-10 8" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="196" y="48" width="52" height="84" rx="10" stroke="currentColor" stroke-width="2" />
+                <rect x="206" y="60" width="32" height="40" rx="4" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.4" />
+                <circle cx="222" cy="118" r="6" fill="var(--teal)" />
+                <text x="78" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">USB · write image</text>
               </svg>
             )}
             {step.graphic === 'seed' && (
@@ -121,7 +119,7 @@ const { steps, backHref = '/learn/tutorials' } = Astro.props;
               <svg viewBox="0 0 280 180" fill="none">
                 <rect x="36" y="36" width="100" height="100" rx="12" stroke="currentColor" stroke-width="2" opacity="0.4" />
                 <path d="M52 60h60M52 76h44" stroke="currentColor" stroke-width="1.5" opacity="0.35" stroke-linecap="round" />
-                <text x="52" y="108" fill="currentColor" font-size="12" font-family="Outfit,sans-serif" opacity="0.5">bc1q…</text>
+                <text x="52" y="108" fill="currentColor" font-size="12" font-family="Outfit,sans-serif" opacity="0.5">kaspa:qz…</text>
                 <path d="M148 78h20" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" />
                 <rect x="180" y="40" width="64" height="92" rx="10" stroke="currentColor" stroke-width="2" />
                 <rect x="190" y="54" width="44" height="48" rx="5" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.4" />
@@ -195,52 +193,102 @@ const { steps, backHref = '/learn/tutorials' } = Astro.props;
                 <text x="78" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Broadcast when ready</text>
               </svg>
             )}
+            {step.graphic === 'firmwareWeb' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="36" y="24" width="208" height="120" rx="12" stroke="currentColor" stroke-width="2" />
+                <rect x="36" y="24" width="208" height="22" rx="12" fill="currentColor" opacity="0.06" />
+                <circle cx="52" cy="35" r="3.5" fill="#eb4d47" /><circle cx="66" cy="35" r="3.5" fill="#f7931a" /><circle cx="80" cy="35" r="3.5" fill="#33ad70" />
+                <text x="100" y="39" fill="currentColor" font-size="10" font-family="Outfit,sans-serif" opacity="0.45">Features · Firmware</text>
+                <rect x="56" y="64" width="100" height="18" rx="4" fill="currentColor" opacity="0.08" />
+                <text x="64" y="77" fill="currentColor" font-size="10" font-family="Outfit,sans-serif" opacity="0.55">Version v0.1.0</text>
+                <rect x="56" y="94" width="112" height="28" rx="8" fill="var(--teal)" />
+                <text x="72" y="112" fill="#fff" font-size="11" font-family="Outfit,sans-serif" font-weight="700">Flash firmware</text>
+                <text x="58" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Browser flasher page</text>
+              </svg>
+            )}
+            {step.graphic === 'reboot' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="72" y="22" width="118" height="128" rx="12" stroke="currentColor" stroke-width="2" />
+                <rect x="84" y="36" width="86" height="78" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                {/* Right-edge vertical buttons */}
+                <rect x="190" y="40" width="22" height="92" rx="6" stroke="currentColor" stroke-width="1.6" fill="currentColor" fill-opacity="0.04" />
+                <circle cx="201" cy="58" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
+                <circle cx="201" cy="86" r="8" fill="var(--teal)" />
+                <circle cx="201" cy="114" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
+                <path d="M214 86h18" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M226 80l8 6-8 6" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="48" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Side buttons · middle = Reboot</text>
+              </svg>
+            )}
+            {step.graphic === 'backup' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="40" y="32" width="88" height="108" rx="12" stroke="currentColor" stroke-width="2" />
+                <rect x="52" y="48" width="64" height="52" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <path d="M64 64h40M64 78h28M64 90h36" stroke="var(--teal-deep)" stroke-width="1.6" stroke-linecap="round" />
+                <text x="54" y="120" fill="currentColor" font-size="9" font-family="Outfit,sans-serif" opacity="0.45">Backup code?</text>
+                <rect x="52" y="128" width="28" height="12" rx="3" stroke="currentColor" stroke-width="1.3" opacity="0.4" />
+                <rect x="88" y="128" width="28" height="12" rx="3" fill="var(--teal)" />
+                <rect x="160" y="44" width="72" height="88" rx="8" stroke="currentColor" stroke-width="1.6" opacity="0.55" />
+                <path d="M172 64h48M172 78h36M172 92h44M172 106h28" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.35" />
+                <text x="48" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Optional · store offline</text>
+              </svg>
+            )}
+            {step.graphic === 'explore' && (
+              <svg viewBox="0 0 280 180" fill="none">
+                <rect x="92" y="20" width="96" height="118" rx="14" stroke="currentColor" stroke-width="2" />
+                <rect x="104" y="36" width="72" height="70" rx="6" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5" />
+                <rect x="112" y="48" width="24" height="18" rx="3" stroke="var(--teal-deep)" stroke-width="1.3" />
+                <rect x="144" y="48" width="24" height="18" rx="3" stroke="var(--teal-deep)" stroke-width="1.3" />
+                <rect x="112" y="74" width="24" height="18" rx="3" stroke="var(--teal-deep)" stroke-width="1.3" />
+                <rect x="144" y="74" width="24" height="18" rx="3" stroke="var(--teal-deep)" stroke-width="1.3" opacity="0.45" />
+                <circle cx="140" cy="122" r="5" fill="currentColor" opacity="0.25" />
+                <path d="M198 52l18 18M216 52l-18 18" stroke="#e8a317" stroke-width="2.4" stroke-linecap="round" />
+                <text x="58" y="168" fill="currentColor" font-size="11" font-family="Outfit,sans-serif" opacity="0.45">Explore · no real funds yet</text>
+              </svg>
+            )}
           </div>
 
           <div class="tut-walk-copy">
             <p class="tut-walk-kicker">Step {String(i + 1).padStart(2, '0')} of {String(steps.length).padStart(2, '0')}</p>
             <h2>{step.title}</h2>
-            <p>{step.body}</p>
+            {step.body.split(/\n\n+/).map((para) => (
+              <p set:html={para} />
+            ))}
           </div>
         </div>
       ))
     }
   </div>
 
-  <div class="tut-walk-controls">
-    <button type="button" class="btn btn-ghost" data-tut-prev disabled>← Back</button>
-    <div class="tut-walk-status">
-      <span data-tut-status>Playing through steps</span>
-      <div class="tut-walk-dots" aria-hidden="true">
-        {steps.map((_, i) => <span class={`tut-walk-dot${i === 0 ? ' is-active' : ''}`} data-tut-dot={i}></span>)}
-      </div>
-    </div>
-    <button type="button" class="btn btn-ghost" data-tut-toggle>Pause</button>
+  <div class="tut-walk-nav" role="tablist" aria-label="Tutorial steps">
+    {
+      steps.map((step, i) => (
+        <button
+          type="button"
+          class={`tut-walk-tab${i === 0 ? ' is-active' : ''}`}
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          data-tut-tab={i}
+        >
+          <span class="tut-walk-tab-num">{String(i + 1).padStart(2, '0')}</span>
+          <span class="tut-walk-tab-label">{step.title}</span>
+          <span class="tut-walk-tab-meter" data-tut-meter></span>
+        </button>
+      ))
+    }
   </div>
 
-  <div class="tut-walk-footer">
-    <a class="btn btn-ghost" href={backHref}>← All tutorials</a>
-  </div>
 </div>
 
 <script>
   document.querySelectorAll('[data-tut-walk]').forEach((root) => {
     const tabs = [...root.querySelectorAll('[data-tut-tab]')];
     const panels = [...root.querySelectorAll('[data-tut-panel]')];
-    const dots = [...root.querySelectorAll('[data-tut-dot]')];
     const meters = [...root.querySelectorAll('[data-tut-meter]')];
     const progress = root.querySelector('[data-tut-progress]');
-    const prev = root.querySelector('[data-tut-prev]');
-    const toggle = root.querySelector('[data-tut-toggle]');
-    const status = root.querySelector('[data-tut-status]');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const STEP_MS = 5200;
     let index = 0;
-    let playing = !reduceMotion;
-    let startedAt = performance.now();
-    let raf = 0;
 
-    const show = (i, { restart = true } = {}) => {
+    const show = (i) => {
       index = Math.max(0, Math.min(panels.length - 1, i));
       tabs.forEach((tab, n) => {
         tab.classList.toggle('is-active', n === index);
@@ -252,109 +300,20 @@ const { steps, backHref = '/learn/tutorials' } = Astro.props;
         panel.classList.toggle('is-active', on);
         panel.hidden = !on;
       });
-      dots.forEach((dot, n) => {
-        dot.classList.toggle('is-active', n === index);
-        dot.classList.toggle('is-done', n < index);
-      });
       meters.forEach((meter, n) => {
-        meter.style.transform = n < index ? 'scaleX(1)' : 'scaleX(0)';
+        meter.style.transform = n <= index ? 'scaleX(1)' : 'scaleX(0)';
       });
-      if (prev) prev.disabled = index === 0;
       if (progress) {
-        const base = index / panels.length;
-        progress.style.transform = `scaleX(${base})`;
+        progress.style.transform = `scaleX(${(index + 1) / panels.length})`;
       }
-      if (restart) startedAt = performance.now();
-      if (status) {
-        status.textContent = playing
-          ? index === panels.length - 1
-            ? 'Finishing walkthrough'
-            : 'Playing through steps'
-          : 'Paused';
-      }
-      if (toggle) toggle.textContent = playing ? 'Pause' : 'Play';
-      root.classList.toggle('is-playing', playing);
-      root.classList.toggle('is-paused', !playing);
-    };
-
-    const tick = (now) => {
-      if (!playing) {
-        raf = requestAnimationFrame(tick);
-        return;
-      }
-
-      const elapsed = now - startedAt;
-      const local = Math.min(1, elapsed / STEP_MS);
-      const overall = (index + local) / panels.length;
-
-      if (progress) progress.style.transform = `scaleX(${overall})`;
-      if (meters[index]) meters[index].style.transform = `scaleX(${local})`;
-
-      if (local >= 1) {
-        if (index < panels.length - 1) {
-          show(index + 1);
-        } else {
-          playing = false;
-          show(index, { restart: false });
-          if (meters[index]) meters[index].style.transform = 'scaleX(1)';
-          if (progress) progress.style.transform = 'scaleX(1)';
-          if (status) status.textContent = 'Walkthrough complete';
-        }
-      }
-
-      raf = requestAnimationFrame(tick);
-    };
-
-    const pause = () => {
-      playing = false;
-      show(index, { restart: false });
-    };
-
-    const resume = () => {
-      if (reduceMotion) return;
-      playing = true;
-      startedAt = performance.now();
-      show(index, { restart: false });
     };
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
-        pause();
         show(Number(tab.getAttribute('data-tut-tab')));
       });
     });
 
-    prev?.addEventListener('click', () => {
-      pause();
-      show(index - 1);
-    });
-
-    toggle?.addEventListener('click', () => {
-      if (playing) pause();
-      else {
-        if (index >= panels.length - 1) show(0);
-        resume();
-      }
-    });
-
-    const stage = root.querySelector('.tut-walk-stage');
-    let readingPause = false;
-    stage?.addEventListener('mouseenter', () => {
-      if (!playing || reduceMotion) return;
-      readingPause = true;
-      playing = false;
-      if (status) status.textContent = 'Paused while you read';
-      if (toggle) toggle.textContent = 'Play';
-      root.classList.add('is-paused');
-      root.classList.remove('is-playing');
-    });
-    stage?.addEventListener('mouseleave', () => {
-      if (!readingPause || reduceMotion) return;
-      readingPause = false;
-      resume();
-    });
-
     show(0);
-    raf = requestAnimationFrame(tick);
   });
 </script>

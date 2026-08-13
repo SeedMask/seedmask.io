@@ -9,15 +9,15 @@ const topics = [
     title: 'What a key is',
     lead: 'Custody is about who can produce a valid signature — not who has a pretty balance screen.',
     body: [
-      'Your seed phrase and private keys are the authority to spend. Whoever can use them can move funds, even if they never touch your phone, exchange account, or Coordinator install.',
+      'Your seed phrase and private keys are the authority to spend. Whoever can use them can move funds — even without your phone or exchange account.',
       'Public addresses and balances can be watched safely. Private keys cannot. If a key leaves the place you trust, assume the funds are at risk.',
     ],
     points: [
       'Seed + private keys = spending power',
       'A balance screen alone cannot move coins',
-      'SeedMask keeps signing authority on the device',
+      'Signing authority belongs only where the key is kept',
     ],
-    callout: 'SeedMask keeps that authority on the device, not in a browser tab.',
+    callout: 'Keep the key offline. A balance screen is not spending power.',
     graphic: 'keys',
     moreTitle: 'Public vs private in practice',
     moreBody: [
@@ -45,7 +45,7 @@ const topics = [
     moreTitle: 'Good media vs bad habits',
     moreBody: [
       'Paper works if it stays dry, private, and readable for years. Metal survives fire and flood better. Cloud notes, screenshots, and email drafts do not count as storage — they count as exposure.',
-      'When you write the words, verify the order twice before you power the device down. A wrong backup is almost as bad as no backup.',
+      'When you write the words, verify the order twice before you rely on that backup. A wrong backup is almost as bad as no backup.',
     ],
     moreGraphic: 'storage-more',
   },
@@ -68,7 +68,7 @@ const topics = [
     moreTitle: 'Where the randomness should come from',
     moreBody: [
       {
-        html: 'On SeedMask generate your seed when creating a new wallet. You should not use the first seed that is suggested — instead you can regenerate it until you are satisfied, or <strong>Dice roll</strong> at least 50 times (for 12 words), or 100 times (for 24 words). Then copy the words offline. That keeps generation away from browsers, phone apps, and “random” websites.',
+        html: 'Generate a new seed on a trusted hardware wallet — not on a phone app or random website. Prefer regenerating until you are satisfied, or use dice rolls with enough entropy (often ~50 rolls for 12 words, ~100 for 24). Then write the words offline. On SeedMask you can keep generating a new seed until you like it, or build one with on-device <strong>Dice roll</strong>.',
       },
       'If you restore an existing seed, you are trusting whatever process created it. Treat that history as part of your security story.',
     ],
@@ -101,22 +101,22 @@ const topics = [
     id: 'hot-cold',
     label: 'Hot vs cold',
     title: 'Hot vs cold',
-    lead: 'Hot can sign while online. Cold keeps keys offline.',
+    lead: 'Hot keeps keys in online software. Cold keeps keys offline.',
     body: [
-      'Software that can sign while connected to the internet is hot. Convenient, and exposed to the same malware and phishing surface as the rest of your computer.',
-      'A cold device keeps keys offline and only signs after you confirm on its screen. That is the pattern SeedMask follows: your everyday machine can help watch and prepare, without holding the keys.',
+      'A hot wallet stores keys in software on a computer or phone that is online. Convenient for frequent use — and exposed to the same malware and phishing surface as that device.',
+      'A cold wallet keeps keys offline on dedicated hardware. It only signs after you confirm on its screen. The keys are not sitting inside everyday apps.',
     ],
     points: [
       'Hot = keys reachable by online software',
-      'Cold = keys stay offline until you approve',
-      'SeedMask is the cold half of the duo',
+      'Cold = keys offline until you approve on-device',
+      'Convenience trades against attack surface',
     ],
-    callout: 'Your laptop can stay useful for watching — without holding the keys that authorize spends.',
+    callout: 'If the computer can reach the key, that wallet is hot — even if you are careful.',
     graphic: 'hotcold',
-    moreTitle: 'How the two sides work together',
+    moreTitle: 'What changes in practice',
     moreBody: [
-      'Coordinator lives on the hot side: balances, history, unsigned transactions. SeedMask lives on the cold side: review and signature.',
-      'The handoff is deliberate. Convenience stays on the computer. Final authority stays on the device you can read with your eyes.',
+      'Hot wallets sign from the same environment where you browse and install apps. That is why phishing and malware hit them harder.',
+      'Cold wallets add friction on purpose: you move a transaction to the device, read it, then approve. Watch-only apps are a different idea — they help prepare spends without holding keys at all.',
     ],
     moreGraphic: 'hotcold-more',
   },
@@ -127,11 +127,11 @@ const topics = [
     lead: 'See balances and build unsigned transactions — without the power to spend.',
     body: [
       'A watch-only app can see public wallet state and help you construct unsigned transactions, but it cannot spend without a signature from a key it does not hold.',
-      'SeedMask Coordinator is built that way on purpose. It is a control surface for preparation and broadcast, not a place that should ever ask for your seed.',
+      'Treat it as preparation and broadcast only — never as a place that should ask for your seed. On SeedMask, Coordinator is that watch-only app.',
     ],
     points: [
       'Public info in, signatures from the device',
-      'Never enter a seed into Coordinator',
+      'Never enter a seed into a watch-only app',
       'If an app asks for seed words, stop',
     ],
     callout: 'Seeing funds is not the same as moving funds.',
@@ -139,7 +139,7 @@ const topics = [
     moreTitle: 'What watch-only is allowed to do',
     moreBody: [
       'It can sync, label wallets, propose sends, and later broadcast a signed transaction. It cannot invent a valid signature for a key it never received.',
-      'That is why the unsigned transaction must cross to SeedMask. Until the device signs, nothing is authorized.',
+      'That is why the unsigned transaction must cross to a cold signer. Until that device signs, nothing is authorized.',
     ],
     moreGraphic: 'watch-more',
   },
@@ -150,18 +150,18 @@ const topics = [
     lead: 'The signing brain stays off your everyday network path.',
     body: [
       'An air gap means the signing device is not continuously online with your everyday computer. You move unsigned data to the device, sign there, and bring the signature back.',
-      'That separation is the point: malware on a laptop can still lie about what it shows you, which is why you confirm amount and destination on SeedMask itself before approving.',
+      'That separation is the point: malware on a laptop can still lie about what it shows you, which is why you confirm amount and destination on the signer screen before approving.',
     ],
     points: [
-      'Unsigned data → SeedMask',
+      'Unsigned data → cold signer',
       'Confirm on the device screen',
-      'Signed data → Coordinator → broadcast',
+      'Signed data → watch-only app → broadcast',
     ],
     callout: 'Keys never need to ride along with your daily internet habits.',
     graphic: 'airgap',
     moreTitle: 'The full loop, one beat at a time',
     moreBody: [
-      'Prepare on Coordinator. Transfer to SeedMask. Read the screen. Approve or reject. Return the signed result. Broadcast only after that.',
+      'Prepare on the computer or phone. Transfer to the signer. Read the screen. Approve or reject. Return the signed result. Broadcast only after that. On SeedMask that loop is Coordinator → device → Coordinator.',
       'Each beat exists so a compromised desktop cannot silently spend. The air gap is friction on purpose.',
     ],
     moreGraphic: 'airgap-more',
@@ -254,7 +254,7 @@ const topics = [
     moreTitle: 'Verification is part of custody',
     moreBody: [
       'Open source is not magic safety by itself — but it makes independent review possible. Closed source forces a narrower trust bet on the vendor.',
-      'When you install Coordinator or firmware-related tools, treat published hashes and release notes as part of the ritual, not optional homework.',
+      'When you install wallet software or firmware tools, treat published hashes and release notes as part of the ritual, not optional homework. On SeedMask that includes Coordinator and device firmware.',
     ],
     moreGraphic: 'opensource-more',
   },

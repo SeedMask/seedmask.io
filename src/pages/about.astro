@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ComingSoonButton from '../components/ComingSoonButton.astro';
 ---
 
 <BaseLayout
@@ -146,13 +145,13 @@ import ComingSoonButton from '../components/ComingSoonButton.astro';
     </div>
   </section>
 
-  <section class="section band roadmap-section">
+  <section class="section band roadmap-section" id="roadmap">
     <div class="container">
       <div class="roadmap-head">
         <p class="eyebrow">Roadmap</p>
         <h2 class="section-title roadmap-title">The path from lab to launch</h2>
         <p class="section-lead">
-          Firmware and Coordinator first — then capital, team, partnerships, integrations, and hardware.
+          Firmware and Coordinator come first. Retail hardware does not exist yet — and it should not ship on goodwill alone. Manufacturing, production, and independent audits all need funding before a SeedMask device can leave the lab as a product people are asked to trust with keys.
         </p>
       </div>
 
@@ -182,7 +181,7 @@ import ComingSoonButton from '../components/ComingSoonButton.astro';
           <span class="road-tag">Soon</span>
           <time>Fundraising</time>
           <h3>Raise to build</h3>
-          <p>Fund production, audits, and runway.</p>
+          <p>Fund manufacturing, production, audits, and runway.</p>
         </article>
 
         <article class="road-step">
@@ -218,6 +217,79 @@ import ComingSoonButton from '../components/ComingSoonButton.astro';
         </article>
       </div>
 
+      <p class="roadmap-note">
+        This is the outline, not a complete checklist. Firmware and Coordinator keep getting work after their Done tags — features, fixes, and upgrades as Bitcoin and Kaspa move. Between raise and launch there is still testing, enclosure work, and audits. <strong>Done</strong> means a first version exists, not that the work stopped.
+      </p>
+
+      <div class="tamper-risks" id="physical-security">
+        <p class="eyebrow">Hardware</p>
+        <h3>Physical security — the retail plan</h3>
+        <p>
+          These protections are planned for the retail device. They are not in the hardware preview board. This is the plan for the case, the chip, and the board.
+        </p>
+        <ul>
+          <li>
+            <strong>Secure element</strong>
+            Keys live in a dedicated chip, not a general MCU that is easy to read. Signing stays inside that chip.
+          </li>
+          <li>
+            <strong>Anti-tamper</strong>
+            Sensors, seals, and wipe-on-open so opening the case is not a quiet operation.
+          </li>
+          <li>
+            <strong>Physical access</strong>
+            If the device is left alone, the design still assumes someone can hold the box. The enclosure and chip are there to raise the cost of that, not to ignore it.
+          </li>
+          <li>
+            <strong>Supply chain</strong>
+            Retail units from the official channel, with packaging and checks that make a swap harder to hide.
+          </li>
+          <li>
+            <strong>Chip-off / decap</strong>
+            Sensitive material is meant to stay in protected silicon — not in a chip a lab can lift and dump.
+          </li>
+          <li>
+            <strong>Fault injection / glitching</strong>
+            The secure element and board design make voltage, clock, and EM tricks harder while the device looks closed.
+          </li>
+          <li>
+            <strong>Side channels</strong>
+            Hardening so power, EM, and timing leak less while you sign or unlock.
+          </li>
+          <li>
+            <strong>Clean production boards</strong>
+            No leftover factory debug pads on retail units.
+          </li>
+          <li>
+            <strong>Complete wipe</strong>
+            A wipe clears the seed, backups, and debug leftovers together — so nothing useful remains for someone who opens the device later.
+          </li>
+          <li>
+            <strong>Power and batteries</strong>
+            Defined behavior when power dies or a battery fails — not a surprise wipe or a dead sensor that looks “safe.”
+          </li>
+          <li>
+            <strong>Accidental wipe control</strong>
+            Thresholds so a drop or a hot day is not treated the same as an opened case.
+          </li>
+          <li>
+            <strong>Signed firmware</strong>
+            Physical protections sit on top of firmware you can verify. The case does not replace hash checks and signed updates.
+          </li>
+        </ul>
+        <p class="tamper-risks-close">
+          These are planned for retail hardware. They raise the cost of a physical attack. They do not replace confirming on the screen, or keeping keys on the device.
+        </p>
+      </div>
+
+      <div class="more-products">
+        <p class="eyebrow">Next</p>
+        <h3>More products in mind</h3>
+        <p>
+          Beside SeedMask Pro, more hardware and accessories are on the drawing board — same bar: useful, strict about where keys live, and built to make handling them easier and safer. We’ll name them when they’re real enough to show.
+        </p>
+      </div>
+
       <div class="cta-panel" style="margin-top: 56px">
         <div>
           <h2>Follow along on X</h2>
@@ -225,7 +297,6 @@ import ComingSoonButton from '../components/ComingSoonButton.astro';
         </div>
         <div class="hero-actions">
           <a class="btn btn-ghost" href="https://x.com/Seedmask" target="_blank" rel="noopener noreferrer">Follow @Seedmask</a>
-          <ComingSoonButton href="/products" />
         </div>
       </div>
     </div>

@@ -1,27 +1,41 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import DeviceScene from '../../../components/DeviceScene.astro';
 import TutorialWalkthrough from '../../../components/TutorialWalkthrough.astro';
 
 const steps = [
   {
+    title: 'Open SeedMask Coordinator',
+    body: 'On your computer, open the SeedMask Coordinator app and select the watch-only wallet you previously connected from your SeedMask device.',
+    graphic: 'download' as const,
+  },
+  {
     title: 'Build an unsigned transaction',
-    body: 'Open Send, enter the destination and amount, and review fees. Coordinator builds an unsigned transaction. Nothing has been authorized yet.',
+    body: 'In Coordinator, open Send, enter the destination and amount, and review fees. Coordinator builds an unsigned transaction. Nothing has been authorized yet.',
     graphic: 'unsigned' as const,
   },
   {
     title: 'Move it to SeedMask',
-    body: 'Transfer the unsigned transaction to the device via the air-gap method SeedMask supports (for example QR). Keep the device offline from your everyday network habits.',
+    body: `Two ways to get the unsigned transaction onto the device:
+
+Via MicroSD: insert a microSD into your computer. In Review & Sign, choose <strong>Save transaction</strong> and save it on the microSD. Remove the card and insert it into the SeedMask device. On SeedMask go to <strong>Sign</strong> → Via MicroSD and open that file.
+
+Via camera: on SeedMask open <strong>Sign</strong> (camera / QR). In Coordinator Review & Sign, show the animated QR so the device can scan it.`,
     graphic: 'transfer' as const,
   },
   {
-    title: 'Confirm on the device screen',
-    body: 'Read the amount and destination on SeedMask itself. Approve only if every detail matches what you intended. Reject if anything differs.',
+    title: 'Confirm and sign on the device',
+    body: 'On SeedMask, read the amount and destination carefully. Approve only if every detail matches what you intended — reject if anything differs. Signing happens only on the device.',
     graphic: 'approve' as const,
   },
   {
-    title: 'Return signed TX and broadcast',
-    body: 'Bring the signed transaction back into Coordinator, then broadcast when you are ready. Coordinator never needed your seed to complete the send.',
+    title: 'Sign TX and broadcast',
+    body: `Bring the signed transaction back into Coordinator, then broadcast when you are ready.
+
+Via MicroSD: on SeedMask save the signed transaction to the card, move the card to your computer, and click <strong>Load transaction</strong> in Coordinator Review & Sign.
+
+Via camera: in Coordinator click <strong>Scan signed QR</strong> and scan what SeedMask shows.
+
+Note: Coordinator never needs your seed to complete the send.`,
     graphic: 'broadcast' as const,
   },
 ];
@@ -31,11 +45,12 @@ const steps = [
   title="Air-gapped send — SeedMask Tutorials"
   description="Build an unsigned transaction in Coordinator, sign on SeedMask, and broadcast only after you confirm."
 >
+  <div class="tut-detail-fit">
   <section class="page-hero page-hero-learn">
     <div class="container learn-article-head">
       <p class="eyebrow">Tutorials · 03</p>
       <h1>Air-gapped send</h1>
-      <p>The full signing loop — unsigned on desktop, signed on SeedMask, then broadcast.</p>
+      <p class="tut-hero-lead">The full signing loop — unsigned on desktop, signed on SeedMask, then broadcast.</p>
       <div class="learn-meta-row">
         <span>~15 min</span>
         <span>Signing</span>
@@ -45,11 +60,8 @@ const steps = [
 
   <section class="section-tight">
     <div class="container">
-      <div class="article-device article-device-scene">
-        <DeviceScene scene="airgap" />
-      </div>
-
       <TutorialWalkthrough steps={steps} />
     </div>
   </section>
+  </div>
 </BaseLayout>

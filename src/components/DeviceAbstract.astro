@@ -2,6 +2,7 @@
 interface Props {
   compact?: boolean;
   caption?: boolean;
+  captionLabel?: string;
   alive?: boolean;
   class?: string;
   src?: string;
@@ -9,6 +10,7 @@ interface Props {
 const {
   compact = false,
   caption = true,
+  captionLabel = '4″ touchscreen',
   class: className = '',
   src = '/illustrations/device-35.png',
 } = Astro.props;
@@ -21,5 +23,5 @@ const {
   <div class="device-photo-frame">
     <img src={src} alt="" width="840" height="560" />
   </div>
-  {caption && !compact && <figcaption>3.5″ touchscreen</figcaption>}
+  {caption && !compact && <figcaption>{captionLabel}</figcaption>}
 </figure>

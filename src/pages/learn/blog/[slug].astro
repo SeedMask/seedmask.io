@@ -16,7 +16,7 @@ const { Content } = await render(post);
 
 <BaseLayout title={`${post.data.title} — SeedMask Blog`} description={post.data.description}>
   <section class="page-hero page-hero-learn">
-    <div class="container learn-article-head">
+      <div class="container learn-article-head blog-article-head">
       <p class="eyebrow">
         Learn · Blog ·
         {
@@ -34,12 +34,26 @@ const { Content } = await render(post);
   </section>
 
   <section class="section-tight">
-    <div class="container prose learn-prose">
-      {post.data.cover && <img class="article-cover" src={post.data.cover} alt="" />}
-      <Content />
-      <p style="margin-top: 36px">
-        <a class="btn btn-ghost" href="/learn/blog">← All posts</a>
-      </p>
+    <div class="container">
+      {
+        post.data.cover && (
+          <figure class="article-cover-frame">
+            <img
+              class="article-cover"
+              src={post.data.cover}
+              alt=""
+              width="1200"
+              height="560"
+            />
+          </figure>
+        )
+      }
+      <div class="prose article-body">
+        <Content />
+        <p style="margin-top: 36px">
+          <a class="btn btn-ghost" href="/learn/blog">← All posts</a>
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>

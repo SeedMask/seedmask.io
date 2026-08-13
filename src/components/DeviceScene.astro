@@ -1,6 +1,6 @@
 ---
 interface Props {
-  scene?: 'unbox' | 'connect' | 'airgap' | 'default';
+  scene?: 'unbox' | 'connect' | 'airgap' | 'flash' | 'default';
   compact?: boolean;
 }
 const { scene = 'default', compact = false } = Astro.props;
@@ -11,19 +11,19 @@ const { scene = 'default', compact = false } = Astro.props;
     <figure class={`device-stage stage-unbox${compact ? ' is-compact' : ''}`} aria-hidden="true">
       <div class="stage-bg"></div>
       <div class="stage-unbox-box">
-        <span class="stage-label">In the box</span>
+        <span class="stage-label">Hardware preview</span>
         <ul>
-          <li>SeedMask 3.5″</li>
-          <li>USB-C cable</li>
-          <li>Quick start</li>
+          <li>ESP32-S3 3.5B-C</li>
+          <li>USB cable</li>
+          <li>Chrome or Edge</li>
         </ul>
       </div>
       <div class="stage-device-wrap">
-        <img class="stage-device" src="/illustrations/device-35.png" alt="" width="840" height="560" />
+        <img class="stage-device" src="/illustrations/seedmask-device.png" alt="" width="724" height="1012" />
       </div>
       <div class="stage-unbox-badge">
-        <strong>First boot</strong>
-        <span>Offline · PIN · Seed</span>
+        <strong>Setup</strong>
+        <span>Flash · Reboot · Wallet</span>
       </div>
     </figure>
   ) : scene === 'connect' ? (
@@ -54,7 +54,42 @@ const { scene = 'default', compact = false } = Astro.props;
     <figure class={`device-stage stage-airgap${compact ? ' is-compact' : ''}`} aria-hidden="true">
       <div class="stage-bg"></div>
       <div class="stage-qr-panel">
-        <div class="stage-qr"></div>
+        <div class="stage-qr stage-qr-svg">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" fill="#fff" rx="3" />
+            <rect x="3" y="3" width="10" height="10" fill="#0f172a" />
+            <rect x="5" y="5" width="6" height="6" fill="#fff" />
+            <rect x="7" y="7" width="2" height="2" fill="#0f172a" />
+            <rect x="27" y="3" width="10" height="10" fill="#0f172a" />
+            <rect x="29" y="5" width="6" height="6" fill="#fff" />
+            <rect x="31" y="7" width="2" height="2" fill="#0f172a" />
+            <rect x="3" y="27" width="10" height="10" fill="#0f172a" />
+            <rect x="5" y="29" width="6" height="6" fill="#fff" />
+            <rect x="7" y="31" width="2" height="2" fill="#0f172a" />
+            <rect x="16" y="3" width="2" height="2" fill="#0f172a" />
+            <rect x="20" y="3" width="2" height="2" fill="#0f172a" />
+            <rect x="16" y="7" width="2" height="2" fill="#0f172a" />
+            <rect x="22" y="7" width="2" height="2" fill="#0f172a" />
+            <rect x="18" y="11" width="2" height="2" fill="#0f172a" />
+            <rect x="3" y="16" width="2" height="2" fill="#0f172a" />
+            <rect x="7" y="16" width="2" height="2" fill="#0f172a" />
+            <rect x="11" y="18" width="2" height="2" fill="#0f172a" />
+            <rect x="15" y="16" width="2" height="2" fill="#0f172a" />
+            <rect x="19" y="18" width="4" height="4" fill="#0f172a" />
+            <rect x="25" y="16" width="2" height="2" fill="#0f172a" />
+            <rect x="29" y="18" width="2" height="2" fill="#0f172a" />
+            <rect x="33" y="16" width="2" height="2" fill="#0f172a" />
+            <rect x="16" y="24" width="2" height="2" fill="#0f172a" />
+            <rect x="20" y="26" width="2" height="2" fill="#0f172a" />
+            <rect x="24" y="24" width="2" height="2" fill="#0f172a" />
+            <rect x="28" y="28" width="2" height="2" fill="#0f172a" />
+            <rect x="32" y="26" width="2" height="2" fill="#0f172a" />
+            <rect x="16" y="30" width="2" height="2" fill="#0f172a" />
+            <rect x="22" y="32" width="2" height="2" fill="#0f172a" />
+            <rect x="28" y="34" width="2" height="2" fill="#0f172a" />
+            <rect x="34" y="32" width="2" height="2" fill="#0f172a" />
+          </svg>
+        </div>
         <span>Unsigned TX</span>
       </div>
       <div class="stage-gap-rail">
@@ -64,8 +99,63 @@ const { scene = 'default', compact = false } = Astro.props;
         <img class="stage-device" src="/illustrations/device-35.png" alt="" width="840" height="560" />
       </div>
       <div class="stage-qr-panel stage-qr-signed">
-        <div class="stage-qr signed"></div>
+        <div class="stage-qr stage-qr-svg signed">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" fill="#e8fff9" rx="3" />
+            <rect x="3" y="3" width="10" height="10" fill="#0a6b5c" />
+            <rect x="5" y="5" width="6" height="6" fill="#e8fff9" />
+            <rect x="7" y="7" width="2" height="2" fill="#0a6b5c" />
+            <rect x="27" y="3" width="10" height="10" fill="#0a6b5c" />
+            <rect x="29" y="5" width="6" height="6" fill="#e8fff9" />
+            <rect x="31" y="7" width="2" height="2" fill="#0a6b5c" />
+            <rect x="3" y="27" width="10" height="10" fill="#0a6b5c" />
+            <rect x="5" y="29" width="6" height="6" fill="#e8fff9" />
+            <rect x="7" y="31" width="2" height="2" fill="#0a6b5c" />
+            <rect x="16" y="3" width="2" height="2" fill="#0a6b5c" />
+            <rect x="22" y="5" width="2" height="2" fill="#0a6b5c" />
+            <rect x="18" y="9" width="2" height="2" fill="#0a6b5c" />
+            <rect x="4" y="16" width="2" height="2" fill="#0a6b5c" />
+            <rect x="8" y="18" width="2" height="2" fill="#0a6b5c" />
+            <rect x="14" y="16" width="2" height="2" fill="#0a6b5c" />
+            <rect x="18" y="18" width="4" height="4" fill="#0a6b5c" />
+            <rect x="26" y="16" width="2" height="2" fill="#0a6b5c" />
+            <rect x="30" y="20" width="2" height="2" fill="#0a6b5c" />
+            <rect x="34" y="16" width="2" height="2" fill="#0a6b5c" />
+            <rect x="16" y="26" width="2" height="2" fill="#0a6b5c" />
+            <rect x="22" y="28" width="2" height="2" fill="#0a6b5c" />
+            <rect x="28" y="26" width="2" height="2" fill="#0a6b5c" />
+            <rect x="32" y="30" width="2" height="2" fill="#0a6b5c" />
+            <rect x="18" y="34" width="2" height="2" fill="#0a6b5c" />
+            <rect x="26" y="34" width="2" height="2" fill="#0a6b5c" />
+            <rect x="34" y="34" width="2" height="2" fill="#0a6b5c" />
+          </svg>
+        </div>
         <span>Signed TX</span>
+      </div>
+    </figure>
+  ) : scene === 'flash' ? (
+    <figure class={`device-stage stage-flash${compact ? ' is-compact' : ''}`} aria-hidden="true">
+      <div class="stage-bg"></div>
+      <div class="stage-laptop stage-flash-browser">
+        <div class="stage-laptop-bar">
+          <i></i><i></i><i></i>
+          <span>seedmask.io · firmware</span>
+        </div>
+        <div class="stage-laptop-body">
+          <span class="stage-flash-kicker">Official image</span>
+          <strong>Flash firmware</strong>
+          <div class="stage-flash-bar"><b></b></div>
+          <span>SHA-256 checked · USB serial</span>
+        </div>
+      </div>
+      <div class="stage-flash-cable"></div>
+      <div class="stage-flash-board">
+        <div class="stage-flash-screen"></div>
+        <div class="stage-flash-keys">
+          <i></i>
+          <i class="is-reboot"></i>
+          <i></i>
+        </div>
       </div>
     </figure>
   ) : (

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import DeviceAbstract from '../../components/DeviceAbstract.astro';
 ---
 
 <BaseLayout
@@ -27,9 +26,7 @@ import DeviceAbstract from '../../components/DeviceAbstract.astro';
         <span class="learn-card-cta">Start here →</span>
       </a>
       <a class="learn-card" href="/learn/tutorials">
-        <div class="learn-card-media">
-          <DeviceAbstract compact alive={false} />
-        </div>
+        <img class="learn-card-cover" src="/illustrations/learn-tutorials-3.png" alt="" />
         <span class="learn-card-meta">Tutorials</span>
         <h3>SeedMask tutorials</h3>
         <p>Step-by-step product guides for setup, Coordinator pairing, and air-gapped sends.</p>
@@ -39,7 +36,7 @@ import DeviceAbstract from '../../components/DeviceAbstract.astro';
         <img class="learn-card-cover" src="/illustrations/learn-blog.png" alt="" />
         <span class="learn-card-meta">Blog</span>
         <h3>Product &amp; security notes</h3>
-        <p>Short writing on Bitcoin &amp; Kaspa focus, watch-only design, and the air-gap workflow.</p>
+        <p>Essays on Bitcoin &amp; Kaspa focus, watch-only design, and the air-gap workflow.</p>
         <span class="learn-card-cta">Read the blog →</span>
       </a>
     </div>

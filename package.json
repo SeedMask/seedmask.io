@@ -12,6 +12,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.1.6"
+    "astro": "^7.1.6",
+    "esptool-js": "^0.5.7"
+  },
+  "devDependencies": {
+    "@types/w3c-web-serial": "^1.0.8"
   }
 }

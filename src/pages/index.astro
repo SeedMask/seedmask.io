@@ -10,26 +10,27 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
     <section class="hero hero-premium">
       <div class="hero-atmosphere" aria-hidden="true"></div>
       <div class="hero-grid-lines" aria-hidden="true"></div>
-      <div class="container">
-        <p class="hero-eyebrow reveal">
-          <span>Hardware wallet</span>
-          <span class="hero-eyebrow-sep" aria-hidden="true"></span>
-          <span>Bitcoin &amp; Kaspa only</span>
-        </p>
-      </div>
       <div class="container hero-grid">
         <div class="hero-copy">
+          <p class="hero-eyebrow reveal">
+            <span>Hardware wallet</span>
+            <span class="hero-eyebrow-sep" aria-hidden="true"></span>
+            <span>Bitcoin &amp; Kaspa only</span>
+          </p>
           <h1 class="hero-brand reveal delay-1">Seed<span>Mask</span> Pro</h1>
           <p class="hero-headline reveal delay-2">Mask your seed. Sign offline.</p>
           <p class="hero-support reveal delay-2">
-            Air-gapped hardware for Bitcoin and Kaspa. Keys stay on device. Confirm every send on the 3.5″ screen.
+            Air-gapped hardware for Bitcoin and Kaspa. Keys stay on device. Confirm every send on the 4″ screen.
           </p>
           <div class="hero-actions reveal delay-3">
             <ComingSoonButton />
-            <a class="btn btn-ghost hero-ghost" href="/features">Explore features</a>
+            <a class="btn btn-ghost hero-ghost" href="/features/device">Explore features</a>
           </div>
           <div class="hero-tech reveal delay-3">
-            <p class="hero-tech-head">Device profile</p>
+            <div class="hero-tech-head">
+              <p>Device profile</p>
+              <span class="hero-tech-note">Upcoming retail device</span>
+            </div>
             <dl class="hero-tech-grid">
               <div>
                 <dt>Signing</dt>
@@ -37,7 +38,7 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
               </div>
               <div>
                 <dt>Display</dt>
-                <dd>3.5″ touch</dd>
+                <dd>4″ touch</dd>
               </div>
               <div>
                 <dt>Chains</dt>
@@ -47,14 +48,31 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
                 <dt>Also on device</dt>
                 <dd>Passwords · 2FA · Notes</dd>
               </div>
+              <div>
+                <dt>Backup code</dt>
+                <dd>Password-gated</dd>
+              </div>
+              <div>
+                <dt>Seed</dt>
+                <dd>On device only</dd>
+              </div>
+              <div>
+                <dt>Firmware &amp; Hardware</dt>
+                <dd>Open-source</dd>
+              </div>
+              <div>
+                <dt>Security</dt>
+                <dd>Anti-tamper · Secure element <span class="hero-tech-more"><a href="/about#physical-security">and more</a></span></dd>
+              </div>
             </dl>
           </div>
         </div>
 
         <div class="hero-visual hero-atelier">
           <div class="atelier-stage">
-            <DeviceAbstract caption={false} src="/illustrations/device-35-cutout.png" />
-            <p class="atelier-mark">SeedMask Pro · offline signer</p>
+            <DeviceAbstract caption={false} src="/illustrations/seedmask-device-hero.png" />
+            <p class="atelier-mark">Offline signer - and beyond</p>
+            <p class="atelier-note">Preview render — not the final look of the device</p>
           </div>
         </div>
       </div>
@@ -66,7 +84,7 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
           <article class="pillar" data-rise>
             <span class="pillar-index">01</span>
             <h3>Air-gapped signing</h3>
-            <p>Confirm every send on the 3.5″ screen — keys stay offline.</p>
+            <p>Confirm every send on the 4″ screen — keys stay offline.</p>
           </article>
           <article class="pillar" data-rise>
             <span class="pillar-index">02</span>
@@ -93,69 +111,54 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
       </div>
     </section>
 
-    <section class="section band home-flow">
-      <div class="container">
-        <div class="home-flow-head" data-rise>
-          <p class="eyebrow">How it works</p>
-          <h2 class="section-title">Three steps. One air gap.</h2>
+    <section class="section home-backup">
+      <div class="container home-backup-grid" data-rise>
+        <div class="home-backup-copy">
+          <p class="eyebrow">Backup code</p>
+          <h2 class="section-title">Recovery that always resolves the same way</h2>
           <p class="section-lead">
-            SeedMask separates watching from authorizing — so your everyday computer never holds the keys that move funds.
+            You keep a short backup code you can write down or print — and a password only you know.
+          </p>
+          <p class="home-backup-detail">
+            On any SeedMask device, both together always derive the same seed. Alone, neither is enough: a found code
+            is useless without your password, and the password alone cannot unlock recovery. No cloud backup, no
+            guessing — deterministic recovery you can verify.
+          </p>
+          <p class="home-backup-note">
+            <strong>A strong password is recommended</strong> — it is the only link that protects the backup code.
           </p>
         </div>
-        <ol class="flow-steps" data-flow>
-          <li data-rise>
-            <div class="flow-visual" aria-hidden="true">
-              <svg viewBox="0 0 160 100" fill="none">
-                <rect x="18" y="14" width="88" height="62" rx="8" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
-                <rect x="26" y="22" width="72" height="40" rx="4" fill="currentColor" opacity="0.06"/>
-                <path d="M34 34h40M34 42h28M34 50h34" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.45"/>
-                <rect x="78" y="40" width="64" height="46" rx="8" fill="#fff" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M90 56h40M90 64h28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-                <circle cx="126" cy="78" r="10" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
-                <path d="M122 78h8" stroke="var(--teal-deep)" stroke-width="1.7" stroke-linecap="round"/>
-                <text x="28" y="88" fill="currentColor" font-size="8" font-family="Outfit, sans-serif" opacity="0.45">Coordinator</text>
-              </svg>
+        <figure class="home-backup-figure">
+          <div class="home-backup-diagram" aria-hidden="true">
+            <div class="home-backup-unit">
+              <p class="home-backup-kicker">Backup code</p>
+              <div class="home-backup-cells">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+              </div>
+              <p class="home-backup-meta">Offline copy</p>
             </div>
-            <span class="flow-num">01</span>
-            <h3>Build an unsigned transaction</h3>
-            <p>Create Bitcoin or Kaspa transactions in Coordinator. Review amounts and destinations in a clear watch-only workspace.</p>
-          </li>
-          <li data-rise>
-            <div class="flow-visual" aria-hidden="true">
-              <svg viewBox="0 0 160 100" fill="none">
-                <rect x="52" y="10" width="56" height="78" rx="10" stroke="currentColor" stroke-width="1.6"/>
-                <rect x="60" y="22" width="40" height="48" rx="5" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.3"/>
-                <path d="M70 40h20M70 48h14" stroke="var(--teal-deep)" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-                <circle cx="80" cy="78" r="3.5" fill="currentColor" opacity="0.25"/>
-                <path d="M28 36c8-10 16-10 24 0" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
-                <path d="M108 36c8-10 16-10 24 0" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
-                <path d="M34 48h14M112 48h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.3" stroke-dasharray="3 3"/>
-                <text x="58" y="98" fill="currentColor" font-size="8" font-family="Outfit, sans-serif" opacity="0.45">Air-gapped</text>
-              </svg>
+            <span class="home-backup-op" aria-hidden="true">+</span>
+            <div class="home-backup-unit">
+              <p class="home-backup-kicker">Password</p>
+              <div class="home-backup-dots">
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <p class="home-backup-meta">Yours alone</p>
             </div>
-            <span class="flow-num">02</span>
-            <h3>Sign on SeedMask</h3>
-            <p>Move the unsigned transaction to the device. Read every detail on the 3.5″ touchscreen before you approve.</p>
-          </li>
-          <li data-rise>
-            <div class="flow-visual" aria-hidden="true">
-              <svg viewBox="0 0 160 100" fill="none">
-                <rect x="18" y="28" width="52" height="40" rx="8" stroke="currentColor" stroke-width="1.6" opacity="0.4"/>
-                <path d="M28 42h28M28 50h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-                <path d="M78 48h18" stroke="var(--teal)" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M90 42l8 6-8 6" stroke="var(--teal)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="126" cy="48" r="18" stroke="var(--teal)" stroke-width="1.5" fill="var(--teal-soft)"/>
-                <circle cx="126" cy="48" r="10" stroke="var(--teal)" stroke-width="1.3" opacity="0.55"/>
-                <circle cx="126" cy="48" r="3.5" fill="var(--teal-deep)"/>
-                <path d="M118 30c10-8 18-8 28 0M114 24c14-10 24-10 36 0" stroke="var(--teal)" stroke-width="1.3" stroke-linecap="round" opacity="0.4"/>
-                <text x="22" y="88" fill="currentColor" font-size="8" font-family="Outfit, sans-serif" opacity="0.45">Broadcast</text>
-              </svg>
+            <span class="home-backup-op home-backup-op-arrow" aria-hidden="true">→</span>
+            <div class="home-backup-unit home-backup-unit-result">
+              <p class="home-backup-kicker">Seed</p>
+              <div class="home-backup-seed">
+                <span></span><span></span><span></span>
+              </div>
+              <p class="home-backup-meta">Always the same</p>
             </div>
-            <span class="flow-num">03</span>
-            <h3>Broadcast the signed transaction</h3>
-            <p>Return the signed transaction to Coordinator and broadcast — only after you have authorized offline.</p>
-          </li>
-        </ol>
+          </div>
+          <figcaption class="home-backup-caption">
+            Backup code + password → seed. Same inputs, same result — every time.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -179,41 +182,16 @@ import CoordinatorMock from '../components/CoordinatorMock.astro';
       </div>
     </section>
 
-    <section class="section band home-hardware">
-      <div class="container split">
-        <div class="hero-visual home-hardware-visual" data-rise>
-          <div class="hero-glow"></div>
-          <DeviceAbstract />
-        </div>
-        <div data-rise>
-          <p class="eyebrow">Hardware</p>
-          <h2 class="section-title">Air-gapped by design</h2>
-          <p class="section-lead">
-            SeedMask is a dedicated signing device for Bitcoin and Kaspa — and a place to mask passwords, 2FA, and notes behind your seed. No multi-chain sprawl. No soft wallet pretending to be cold storage.
-          </p>
-          <ul class="home-check">
-            <li>3.5″ confirmation screen</li>
-            <li>Password manager, notes &amp; 2FA on device</li>
-            <li>Passphrase, BIP85 &amp; temporary wallets</li>
-          </ul>
-          <div class="hero-actions" style="margin-top: 28px">
-            <ComingSoonButton href="/products" />
-            <a class="btn btn-ghost" href="/features">Explore features</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section band home-cta">
       <div class="container">
         <div class="cta-panel cta-panel-home" data-rise>
           <div>
-            <h2>Hardware is almost here</h2>
-            <p>Follow @Seedmask for updates — Coming soon is the door for the device.</p>
+            <h2>Retail hardware isn’t available yet</h2>
+            <p>Product updates from @Seedmask — this site is where we’ll announce when orders open.</p>
           </div>
           <div class="hero-actions">
-            <ComingSoonButton href="/products" />
-            <a class="btn btn-ghost" href="https://x.com/Seedmask" target="_blank" rel="noopener noreferrer">Follow on X</a>
+            <a class="btn btn-primary" href="https://x.com/Seedmask" target="_blank" rel="noopener noreferrer">Follow on X</a>
+            <a class="btn btn-ghost" href="/products/hardware">See the device</a>
           </div>
         </div>
       </div>

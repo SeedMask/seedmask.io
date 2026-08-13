@@ -1,46 +1,223 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import DeviceScene from '../../components/DeviceScene.astro';
+
+const version = 'v0.1.0';
+const releaseUrl = `https://github.com/SeedMask/SeedMask-Firmware/releases/tag/${version}`;
+/** Same-origin copies (GitHub Release assets block browser fetch via CORS). */
+const mergedUrl = `/firmware/${version}/SeedMask_Firmware.merged.bin`;
+const appBinUrl = `/firmware/${version}/SeedMask_Firmware.bin`;
+const sumsUrl = `/firmware/${version}/SHA256SUMS`;
+/** From Release v0.1.0 SHA256SUMS — SeedMask_Firmware.merged.bin */
+const expectedMergedSha256 = '3829b582108ce346e9e4cb8ad288bf078e2298e5081835ecb2ae636f946f39e5';
+const tutorialUrl = '/learn/tutorials/unbox-first-boot';
+const checksums = [
+  {
+    file: 'SeedMask_Firmware.merged.bin',
+    label: 'Merged image · first install',
+    sha256: '3829b582108ce346e9e4cb8ad288bf078e2298e5081835ecb2ae636f946f39e5',
+  },
+  {
+    file: 'SeedMask_Firmware.bin',
+    label: 'App-only · later updates',
+    sha256: '85313f2cf58f467b02e12dba85205c10795a60038a35fb8fd26634e554789439',
+  },
+  {
+    file: 'SeedMask_Firmware.bootloader.bin',
+    label: 'Bootloader',
+    sha256: 'd4de4a82b5bb75231586e500ab80a1037303117de73babc8bf62276ef307b6da',
+  },
+  {
+    file: 'SeedMask_Firmware.partitions.bin',
+    label: 'Partition table',
+    sha256: 'ba408d645c4b361d6f92394d901ac149a3cf41dbeff575dde9bbbcc49aa003f2',
+  },
+];
 ---
 
 <BaseLayout
   title="Firmware — SeedMask"
-  description="Download and verify SeedMask hardware wallet firmware. Releases will appear here when published."
+  description="Flash SeedMask hardware preview firmware from your browser. Chrome or Edge, plug in the board, click Flash firmware."
 >
   <section class="page-hero page-hero-learn">
     <div class="container">
       <p class="eyebrow">Features · Firmware</p>
       <h1>Device firmware</h1>
       <p>
-        Official SeedMask firmware builds will be published here for download and verification. Hardware shipping comes first — downloads are not available yet.
+        Flash the official SeedMask preview image to your ESP32-S3 3.5B-C board.{' '}
+        <strong class="firmware-experimental-note">Highly experimental — not for significant funds.</strong>
       </p>
     </div>
   </section>
 
   <section class="section-tight">
     <div class="container">
-      <div class="firmware-panel">
+      <div
+        class="firmware-flasher"
+        id="firmware-flasher"
+        data-version={version}
+        data-merged-url={mergedUrl}
+        data-sums-url={sumsUrl}
+        data-expected-sha256={expectedMergedSha256}
+        data-release-url={releaseUrl}
+      >
+        <div class="firmware-flasher-top">
+          <div class="firmware-flasher-copy">
+            <p class="eyebrow">Browser flasher</p>
+            <div class="firmware-flasher-title-row">
+              <h2>Flash in browser</h2>
+              <span class="roadmap-badge firmware-flasher-version">{version}</span>
+            </div>
+            <p class="firmware-flasher-lead">
+              Official image, hash-checked, written over USB. After it finishes, press the middle button on the board
+              to reboot.
+            </p>
+            <p class="firmware-flasher-support" data-fw-support hidden>
+              This browser does not support Web Serial. Use Chrome or Edge, or download the files below and follow
+              the esptool steps in the tutorial.
+            </p>
+            <div class="firmware-flasher-actions">
+              <div class="firmware-flasher-actions-row">
+                <button class="btn btn-primary" type="button" data-fw-flash>Flash firmware</button>
+                <input data-fw-file type="file" accept=".bin,application/octet-stream" hidden />
+              </div>
+              <p class="firmware-flasher-status-row" aria-live="polite">
+                <span class="firmware-flasher-busy" data-fw-busy hidden>In progress</span>
+                <span class="firmware-flasher-done" data-fw-done hidden>Finished</span>
+                <span class="firmware-flasher-status" data-fw-status data-kind="idle">
+                  Ready — plug in the board, then Flash firmware.
+                </span>
+              </p>
+              <div class="firmware-flasher-progress" data-fw-progress-wrap hidden>
+                <progress data-fw-progress max="100" value="0"></progress>
+              </div>
+              <pre class="firmware-flasher-log" data-fw-log aria-live="polite"></pre>
+            </div>
+            <p class="firmware-flasher-fallback">
+              Already have the firmware on your computer?{' '}
+              <button class="firmware-flasher-linkbtn" type="button" data-fw-pick>Use that .bin</button>
+            </p>
+          </div>
+          <div class="firmware-flasher-side">
+            <div class="firmware-flasher-visual">
+              <DeviceScene scene="flash" compact />
+            </div>
+            <ol class="firmware-flasher-steps">
+              <li>
+                <span>01</span>
+                <div>
+                  <strong>Chrome or Edge</strong>
+                  <em>Web Serial — not Safari or Firefox</em>
+                </div>
+              </li>
+              <li>
+                <span>02</span>
+                <div>
+                  <strong>Plug in USB</strong>
+                  <em>Board powered, cable data-capable</em>
+                </div>
+              </li>
+              <li>
+                <span>03</span>
+                <div>
+                  <strong>Flash, then reboot</strong>
+                  <em>Middle button on the board</em>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="firmware-panel" style="margin-top: 28px">
         <div class="firmware-panel-copy">
-          <span class="roadmap-badge">Coming soon</span>
-          <h2>Downloads open with hardware</h2>
+          <span class="roadmap-badge">Preview · {version}</span>
+          <h2>Manual download</h2>
           <p>
-            When firmware releases go live, this page will list signed builds, version notes, and verification hashes so you can confirm what runs on your 3.5″ SeedMask.
+            Optional. For a first flash, the merged image is best. Check <code>SHA256SUMS</code> if you flash with
+            esptool instead of the button above.
           </p>
           <ul class="firmware-checklist">
-            <li>Signed release builds</li>
-            <li>Version changelog</li>
-            <li>Hash / fingerprint for on-device compare</li>
+            <li>Merged full image for first install</li>
+            <li>App-only image for later updates (.bin)</li>
+            <li>Published SHA-256 checksums</li>
+            <li>GPLv3 source on GitHub</li>
           </ul>
         </div>
         <div class="firmware-panel-action">
-          <button class="btn btn-primary" type="button" disabled aria-disabled="true">
-            Download firmware
-          </button>
-          <p class="firmware-hint">Not available yet — check back when SeedMask ships.</p>
+          <a class="btn btn-ghost" href={mergedUrl} rel="noopener noreferrer">Download merged.bin</a>
+          <a class="btn btn-ghost" href={appBinUrl} rel="noopener noreferrer">Download app .bin</a>
+          <button class="btn btn-ghost" type="button" data-fw-sums-open>SHA256SUMS</button>
+          <a class="btn btn-ghost" href={releaseUrl} rel="noopener noreferrer" target="_blank">GitHub release notes →</a>
+          <p class="firmware-hint">
+            Full first-boot guide:{' '}
+            <a href={tutorialUrl}>Hardware preview setup</a>
+          </p>
         </div>
       </div>
+
+      <dialog class="firmware-sums-dialog" data-fw-sums-dialog>
+        <div class="firmware-sums-shell">
+          <header class="firmware-sums-head">
+            <div>
+              <p class="eyebrow">Preview · {version}</p>
+              <h2>SHA-256 checksums</h2>
+              <p>Compare these hashes with your downloaded files before flashing with esptool.</p>
+            </div>
+            <button class="firmware-sums-close" type="button" data-fw-sums-close aria-label="Close">
+              ×
+            </button>
+          </header>
+          <ul class="firmware-sums-list">
+            {
+              checksums.map((item) => (
+                <li>
+                  <div class="firmware-sums-file">
+                    <strong>{item.file}</strong>
+                    <span>{item.label}</span>
+                  </div>
+                  <code>{item.sha256}</code>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="firmware-sums-foot">
+            <a class="btn btn-ghost" href={sumsUrl} download="SHA256SUMS">Download SHA256SUMS file</a>
+            <button class="btn btn-primary" type="button" data-fw-sums-close>Done</button>
+          </div>
+        </div>
+      </dialog>
+
       <p style="margin-top: 32px">
-        <a class="btn btn-ghost" href="/features">← SeedMask Features</a>
+        <a class="btn btn-ghost" href="/features">← Features</a>
       </p>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import { mountFirmwareFlasher } from '../../scripts/firmware-flasher';
+
+  const root = document.getElementById('firmware-flasher');
+  if (root) {
+    mountFirmwareFlasher(root, {
+      version: root.dataset.version || 'v0.1.0',
+      mergedUrl: root.dataset.mergedUrl || '',
+      sha256sumsUrl: root.dataset.sumsUrl || '',
+      expectedSha256: root.dataset.expectedSha256 || '',
+      releaseUrl: root.dataset.releaseUrl || '',
+    });
+  }
+
+  const sumsDialog = document.querySelector<HTMLDialogElement>('[data-fw-sums-dialog]');
+  const openSums = document.querySelector('[data-fw-sums-open]');
+  if (sumsDialog && openSums) {
+    openSums.addEventListener('click', () => sumsDialog.showModal());
+    sumsDialog.querySelectorAll('[data-fw-sums-close]').forEach((btn) => {
+      btn.addEventListener('click', () => sumsDialog.close());
+    });
+    sumsDialog.addEventListener('click', (e) => {
+      if (e.target === sumsDialog) sumsDialog.close();
+    });
+  }
+</script>
