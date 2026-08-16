@@ -8677,6 +8677,29 @@ a.download-card:hover {
   -webkit-box-decoration-break: clone;
 }
 
+.firmware-warn {
+  margin: 0 0 28px;
+  max-width: none;
+}
+
+.firmware-warn ul {
+  margin: 12px 0 0;
+  padding-left: 1.2em;
+  color: #6b4d14;
+  font-size: 0.92rem;
+}
+
+.firmware-warn li + li {
+  margin-top: 8px;
+}
+
+.firmware-warn li strong {
+  display: inline;
+  color: #8a5a00;
+  font-size: inherit;
+  margin: 0;
+}
+
 .firmware-flasher {
   padding: 36px 36px 32px;
   border-radius: 24px;

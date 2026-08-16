@@ -43,15 +43,33 @@ const checksums = [
     <div class="container">
       <p class="eyebrow">Features · Firmware</p>
       <h1>Device firmware</h1>
-      <p>
-        Flash the official SeedMask preview image to your ESP32-S3 3.5B-C board.{' '}
-        <strong class="firmware-experimental-note">Highly experimental — not for significant funds.</strong>
-      </p>
+      <p>Flash the official SeedMask preview image to your ESP32-S3 3.5B-C board.</p>
     </div>
   </section>
 
   <section class="section-tight">
     <div class="container">
+      <aside class="audit-banner firmware-warn" role="note">
+        <strong>Preview firmware — test money only.</strong>
+        <p>
+          No secure element. No public audit. Not retail hardware. Do not put life savings on it. This is a look at
+          the flow, not a finished vault.
+        </p>
+        <ul>
+          <li>
+            Create with a <strong>physical die</strong>, not Standard RNG. Standard is unmeasured and not a certified
+            TRNG. No second mixer or health tests yet.
+          </li>
+          <li>
+            Back up the BIP39 words yourself. Coordinator never sees the seed. The encrypted backup code is not
+            perfected — not a substitute for the words.
+          </li>
+          <li>
+            Wipe clears the in-app vault. It is not a lab-proof chip erase. Don’t give the board away after it has
+            seen a seed you care about.
+          </li>
+        </ul>
+      </aside>
       <div
         class="firmware-flasher"
         id="firmware-flasher"
