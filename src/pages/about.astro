@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="About — SeedMask"
-  description="SeedMask builds Bitcoin and Kaspa-only hardware wallets with air-gapped signing and a 100% open-source stack. Why SeedMask was born, why the name, vision, and roadmap."
+  description="SeedMask builds Bitcoin and Kaspa-only hardware wallets with air-gapped signing and a 100% open-source stack. Backup code, wipe, Stateless, why SeedMask was born, and the path to launch."
 >
   <section class="page-hero page-hero-learn">
     <div class="container">
@@ -145,6 +145,155 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <section class="section-tight">
+    <div class="container">
+      <article class="security-model" id="security-model">
+        <p class="eyebrow">Security model</p>
+        <h2>How SeedMask protects a seed</h2>
+        <p class="security-lead">
+          The seed never leaves the device to a phone or a coordinator. Signing and backup stay on the hardware. You hold the words, the backup code, and the password. What this board can and cannot do is below — including entropy and the missing secure element.
+        </p>
+
+        <div class="security-block" id="seed-entropy">
+          <h3>Seed entropy</h3>
+          <div class="origin-prose">
+            <p>
+              A seed is only as strong as the randomness that produced it. Weak entropy still looks like a normal 12/24-word phrase. The defect is invisible.
+            </p>
+            <p>
+              <strong>Standard</strong> uses the ESP32’s built-in RNG. Radios stay off, so the firmware briefly feeds analog ADC noise into that RNG, then fills the entropy bytes. That is chip RNG plus software. It is <strong>unmeasured</strong>. It is <strong>not a certified true-random generator</strong>. There is no second mixer and no health tests yet. Treat Standard as convenience, not a proven entropy source.
+            </p>
+            <p>
+              <strong>Dice roll</strong> is the honest Create path on this firmware: a physical d6 on the device (50 rolls for 12 words, 99 for 24). The rolls are hashed into BIP39 entropy. The randomness is yours, not the chip’s.
+            </p>
+            <p>
+              Use Standard for burner seeds and testing. For a seed you intend to keep, use dice — or restore words generated another way you trust.
+            </p>
+          </div>
+        </div>
+
+        <div class="security-block" id="no-secure-element">
+          <h3>No secure element</h3>
+          <div class="origin-prose">
+            <p>
+              This preview board is a general ESP32-S3. There is <strong>no secure element</strong>. The seed and vault live in ordinary RAM and ordinary flash on a chip that was not built to hide keys from someone who holds the board.
+            </p>
+            <p>
+              Without an SE, keys are not sealed in dedicated silicon, and signing is not confined to tamper-resistant hardware. Software encryption (the password vault) is only as strong as the password. Flash Encryption and Secure Boot are <strong>not enabled</strong> on this generation — a dump of a live vault can still be useful, and firmware is not locked to a signed image.
+            </p>
+            <p>
+              Wipe and Stateless are what <em>this firmware</em> does to data on the chip. They do not turn the MCU into a secure element. The <a href="#physical-security">retail hardware plan</a> puts keys in an SE. This board is not that product. Do not put life savings on it.
+            </p>
+          </div>
+        </div>
+
+        <div class="security-block">
+          <h3>Backup code</h3>
+          <div class="origin-prose">
+            <p>
+              A backup code is a password-wrapped copy of the seed you can write down or scan. It is not the 12/24 words, and it is not a full vault dump.
+            </p>
+            <p>
+              New codes use SeedMask’s current format (SPB1 v2). Older codes from before this format will not restore — make a new code after you update firmware.
+            </p>
+            <p>
+              The wrap is a 100,000-iteration password KDF, XOR of the packed seed, and a short HMAC so a mistyped or altered code fails instead of silently unlocking junk. On the chip, the live vault still uses AES-GCM. The paper/QR code is kept short on purpose.
+            </p>
+            <p>
+              Creating a code requires a password of at least 12 characters, with uppercase, a digit, and a symbol. Obvious and padded-cliché passwords are rejected. That floor is for <strong>creating</strong> a backup code. Lock PIN and vault unlock are separate.
+            </p>
+            <p>
+              After you create a seed backup, the QR on that screen is the backup code itself: the same SPB1 string as the boxed characters you write down. One backup, one QR. Scan Restore, enter that backup password, and you get the seed — not the password manager, notes, or 2FA.
+            </p>
+            <p>
+              Seed Settings also has a separate <strong>Vault QR</strong>. That is the encrypted vault: denser, often several frames, a different payload. Restoring it brings back the seed <em>and</em> what’s in the vault (passwords, notes, 2FA). It is not the backup-code QR, which is seed-only. View Seed’s QR is something else again: the words themselves, unprotected.
+            </p>
+            <p>
+              A strong, unique password is what actually gates a stolen slip. Do not photograph the code, send it in chat, or store it in cloud photos. USB <strong>Send</strong> only types into whatever window is focused on a plugged-in computer; that is a transfer tool, not permission to host the code online.
+            </p>
+            <p>
+              If you lose the password, the backup code cannot be restored. Keep the original words as well.
+            </p>
+          </div>
+        </div>
+
+        <div class="security-block">
+          <h3>Wipe</h3>
+          <div class="origin-prose">
+            <p>
+              Wipe Device securely clears <strong>this unit’s data flash</strong> (NVS and SPIFFS, and FAT / coredump if present): erase, overwrite with random, erase again. After it finishes, a dump of those partitions has no seed and no vault to recover — on the chip, there is nothing to find.
+            </p>
+            <p>
+              Firmware stays so the device can boot. The microSD is not touched — that card is yours to destroy or keep.
+            </p>
+            <p>
+              Wipe does not reach paper, photos, or another machine. That is copies, not leftover flash.
+            </p>
+          </div>
+        </div>
+
+        <div class="security-block">
+          <h3>Stateless</h3>
+          <div class="origin-prose">
+            <p>
+              Stateless means this session’s wallet is <strong>not written</strong> to the chip. Create and restore stay in RAM only. That is “don’t save,” not “destroy a wallet that was already stored.”
+            </p>
+            <p>
+              <strong>After you reboot (or power off) in Stateless, this unit no longer holds the seed.</strong> RAM is gone with power. Nothing was saved to flash, so there is no vault waiting on the next boot — you start clean.
+            </p>
+            <p>
+              While the device is still on and unlocked, the seed <em>is</em> in RAM (same as Stateful). The empty-device moment is <strong>reboot / power off</strong>, not the seconds you are using it.
+            </p>
+            <p>
+              If a vault is already saved on the device, Stateless will not pretend it is gone. Removing a stored wallet is <strong>Wipe</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="security-in-short">
+          <p class="origin-need-label">In short</p>
+          <div class="security-table-wrap">
+            <table class="security-use-table">
+              <thead>
+                <tr>
+                  <th>You want…</th>
+                  <th>Use…</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A seed whose randomness you can stand behind</td>
+                  <td>Dice roll — not Standard</td>
+                </tr>
+                <tr>
+                  <td>This chip to resist dump / chip-off</td>
+                  <td>It can’t — no SE, no Flash Encryption</td>
+                </tr>
+                <tr>
+                  <td>This session not saved to the chip — gone after reboot</td>
+                  <td>Stateless</td>
+                </tr>
+                <tr>
+                  <td>A stored wallet erased from this chip (flash dump finds nothing)</td>
+                  <td>Wipe</td>
+                </tr>
+                <tr>
+                  <td>A portable wrap of the seed</td>
+                  <td>Backup code + a strong unique password + the words</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="security-close">
+          This generation is a preview board: a real key-handling design on hardware that cannot protect like retail (no secure element, no Secure Boot, no Flash Encryption). Entropy, the missing SE, backup-code wrap, wipe, and Stateless above are how SeedMask behaves <strong>now</strong>.
+          The ESP32-S3 on this board has Wi-Fi and Bluetooth. Firmware never turns those radios on — signing is QR and MicroSD — but that is software policy, not a proof they cannot radiate or be switched on.
+        </p>
+      </article>
+    </div>
+  </section>
+
   <section class="section band roadmap-section" id="roadmap">
     <div class="container">
       <div class="roadmap-head">
@@ -218,7 +367,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <p class="roadmap-note">
-        This is the outline, not a complete checklist. Firmware and Coordinator keep getting work after their Done tags — features, fixes, and upgrades as Bitcoin and Kaspa move. Between raise and launch there is still testing, enclosure work, and audits. <strong>Done</strong> means a first version exists, not that the work stopped.
+        This is the outline, not a complete checklist. Firmware and Coordinator keep getting work after their Done tags — features, fixes, and upgrades as Bitcoin and Kaspa move. <strong>Fundraising</strong> on this map is the plan to raise, not a claim that manufacturing, audits, or a finished product are already in place. Between raise and launch there is still testing, enclosure work, and audits. <strong>Done</strong> means a first version exists, not that the work stopped.
       </p>
 
       <div class="tamper-risks" id="physical-security">

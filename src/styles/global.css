@@ -5221,6 +5221,19 @@ a.download-card:hover {
   opacity: 0.9;
 }
 
+.hardware-preview-stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+}
+
+.hardware-preview-stage .atelier-note {
+  text-align: center;
+  max-width: 36ch;
+}
+
 @media (max-width: 960px) {
   .hero-premium {
     padding-top: 28px;
@@ -6246,7 +6259,6 @@ a.download-card:hover {
 
 .origin-lead {
   margin: 0 0 28px;
-  max-width: 46ch;
   font-family: var(--font-display);
   font-size: clamp(1.15rem, 2vw, 1.35rem);
   font-weight: 600;
@@ -6258,7 +6270,6 @@ a.download-card:hover {
 .origin-prose {
   display: grid;
   gap: 14px;
-  max-width: 68ch;
 }
 
 .origin-prose p {
@@ -6293,7 +6304,6 @@ a.download-card:hover {
   margin: 0 0 12px;
   color: var(--text-muted);
   line-height: 1.65;
-  max-width: 68ch;
 }
 
 .origin-almost p:last-child {
@@ -6360,6 +6370,123 @@ a.download-card:hover {
 
 @media (max-width: 720px) {
   .origin-story {
+    padding: 28px 20px 32px;
+  }
+}
+
+.security-model {
+  padding: 40px 36px 44px;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.security-model h2 {
+  margin: 8px 0 16px;
+  font-size: clamp(1.9rem, 3.2vw, 2.55rem);
+  letter-spacing: -0.03em;
+  max-width: 22ch;
+}
+
+.security-lead {
+  margin: 0 0 28px;
+  max-width: 52ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.security-block {
+  margin: 0 0 28px;
+  padding: 22px 22px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #f6f7f9;
+}
+
+.security-block h3 {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.security-block .origin-prose {
+  max-width: none;
+}
+
+.security-in-short {
+  margin: 0 0 8px;
+  padding: 22px 24px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--teal) 30%, var(--border));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--teal) 6%, #fff), #fff);
+}
+
+.security-table-wrap {
+  overflow-x: auto;
+}
+
+.security-use-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+}
+
+.security-use-table th,
+.security-use-table td {
+  text-align: left;
+  padding: 10px 12px 10px 0;
+  vertical-align: top;
+  line-height: 1.45;
+}
+
+.security-use-table th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  border-bottom: 1px solid var(--border);
+}
+
+.security-use-table td {
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.security-use-table tr:last-child td {
+  border-bottom: none;
+}
+
+.security-use-table td:last-child {
+  font-weight: 650;
+}
+
+.security-close {
+  margin: 28px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  max-width: 62ch;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.security-close strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .security-model {
     padding: 28px 20px 32px;
   }
 }
@@ -6634,7 +6761,7 @@ a.download-card:hover {
   border: 1px solid var(--border);
   background: linear-gradient(165deg, #f6f8f9, #eef2f4);
   overflow: hidden;
-  padding: 10px 12px;
+  padding: 18px 20px;
 }
 
 .feature-tile-wide .feature-graphic {
@@ -6682,9 +6809,7 @@ a.download-card:hover {
 }
 
 .graphic-passwords {
-  background:
-    radial-gradient(120px 80px at 50% 16%, color-mix(in srgb, var(--teal) 16%, transparent), transparent 72%),
-    linear-gradient(160deg, #121a24, #1c2735);
+  background: linear-gradient(160deg, #121a24, #1c2735);
 }
 
 .pass-steps {
@@ -6900,9 +7025,7 @@ a.download-card:hover {
 }
 
 .graphic-notes {
-  background:
-    radial-gradient(120px 80px at 50% 18%, color-mix(in srgb, var(--teal) 12%, transparent), transparent 72%),
-    linear-gradient(160deg, #f3f6fb, #e8edf5);
+  background: linear-gradient(160deg, #f3f6fb, #e8edf5);
 }
 
 .note-sheet {
@@ -7093,9 +7216,7 @@ a.download-card:hover {
 }
 
 .graphic-2fa {
-  background:
-    radial-gradient(120px 80px at 50% 16%, color-mix(in srgb, var(--teal) 16%, transparent), transparent 72%),
-    linear-gradient(160deg, #121a24, #1c2735);
+  background: linear-gradient(160deg, #121a24, #1c2735);
 }
 
 .totp-card {
@@ -7283,9 +7404,7 @@ a.download-card:hover {
 
 
 .graphic-pass {
-  background:
-    radial-gradient(140px 90px at 50% 0%, color-mix(in srgb, var(--teal) 14%, transparent), transparent 72%),
-    linear-gradient(160deg, #eef8f5, #eef2f7);
+  background: linear-gradient(160deg, #121a24, #1c2735);
 }
 
 .passphrase-card {
@@ -7481,9 +7600,7 @@ a.download-card:hover {
 
 
 .graphic-bip85 {
-  background:
-    radial-gradient(120px 80px at 50% 10%, color-mix(in srgb, var(--teal) 12%, transparent), transparent 70%),
-    linear-gradient(160deg, #f6f4ef, #eef2f7);
+  background: linear-gradient(160deg, #f6f4ef, #eef2f7);
 }
 
 .bip85-card {
@@ -7599,9 +7716,7 @@ a.download-card:hover {
 
 
 .graphic-temp {
-  background:
-    radial-gradient(120px 80px at 50% 18%, color-mix(in srgb, var(--teal) 16%, transparent), transparent 72%),
-    linear-gradient(145deg, #121820, #1e293b);
+  background: linear-gradient(160deg, #121a24, #1c2735);
 }
 
 .stateless-card {
@@ -7740,9 +7855,7 @@ a.download-card:hover {
 
 
 .graphic-airgap {
-  background:
-    radial-gradient(120px 80px at 82% 18%, color-mix(in srgb, var(--teal) 12%, transparent), transparent 70%),
-    linear-gradient(160deg, #eef6f4, #e8eef5);
+  background: linear-gradient(160deg, #121a24, #1c2735);
 }
 
 .airgap-pair {
@@ -7805,7 +7918,7 @@ a.download-card:hover {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: rgba(232, 240, 246, 0.72);
 }
 
 .airgap-qr-frame,
@@ -7825,6 +7938,10 @@ a.download-card:hover {
   box-sizing: border-box;
 }
 
+.airgap-sd-frame {
+  padding: 9px 12px;
+}
+
 .airgap-qr-frame svg {
   width: 100%;
   height: 100%;
@@ -7832,59 +7949,10 @@ a.download-card:hover {
   border-radius: 4px;
 }
 
-.airgap-sd-shell {
-  position: relative;
+.airgap-microsd {
+  width: 30px;
+  height: auto;
   display: block;
-  width: 42px;
-  height: 34px;
-  border-radius: 5px;
-  background: linear-gradient(165deg, #3a4450 0%, #1a2430 100%);
-  border: 1px solid #0f1720;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  overflow: hidden;
-}
-
-.airgap-sd-shell::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background: #fff;
-  border-bottom-left-radius: 4px;
-}
-
-.airgap-sd-contacts {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 14px;
-  display: flex;
-  gap: 2px;
-  justify-content: center;
-}
-
-.airgap-sd-contacts i {
-  display: block;
-  width: 3px;
-  height: 7px;
-  border-radius: 1px;
-  background: linear-gradient(180deg, #e8c56a, #b8943f);
-  font-style: normal;
-}
-
-.airgap-sd-label {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 4px;
-  font-size: 0.42rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.72);
 }
 
 .airgap-or {
@@ -7892,7 +7960,7 @@ a.download-card:hover {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: rgba(159, 232, 216, 0.7);
   padding: 0 2px;
   flex-shrink: 0;
 }
@@ -7932,9 +8000,7 @@ a.download-card:hover {
 
 
 .graphic-backup {
-  background:
-    radial-gradient(120px 80px at 18% 12%, color-mix(in srgb, var(--teal) 14%, transparent), transparent 70%),
-    linear-gradient(150deg, #f4f7f5, #e9eef4);
+  background: linear-gradient(150deg, #f4f7f5, #e9eef4);
 }
 
 .backup-code-card {
@@ -8103,9 +8169,7 @@ a.download-card:hover {
 
 
 .graphic-advanced {
-  background:
-    radial-gradient(120px 80px at 50% 16%, color-mix(in srgb, var(--teal) 16%, transparent), transparent 72%),
-    linear-gradient(145deg, #121820, #1a2430);
+  background: linear-gradient(160deg, #121a24, #1c2735);
 }
 
 .advanced-chips {
@@ -8309,7 +8373,223 @@ a.download-card:hover {
 }
 
 .graphic-dice {
-  background: linear-gradient(145deg, #eef3f7, #e2e9f0);
+  background: linear-gradient(160deg, #121a24, #1c2735);
+}
+
+.graphic-vault {
+  background: linear-gradient(160deg, #121a24, #1c2735);
+}
+
+.graphic-view-seed-qr {
+  background: linear-gradient(150deg, #f4f7f5, #e9eef4);
+}
+
+.view-seed-qr-card {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.view-seed-qr-panel {
+  width: min(100%, 248px);
+  padding: 10px 11px 11px;
+  border-radius: 13px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), transparent 34%),
+    linear-gradient(165deg, #fbfdfc, #eef3f1);
+  border: 1px solid color-mix(in srgb, var(--teal) 28%, var(--border));
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 3px 0 #d8e0e6,
+    0 8px 18px rgba(26, 36, 48, 0.1);
+}
+
+.view-seed-qr-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 9px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--teal-deep);
+}
+
+.view-seed-qr-head-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--teal) 22%, var(--border));
+  flex-shrink: 0;
+}
+
+.view-seed-qr-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.view-seed-qr-item {
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  margin: 0;
+}
+
+.view-seed-qr-item > span {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.view-seed-qr-frame {
+  width: 100%;
+  max-width: 68px;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--teal) 22%, var(--border));
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 2px 0 #d8e0e6,
+    0 4px 10px rgba(26, 36, 48, 0.08);
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.view-seed-qr-frame svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 3px;
+}
+
+.view-seed-qr-frame-compact {
+  max-width: 58px;
+  padding: 5px;
+}
+
+.view-seed-qr-frame-plain {
+  max-width: 68px;
+}
+
+.vault-backup-card {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.vault-backup-visual {
+  width: min(100%, 220px);
+}
+
+.vault-backup-stack {
+  position: relative;
+  padding: 8px 10px 4px 4px;
+}
+
+.vault-backup-sheet {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--teal) 18%, var(--border));
+  background: #e8eef0;
+}
+
+.vault-backup-sheet-3 {
+  transform: translate(10px, -8px) rotate(3deg);
+  opacity: 0.55;
+}
+
+.vault-backup-sheet-2 {
+  transform: translate(5px, -4px) rotate(1.5deg);
+  opacity: 0.8;
+  background: #f3f6f7;
+}
+
+.vault-backup-frame {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 10px 12px 11px;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7), transparent 32%),
+    linear-gradient(165deg, #fbfdfc, #eef3f1);
+  border: 1px solid color-mix(in srgb, var(--teal) 28%, var(--border));
+  box-shadow: var(--shadow-sm);
+  color: #1a2430;
+}
+
+.vault-backup-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.vault-backup-lock {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+  color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 14%, #fff);
+  border: 1px solid color-mix(in srgb, var(--teal) 22%, var(--border));
+  flex-shrink: 0;
+}
+
+.vault-backup-lock svg {
+  display: block;
+}
+
+.vault-backup-head strong {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.vault-backup-head > div span {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.vault-backup-qr {
+  width: 88px;
+  margin: 0 auto 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.vault-backup-qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.vault-backup-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
 }
 
 .dice-roll-card {

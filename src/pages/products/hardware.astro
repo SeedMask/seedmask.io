@@ -31,7 +31,10 @@ import DeviceAbstract from '../../components/DeviceAbstract.astro';
     <div class="container split">
       <div class="hero-visual" style="min-height: 420px">
         <div class="hero-glow"></div>
-        <DeviceAbstract alive caption={false} src="/illustrations/seedmask-device-hero.png" />
+        <div class="hardware-preview-stage">
+          <DeviceAbstract alive caption={false} src="/illustrations/seedmask-device-hero.png" />
+          <p class="atelier-note">Preview render — not the final look of the device</p>
+        </div>
       </div>
       <div class="prose">
         <h2>Bitcoin &amp; Kaspa — nothing else</h2>

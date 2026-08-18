@@ -2,25 +2,25 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DeviceScene from '../../components/DeviceScene.astro';
 
-const version = 'v0.1.0';
+const version = 'v0.1.1';
 const releaseUrl = `https://github.com/SeedMask/SeedMask-Firmware/releases/tag/${version}`;
 /** Same-origin copies (GitHub Release assets block browser fetch via CORS). */
 const mergedUrl = `/firmware/${version}/SeedMask_Firmware.merged.bin`;
 const appBinUrl = `/firmware/${version}/SeedMask_Firmware.bin`;
 const sumsUrl = `/firmware/${version}/SHA256SUMS`;
-/** From Release v0.1.0 SHA256SUMS — SeedMask_Firmware.merged.bin */
-const expectedMergedSha256 = '3829b582108ce346e9e4cb8ad288bf078e2298e5081835ecb2ae636f946f39e5';
+/** From Release v0.1.1 SHA256SUMS — SeedMask_Firmware.merged.bin */
+const expectedMergedSha256 = 'd7af7cea7e0bcefb75e0d632c0c525178ea1e508c8a6a9594f815b754f3cbd35';
 const tutorialUrl = '/learn/tutorials/unbox-first-boot';
 const checksums = [
   {
     file: 'SeedMask_Firmware.merged.bin',
     label: 'Merged image · first install',
-    sha256: '3829b582108ce346e9e4cb8ad288bf078e2298e5081835ecb2ae636f946f39e5',
+    sha256: 'd7af7cea7e0bcefb75e0d632c0c525178ea1e508c8a6a9594f815b754f3cbd35',
   },
   {
     file: 'SeedMask_Firmware.bin',
     label: 'App-only · later updates',
-    sha256: '85313f2cf58f467b02e12dba85205c10795a60038a35fb8fd26634e554789439',
+    sha256: '813dff084f688d010e14adb7f1b300cd641e38a4eb4a2c9bbb3d211d9f77b6d0',
   },
   {
     file: 'SeedMask_Firmware.bootloader.bin',
@@ -61,12 +61,15 @@ const checksums = [
             TRNG. No second mixer or health tests yet.
           </li>
           <li>
-            Back up the BIP39 words yourself. Coordinator never sees the seed. The encrypted backup code is not
-            perfected — not a substitute for the words.
+            Back up the BIP39 words yourself. Coordinator never sees the seed. The backup code wrap is much stronger
+            than it was, but that work is not finished — not a substitute for the words. Codes from v0.1.0 will not
+            restore after this flash — create a new one on the device.
           </li>
           <li>
-            Wipe clears the in-app vault. It is not a lab-proof chip erase. Don’t give the board away after it has
-            seen a seed you care about.
+            Wipe Device securely clears this unit’s data flash: erase, overwrite with random, erase again. After it
+            finishes, there is no seed and no vault left on the chip to recover. Firmware stays so the board can
+            boot. The microSD is not touched — pull or destroy that card yourself. It is still not a lab-proof
+            chip-off erase.
           </li>
         </ul>
       </aside>
@@ -219,7 +222,7 @@ const checksums = [
   const root = document.getElementById('firmware-flasher');
   if (root) {
     mountFirmwareFlasher(root, {
-      version: root.dataset.version || 'v0.1.0',
+      version: root.dataset.version || 'v0.1.1',
       mergedUrl: root.dataset.mergedUrl || '',
       sha256sumsUrl: root.dataset.sumsUrl || '',
       expectedSha256: root.dataset.expectedSha256 || '',
