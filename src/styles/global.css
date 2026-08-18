@@ -8767,6 +8767,12 @@ a.download-card:hover {
   letter-spacing: -0.03em;
 }
 
+.firmware-panel-copy .roadmap-badge {
+  padding: 7px 13px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
 .firmware-panel-copy p {
   color: var(--text-muted);
   max-width: 52ch;
@@ -9007,7 +9013,7 @@ a.download-card:hover {
 .firmware-flasher-title-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 10px 14px;
   margin: 8px 0 16px;
 }
@@ -9021,6 +9027,10 @@ a.download-card:hover {
 }
 
 .firmware-flasher-version {
+  padding: 7px 13px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  transform: translateY(2px);
   color: var(--teal-deep);
   background: var(--teal-soft);
   border-color: color-mix(in srgb, var(--teal) 28%, transparent);
