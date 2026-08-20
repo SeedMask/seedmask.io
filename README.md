@@ -35,7 +35,7 @@ Confirm build settings in the Cloudflare dashboard: framework Astro (or static),
 ### Coordinator downloads
 
 macOS Apple Silicon `.dmg` and Windows x64 `.exe` are linked from `/app` to the
-GitHub Release `v1.0.6` assets.
+GitHub Release `v1.0.7` assets.
 
 - Download buttons point at GitHub Release assets (not files hosted in `dist/`).
 - When a Linux package exists, enable that card in `src/pages/app.astro`.
