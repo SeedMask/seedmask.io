@@ -34,11 +34,11 @@ Confirm build settings in the Cloudflare dashboard: framework Astro (or static),
 
 ### Coordinator downloads
 
-macOS Apple Silicon `.dmg` is linked from `/app` to the GitHub Release
-`v1.0.4` asset `SeedMask-Coordinator-1.0.4-arm64.dmg`.
+macOS Apple Silicon `.dmg` and Windows x64 `.exe` are linked from `/app` to the
+GitHub Release `v1.0.6` assets.
 
-- The download button points at the GitHub Release asset (not a file hosted in `dist/`).
-- When Windows/Linux packages exist, enable those cards in `src/pages/app.astro`.
+- Download buttons point at GitHub Release assets (not files hosted in `dist/`).
+- When a Linux package exists, enable that card in `src/pages/app.astro`.
 
 ### Editing later
 
