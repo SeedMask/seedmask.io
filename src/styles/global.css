@@ -4240,6 +4240,108 @@ a.download-card:hover {
   font-size: 0.85rem;
 }
 
+.windows-smartscreen-card {
+  border-radius: 8px;
+  border: 1px solid #c8c8c8;
+  background: #ffffff;
+  box-shadow: var(--shadow-sm);
+  padding: 22px 20px 18px;
+  color: #1b1b1b;
+  font-family:
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  overflow: hidden;
+}
+
+.windows-smartscreen-shield {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #c42b1c;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.windows-smartscreen-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1b1b1b;
+}
+
+.windows-smartscreen-body {
+  margin: 10px 0 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #5d5d5d;
+}
+
+.windows-smartscreen-app {
+  margin: 14px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #1b1b1b;
+  word-break: break-all;
+}
+
+.windows-smartscreen-more {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #0067c0;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: default;
+}
+
+.windows-smartscreen-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.windows-smartscreen-dont {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  padding: 7px 14px;
+  border-radius: 4px;
+  border: 1px solid #8a8a8a;
+  background: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1b1b1b;
+}
+
+.windows-smartscreen-run {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  padding: 7px 14px;
+  border-radius: 4px;
+  background: #0067c0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow: 0 0 0 3px #dc2626;
+}
+
 @media (max-width: 900px) {
   .macos-gatekeeper-layout {
     grid-template-columns: 1fr;

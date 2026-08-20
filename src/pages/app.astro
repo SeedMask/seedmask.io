@@ -121,7 +121,6 @@ const downloads = {
       </div>
       <p class="download-note">
         Current build: macOS Apple Silicon (.dmg) and Windows x64 (.exe) from GitHub Releases. Linux coming later.
-        Unsigned preview builds — Windows may show SmartScreen; choose More info → Run anyway.
       </p>
 
       <aside class="macos-gatekeeper" aria-labelledby="macos-open-heading">
@@ -168,6 +167,53 @@ const downloads = {
               </div>
             </div>
             <figcaption>System Settings → Privacy &amp; Security → Open Anyway</figcaption>
+          </figure>
+        </div>
+      </aside>
+
+      <aside class="macos-gatekeeper" aria-labelledby="windows-open-heading">
+        <p class="eyebrow">Windows</p>
+        <h3 id="windows-open-heading">If Windows blocks the app</h3>
+        <div class="macos-gatekeeper-layout">
+          <div class="macos-gatekeeper-copy">
+            <p>
+              Microsoft SmartScreen blocks apps that are not widely downloaded or code-signed yet. This Windows build is
+              an early SeedMask release and is <strong>not signed</strong> with an Authenticode certificate.
+            </p>
+            <ol class="macos-gatekeeper-steps">
+              <li>Run the downloaded <strong>.exe</strong> installer (Edge/Chrome may warn first — keep the file).</li>
+              <li>
+                When you see <strong>Windows protected your PC</strong>, click <strong>More info</strong>.
+              </li>
+              <li>Click <strong>Run anyway</strong>, then finish the installer.</li>
+            </ol>
+            <p class="macos-gatekeeper-why">
+              <strong>Why?</strong> Windows only fully trusts publishers with a paid signing certificate and download
+              reputation. We are shipping a public alpha before SeedMask Windows signing is ready. Coordinator is
+              watch-only and never holds your seed — this warning is about Microsoft’s SmartScreen rules, not a claim
+              that the file is malware. A signed SeedMask build will remove this step.
+            </p>
+          </div>
+          <figure class="macos-gatekeeper-figure">
+            <div
+              class="windows-smartscreen-card"
+              role="img"
+              aria-label="Windows SmartScreen: Windows protected your PC, with More info and Run anyway"
+            >
+              <div class="windows-smartscreen-shield" aria-hidden="true">!</div>
+              <p class="windows-smartscreen-title">Windows protected your PC</p>
+              <p class="windows-smartscreen-body">
+                Microsoft Defender SmartScreen prevented an unrecognized app from starting. Running this app might put
+                your PC at risk.
+              </p>
+              <p class="windows-smartscreen-app">SeedMask-Coordinator-1.0.6-win-x64.exe</p>
+              <button type="button" class="windows-smartscreen-more" tabindex="-1">More info</button>
+              <div class="windows-smartscreen-actions">
+                <span class="windows-smartscreen-dont">Don&apos;t run</span>
+                <span class="windows-smartscreen-run">Run anyway</span>
+              </div>
+            </div>
+            <figcaption>SmartScreen → More info → Run anyway</figcaption>
           </figure>
         </div>
       </aside>
